@@ -1,13 +1,20 @@
-import { ADMIN_PRODUCTS } from '@/constants/routes';
-import { ADMIN_ORDERS } from '@/constants/routes';
-import { ADMIN_DASHBOARD } from '@/constants/routes';
-import { ADMIN_USERS } from '@/constants/routes';
+import { ADMIN_PRODUCTS, ADMIN_ORDERS,ADMIN_DASHBOARD,ADMIN_USERS,ADMIN_DELIVERED_ORDERS,ADMIN_REJECTED_ORDERS } from '@/constants/routes';
+import { StopFilled } from '@ant-design/icons';
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 
 const SideNavigation = () => (
   <aside className="sidenavigation">
     <div className="sidenavigation-wrapper">
+    <div className="sidenavigation-item">
+        <NavLink
+          activeClassName="sidenavigation-menu-active"
+          className="sidenavigation-menu"
+          to={ADMIN_DASHBOARD}
+        >
+          Dashboard
+        </NavLink>
+      </div>
       <div className="sidenavigation-item">
         <NavLink
           activeClassName="sidenavigation-menu-active"
@@ -20,6 +27,7 @@ const SideNavigation = () => (
       <div className="sidenavigation-item">
         <h4 className="sidenavigation-menu my-0">Users</h4>
       </div>
+      
       <div className="sidenavigation-item">
         <NavLink
           activeClassName="sidenavigation-menu-active"
@@ -33,20 +41,30 @@ const SideNavigation = () => (
         <NavLink
           activeClassName="sidenavigation-menu-active"
           className="sidenavigation-menu"
-          to={ADMIN_USERS}
+          to={ADMIN_DELIVERED_ORDERS}
         >
-          Manage Users
+          Delivered Orders
         </NavLink>
       </div>
       <div className="sidenavigation-item">
         <NavLink
           activeClassName="sidenavigation-menu-active"
           className="sidenavigation-menu"
-          to={ADMIN_DASHBOARD}
+          to={ADMIN_REJECTED_ORDERS}
         >
-          Dashboard
+          Rejected Orders
         </NavLink>
       </div>
+      <div className="sidenavigation-item">
+        <NavLink
+          activeClassName="sidenavigation-menu-active"
+          className="sidenavigation-menu"
+          to={ADMIN_USERS}
+        >
+          Manage Users
+        </NavLink>
+      </div>
+     
     </div>
   </aside>
 );

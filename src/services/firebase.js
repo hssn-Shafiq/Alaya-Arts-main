@@ -314,6 +314,9 @@ deleteAdminUser = (userId) => {
   getDeliveredOrders = () => {
     return this.db.collection("deliveredOrders").get();
   };
+  getRejectedOrders = () => {
+    return this.db.collection("rejectedOrders").get();
+  };
   updateOrderStatus = (orderId, orderStatus) => {
     return this.db.collection("orders").doc(orderId).update({ orderStatus });
   };

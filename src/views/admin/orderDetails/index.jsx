@@ -7,10 +7,12 @@ import {
   DeliveredProcedureOutlined,
   HomeOutlined,
   FilePdfOutlined,
+  PrinterFilled,
 } from "@ant-design/icons";
 import { displayActionMessage } from "@/helpers/utils";
-import OrderDetailsPrint from './OrderDetailsPrint';
+import OrderDetailsPrint from "./OrderDetailsPrint";
 import ReactToPrint from "react-to-print";
+import { useHistory } from "react-router-dom";
 
 const OrderDetails = () => {
   const { id } = useParams();
@@ -19,6 +21,7 @@ const OrderDetails = () => {
   const [error, setError] = useState(null);
   const invoiceRef = useRef();
   const componentRef = useRef();
+  const history = useHistory();
 
   useEffect(() => {
     const fetchOrderDetails = async () => {
@@ -55,40 +58,77 @@ const OrderDetails = () => {
 
   const handleRejectOrder = async () => {
     try {
-      await firebaseInstance.addOrderToCollection("rejectedOrders", {
-        id,
-        ...order,
-      });
-      await firebaseInstance.deleteOrder(id);
-      displayActionMessage("this order has been canceled");
-      setOrder(null);
-      setLoading(false);
+      // Update the order status to "delivered"
+      await firebaseInstance.updateOrderStatus(id, "rejected");
+
+      // Fetch the updated order details to ensure the status is "delivered"
+      const updatedOrder = await firebaseInstance.db
+        .collection("orders")
+        .doc(id)
+        .get();
+
+      if (updatedOrder.exists) {
+        const orderData = updatedOrder.data();
+
+        // Add the updated order to the "deliveredOrders" collection
+        await firebaseInstance.addOrderToCollection("rejectedOrders", {
+          id,
+          ...orderData,
+        });
+        history.push("/admin/rejected_orders");
+        // Delete the order from the original "orders" collection
+        await firebaseInstance.deleteOrder(id);
+
+        setOrder(null);
+        setLoading(false);
+        displayActionMessage(
+          "This order is rejected and cancelled"
+        );
+      } else {
+        throw new Error("Order not found after updating status");
+      }
     } catch (error) {
-      setError("Error rejecting order");
+      setError("Error moving order to rejected");
+      displayActionMessage("Error moving order to rejected");
     }
   };
 
   const handleMoveToDelivered = async () => {
     try {
-      // handleUpdateStatus(status);
-      await firebaseInstance.addOrderToCollection("deliveredOrders", {
-        id,
-        ...order,
-      });
+      // Update the order status to "delivered"
+      await firebaseInstance.updateOrderStatus(id, "delivered");
 
-      displayActionMessage("order status updated successfully");
+      // Fetch the updated order details to ensure the status is "delivered"
+      const updatedOrder = await firebaseInstance.db
+        .collection("orders")
+        .doc(id)
+        .get();
 
-      // setTimeout(() => {
-      //   firebaseInstance.deleteOrder(id);
-      //   setOrder(null);
-      // }, 3000)
+      if (updatedOrder.exists) {
+        const orderData = updatedOrder.data();
 
-      setLoading(false);
+        // Add the updated order to the "deliveredOrders" collection
+        await firebaseInstance.addOrderToCollection("deliveredOrders", {
+          id,
+          ...orderData,
+        });
+        history.push("/admin/delivered_orders");
+        // Delete the order from the original "orders" collection
+        await firebaseInstance.deleteOrder(id);
+
+        setOrder(null);
+        setLoading(false);
+        displayActionMessage(
+          "Order status updated to delivered and moved to delivered orders"
+        );
+      } else {
+        throw new Error("Order not found after updating status");
+      }
     } catch (error) {
       setError("Error moving order to delivered");
+      displayActionMessage("Error moving order to delivered");
     }
   };
-
 
   if (loading) {
     return <div>Loading...</div>;
@@ -100,10 +140,10 @@ const OrderDetails = () => {
 
   return (
     <div className="order_single_details">
-      <div className="show" style={{display:"none"}}>
-      <OrderDetailsPrint  ref={componentRef} order={order} id={id} />
+      <div className="show" style={{ display: "none" }}>
+        <OrderDetailsPrint ref={componentRef} order={order} id={id} />
       </div>
-      
+
       <div className="order_single">
         <h2 className="order_single_details_title">Order Details</h2>
         <p className="text-center">
@@ -138,7 +178,9 @@ const OrderDetails = () => {
                 onClick={handleRejectOrder}
                 disabled={
                   order.orderStatus === "cancelled" ||
-                  order.orderStatus === "confirmed"
+                  order.orderStatus === "confirmed" ||
+                  order.orderStatus === "out for delivery" ||
+                  order.orderStatus === "delivered"
                 }
               >
                 <CloseCircleOutlined /> Reject Order
@@ -169,10 +211,14 @@ const OrderDetails = () => {
                   ? "order delivered"
                   : "Delivered"}
               </button>
-             <ReactToPrint
-        trigger={() => <button className='print_btn'>Print Order</button>}
-        content={() => componentRef.current}
-      />
+              <ReactToPrint
+                trigger={() => (
+                  <button className="print_btn">
+                    <PrinterFilled /> Print Order
+                  </button>
+                )}
+                content={() => componentRef.current}
+              />
             </div>
           </div>
           {/* ===== product details */}
@@ -296,7 +342,9 @@ const OrderDetails = () => {
                 onClick={handleRejectOrder}
                 disabled={
                   order.orderStatus === "cancelled" ||
-                  order.orderStatus === "confirmed"
+                  order.orderStatus === "confirmed" ||
+                  order.orderStatus === "out for delivery" ||
+                  order.orderStatus === "delivered"
                 }
               >
                 <CloseCircleOutlined /> Reject Order

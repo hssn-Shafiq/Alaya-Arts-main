@@ -3,6 +3,8 @@ export { default as UserAccount } from './account/user_account';
 export { default as AddProduct } from './admin/add_product';
 export { default as Dashboard } from './admin/dashboard';
 export { default as Orders } from './admin/orders';
+export { default as DeliveredOrders } from './admin/deliveredOrders';
+export { default as RejectedOrders } from './admin/rejectedOrders';
 export { default as Users } from './admin/users';
 export { default as OrderDetails } from './admin/orderDetails';
 export { default as EditProduct } from './admin/edit_product';

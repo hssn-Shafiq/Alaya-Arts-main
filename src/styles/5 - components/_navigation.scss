@@ -100,7 +100,26 @@
     text-align: center;
     margin-left: 1rem;
   }
+
+  .logo .menu_bar{
+    color:white;
+    font-size:25px;
+    margin-left:20px;
+    cursor: pointer;
+  }
 }
+
+.sidenavigation{
+  // transition: all .5s ease;
+  // transform: translateX(-250px);
+  // display: none;
+}
+
+.navigation-admin .logo .menu_bar:focus .sidenavigation{
+  display: block;
+  transform: translateX(0);
+}
+
 
 .navigation-menu {
   display: flex;
