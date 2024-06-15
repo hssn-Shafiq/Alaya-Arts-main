@@ -1,0 +1,248 @@
+// orders table
+
+.all_orders>table{
+  border: 1px solid rgb(232, 225, 225);
+  // margin: 10px auto;
+  width: 100%;
+}
+.all_orders>table>tr{
+  text-align: center;
+}
+
+.all_orders>table>thead>tr>th{
+  font-size: 15px;
+  padding: 7px;
+}
+
+.all_orders>table>tbody>tr>td{
+  font-size: 13px;
+  padding: 7px;
+  font-weight: 500;
+  text-align: center;
+  background-color: rgb(243, 240, 236);
+}
+
+//  ==================== order details single poage styling
+
+.order_single_details {
+
+  margin: 10px auto;
+  display: grid;
+  place-content: center;
+
+  .order_single{
+    background: rgb(245, 242, 242);
+    width: 900px;
+    padding: 2rem;
+    .order_single_details_title{
+      font-size: 30px;
+      font-weight: 700;
+      text-align: center;
+    }
+  }
+}
+.order_single_details .order_single .order_single_details_content .product_details .product_details_all{
+
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+
+  .detail{
+    text-align: center;
+
+    p{
+      line-height: 1rem;
+    }
+    span{
+      
+    }
+  }
+} 
+.order_single_details .order_single .order_single_details_content .total_price {
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  background-color: rgb(243, 240, 236);
+  padding: 10px;
+
+  p{
+    font-size: 14px;
+  }
+  .cost_value{
+    font-size: 17px;
+    color: rgb(62, 61, 61);
+    font-weight: 1000;
+    margin-left: 5px;
+  }
+  .total_cost_value{
+    background: black;
+    color: rgb(219, 209, 209);
+    padding: 10px;
+
+    .cost_value {
+      color: white;
+  }
+  }
+}
+.order_single_details .order_single_details_content .customer_details .details
+{
+
+  table{
+    width: 100%;
+
+    tbody tr td{
+      // font-size: 13px;
+      padding: 7px;
+      font-weight: 500;
+      text-align: center;
+      background-color: rgb(243, 240, 236);
+
+    }
+  } 
+}
+
+.order_single_details .order_single_details_content .status_updated_buttons{
+  margin-top: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  .anticon{
+    display: inline;
+    margin-right: 5px;
+    font-weight: 700;
+  }
+
+  button{
+    border: none;
+    padding: 10px;
+    font-size: 20px;
+    font-weight: 700;
+    border-radius: 10px;
+    transition: all .4s ease-in-out;
+
+    &:hover{
+      background: black !important;
+      color: white;
+    }
+  }
+
+  button[disabled]{
+    cursor: not-allowed;
+    transform: scale(0.9);
+    background: green !important;
+    color: rgba(255, 255, 255, 0.47) !important;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 10px;
+    
+    pointer-events: none;
+  }
+  .order_confirmation{
+
+   
+    .confirm_btn{
+      background-color: #7CFC00;
+
+      &:hover{
+        background-color: #7CFC00 !important;
+        color: rgba(51, 50, 50, 0.315);
+        // cursor: not-allowed;
+      }
+    }
+    .reject_btn{
+      background-color: #DC143C;
+      color: white;
+      margin-left: 1rem;
+    }
+  }
+
+  .status{
+
+    .out_delv_btn{
+      background-color: #1e2330;
+      color: white;
+    }
+    .deliv_btn{
+      background-color: blue;
+      color: white;
+      margin-left: 1rem;
+    }
+    .print_btn{
+      background-color: #1e2330;
+      color: white;
+    }
+  }
+}
+
+// invoice templates
+.invoice-container .invoice-header{
+  // background-color: #1e2330;
+  h1{
+    font-weight: 800 ;
+  }
+  p{
+    color: black;
+  }
+}
+.invoice-container .invoice-header .invoice-info{
+  float: inline-end;
+
+  p{
+    line-height: .4rem;
+  }
+  span{
+    font-size: 16px;
+  }
+
+}
+
+.invoice-container .invoice-body{
+  clear: both;
+
+  p{
+    line-height: 1rem;
+  }
+  .customer-info h3{
+    font-weight: 800;
+    color: black;
+    font-size: 22px; 
+  }
+  .total-cost{
+    text-align: end;
+
+    h3{
+      background-color: black;
+      color: rgba(255, 255, 255, 0.667);
+      padding: 5px;
+
+      span{
+        font-size: 16px;
+        color: white;
+      }
+    }
+  }
+  
+}
+
+.invoice-container .invoice-body .product-table{
+  width: 100%;
+
+  table{
+    width: 100%;
+    border: 1px solid rgb(235, 228, 228);
+
+    tr td{
+      // background-color: antiquewhite;
+      border: 2px solid rgb(240, 233, 233);
+      text-align: center;
+      color: rgba(0, 0, 0, 0.705);
+    }
+  }
+}
+.invoice-container .invoice-footer{
+  text-align: center;
+}
+

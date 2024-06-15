@@ -1,0 +1,126 @@
+.user-tab {
+  width: 700px;
+  height: 100%;
+  margin: 0 auto;
+  margin-top: 3rem;
+  background: $white;
+  border: 1px solid $border-color;
+
+  @media (max-width: $mobile) {
+    width: 100%;
+    margin-top: 6rem;
+  }
+}
+
+.user-tab-content {
+  padding: $m-size;
+  height: 100%;
+
+  @include mobile {
+    padding: 0;
+  }
+}
+
+.user-tab-nav {
+  background: $background-color-01;
+  border-bottom: 1px solid $border-color;
+  padding: 0 $l-size;
+
+  @media (max-width: $mobile) {
+    padding: 0;
+  }
+}
+
+.user-tab-menu {
+  padding: 0;
+  margin: 0;
+  position: relative;
+  bottom: -1px;
+}
+
+.user-tab-item {
+  list-style-type: none;
+  color: $gray-10;
+  padding: $m-size;
+  font-size: $font-medium;
+  border-bottom: 1px solid transparent;
+  display: inline-block;
+  transition: all .3s ease;
+
+  &:hover {
+    cursor: pointer;
+    background: $background-color;
+  }
+}
+
+.user-tab-active {
+  color: $paragraph-color;
+  font-weight: bold;
+  border-bottom: 1px solid $white;
+  background: $white;
+
+  &:hover {
+    cursor: default;
+    background: $white;
+  }
+}
+
+.order {
+  margin-top: 12px;
+  padding-bottom: 2px;
+  background-color: #f5f8f8;
+  border-radius: 10px;
+}
+.order-info {
+  padding: 8px 12px;
+  min-height: 50px;
+  border-bottom: 1px solid #dadada;
+  display: flex;
+}
+.order-item {
+  min-height: 80px;
+  margin: 24px 12px 24px 36px;
+  padding-right: 12px;
+  width: 916px;
+}
+p.text.info.desc{
+  line-height: 0px;
+  font-size: 12px;
+}
+.order-item .item-pic {
+  float: left;
+
+  img{
+    border-radius: 10px;
+  }
+}
+.order-item .item-main {
+  float: left;
+  width: 300px;
+  margin-left: 12px;
+  margin-right: 24px;
+
+  .shipping_detail{
+    font-size: 12px;
+  }
+}
+.text.title.item-title{
+  font-size: 14px;
+}
+.order-item .item-quantity {
+  font-size: 14px;
+  float: left;
+  width: 64px;
+  min-height: 80px;
+  text-align: left;
+}
+.order-item .item-capsule {
+  width: 204px;
+  text-align: center;
+}
+.order-item .item-status {
+  float: left;
+  min-height: 80px;
+  text-align: left;
+}
+

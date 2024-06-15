@@ -1,0 +1,133 @@
+.navigation {
+  width: 100%;
+  height: 7rem;
+  background: $background-color-02 !important;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: .5rem 3rem;
+  transform: translateY(0);
+  z-index: map-get($z-index, navigation);
+  box-shadow: none;
+  @include bezier-transition(transform, .3s, ease);
+
+  @include tablet {
+    padding: .5rem 2rem;
+  }
+
+  @include mobile {
+    padding: 1rem $s-size;
+    position: fixed;
+  }
+
+  .logo {
+    height: 100%;
+    margin-right: 2rem;
+  }
+
+  .logo img {
+    // width: 15rem;
+    height: inherit;
+    object-fit: contain;
+  }
+
+  .logo a {
+    display: block;
+    height: 100%;
+  }
+
+  .searchbar {
+    width: 300px;
+
+    @include mobile {
+      width: 180px;
+    }
+  }
+}
+.header-bottom {
+  padding: 0rem;
+  // background: $background-color;
+  // position: relative;
+  // z-index: 0;
+  @include mobile {
+    display: none;
+  }
+
+  .navbar-nav{
+    justify-content: space-evenly;
+    list-style: none;
+    flex-direction: row;
+  }
+  li{
+    transition: all 0.3s ease-in-out;
+    position: relative;
+    top: 0;
+    line-height: 4rem;
+  }
+  a{
+    font-size: 16px;
+    font-weight: 800 ;
+  }
+}
+.header-bottom .navbar-nav li::before{
+    content: "";
+    position: absolute;
+    bottom: 0;
+    width: 20%;
+    height: 5px;
+    border-radius: 10px;
+    opacity: 0;
+    background: $background-color-03;
+    transition: all .4s ease-in-out;
+}
+.header-bottom .navbar-nav li:hover::before{
+    width: 100%;
+    opacity: 1;
+}
+.header-bottom .navbar-nav li:hover a{
+  color: rgba(0, 0, 0, 0.596);
+}
+.navigation-admin {
+  height: 6rem;
+  background: $white;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, .05);
+  padding: .5rem $l-size;
+  display: flex;
+  justify-content: space-between;
+
+  h3{
+    color: white;
+    text-align: center;
+    margin-left: 1rem;
+  }
+}
+
+.navigation-menu {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  text-align: right;
+}
+
+.navigation-menu-link {
+  color: $heading-color;
+  padding: $xs-size;
+  text-decoration: none;
+  font-size: $font-small;
+  text-transform: uppercase;
+  font-weight: bold;
+  position: relative;
+
+  &:hover {
+    text-decoration: none;
+    background: $background-color-03;
+    color: black;
+  }
+  &:hover svg{
+    color: black;
+  }
+}
+

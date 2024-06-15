@@ -1,0 +1,14 @@
+.dashboard .pie-chart-row{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 2rem;
+  .col-pi-6{
+    width: 40%;
+    border: 2px solid rgba(0, 0, 0, 0.237);
+    height: 300px;
+  }
+  // .col-pi-6:nth-child(2){
+  //   width: 30%;
+  // }
+}
