@@ -25,7 +25,7 @@
 	position: absolute;
 	left:0;
 	bottom: -10px;
-	background-color: #e91e63;
+	background-color: $background-color-03;
 	height: 2px;
 	box-sizing: border-box;
 	width: 50px;
@@ -47,7 +47,7 @@
 	transition: all 0.3s ease;
 }
 .footer-col ul li a:hover{
-	color: #ffffff;
+	color: $background-color-03;
 	padding-left: 8px;
 }
 .footer-col .social-links a{

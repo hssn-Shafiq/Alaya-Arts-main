@@ -14,10 +14,10 @@ import * as Yup from 'yup';
 
 // Default brand names that I used. You can use what you want
 const brandOptions = [
-  { value: 'Salt Maalat', label: 'Salt Maalat' },
-  { value: 'Betsin Maalat', label: 'Betsin Maalat' },
-  { value: 'Sexbomb', label: 'Sexbomb' },
-  { value: 'Black Kibal', label: 'Black Kibal' }
+  { value: 'Gul Ahmad', label: 'Gul Ahmad' },
+  { value: 'Ethnic', label: 'Ethnic' },
+  { value: 'Nashat', label: 'Nashat' },
+  { value: 'Generations', label: 'Generations' }
 ];
 
 const FormSchema = Yup.object().shape({
@@ -44,6 +44,10 @@ const FormSchema = Yup.object().shape({
     .min(1, 'Please enter a size for this product.'),
   isFeatured: Yup.boolean(),
   isRecommended: Yup.boolean(),
+  isKids: Yup.boolean(),
+  isStiched: Yup.boolean(),
+  isUnStiched: Yup.boolean(),
+  isAccessories: Yup.boolean(),
   availableColors: Yup.array()
     .of(Yup.string().required())
     .min(1, 'Please add a default color for this product.')
@@ -60,6 +64,10 @@ const ProductForm = ({ product, onSubmit, isLoading }) => {
     sizes: product?.sizes || [],
     isFeatured: product?.isFeatured || false,
     isRecommended: product?.isRecommended || false,
+    isKids: product?.isKids || false,
+    isStiched: product?.isStiched || false,
+    isUnStiched: product?.isUnStiched || false,
+    isAccessories: product?.isAccessories || false,
     availableColors: product?.availableColors || []
   };
 
@@ -75,8 +83,6 @@ const ProductForm = ({ product, onSubmit, isLoading }) => {
       onSubmit({
         ...form,
         quantity: 1,
-        // due to firebase function billing policy, let's add lowercase version
-        // of name here instead in firebase functions
         name_lower: form.name.toLowerCase(),
         dateAdded: new Date().getTime(),
         image: imageFile?.image?.file || product.imageUrl,
@@ -106,7 +112,7 @@ const ProductForm = ({ product, onSubmit, isLoading }) => {
                     name="name"
                     type="text"
                     label="* Product Name"
-                    placeholder="Gago"
+                    placeholder="Summer Lawn..."
                     style={{ textTransform: 'capitalize' }}
                     component={CustomInput}
                   />
@@ -262,6 +268,64 @@ const ProductForm = ({ product, onSubmit, isLoading }) => {
                     </h5>
                   </label>
                 </div>
+                <div className="product-form-field">
+                  <input
+                    checked={values.isKids}
+                    className=""
+                    id="kids"
+                    onChange={(e) => setValues({ ...values, isKids: e.target.checked })}
+                    type="checkbox"
+                  />
+                  <label htmlFor="kids">
+                    <h5 className="d-flex-grow-1 margin-0">
+                      &nbsp; Add to Kids Collection &nbsp;
+                    </h5>
+                  </label>
+                </div>
+              </div>
+              <div className="d-flex">
+              <div className="product-form-field">
+                  <input
+                    checked={values.isKids}
+                    className=""
+                    id="kids"
+                    onChange={(e) => setValues({ ...values, isKids: e.target.checked })}
+                    type="checkbox"
+                  />
+                  <label htmlFor="unstiched">
+                    <h5 className="d-flex-grow-1 margin-0">
+                      &nbsp; Add to Kids Collection &nbsp;
+                    </h5>
+                  </label>
+                </div>
+              <div className="product-form-field">
+                  <input
+                    checked={values.isUnStiched}
+                    className=""
+                    id="unstiched"
+                    onChange={(e) => setValues({ ...values, isUnStiched: e.target.checked })}
+                    type="checkbox"
+                  />
+                  <label htmlFor="unstiched">
+                    <h5 className="d-flex-grow-1 margin-0">
+                      &nbsp; Add to Unstiched Collection &nbsp;
+                    </h5>
+                  </label>
+                </div>
+                <div className="product-form-field">
+                  <input
+                    checked={values.isAccessories}
+                    className=""
+                    id="accessories"
+                    onChange={(e) => setValues({ ...values, isAccessories: e.target.checked })}
+                    type="checkbox"
+                  />
+                  <label htmlFor="accessories">
+                    <h5 className="d-flex-grow-1 margin-0">
+                      &nbsp; Add to Accessories Collection &nbsp;
+                    </h5>
+                  </label>
+                </div>
               </div>
               <br />
               <br />
@@ -327,6 +391,10 @@ ProductForm.propTypes = {
     imageUrl: PropType.string,
     isFeatured: PropType.bool,
     isRecommended: PropType.bool,
+    isKids: PropType.bool,
+    isStiched: PropType.bool,
+    isUnStiched: PropType.bool,
+    isAccessories: PropType.bool,
     availableColors: PropType.arrayOf(PropType.string)
   }).isRequired,
   onSubmit: PropType.func.isRequired,
