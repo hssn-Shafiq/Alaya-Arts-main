@@ -9,7 +9,7 @@ import {
 } from '@/hooks';
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { BannerCarousel, BannerImage, ImageGallery } from '@/components/common';
+import { ImageWithText, BannerImage, ImageGallery } from '@/components/common';
 
 import bannerImg from '@/images/banner-shop.jpg';
 import bannerImg2 from '@/images/luxury_lawn.jpg';
@@ -56,6 +56,7 @@ const Home = () => {
         {/* <BannerImage backgroundImage={bg2}  display_content="banner_display_none" /> */}
         <ImageGallery />
 
+        {/* recommended products */}
         <div className="display">
           <div className="display-header">
             <h1>Recommended Products</h1>
@@ -74,6 +75,8 @@ const Home = () => {
             />
           )}
         </div>
+          {/* image With Text */}
+          <ImageWithText />
         <div className="banner mb-5" >
           <div className="banner-desc">
             <h1 className="text-thin">
@@ -93,7 +96,9 @@ const Home = () => {
           </div>
           <div className="banner-img"><img src={bannerImg} alt="" /></div>
         </div>
-        <BannerImage backgroundImage= {bg2}  display_content="banner_display_none" />
+
+        <BannerImage backgroundImage= {bg2}  display_content="banner_display_none"  />
+        {/* pret products */}
         <div className="display">
           <div className="display-header">
             <h1>Pret Products</h1>

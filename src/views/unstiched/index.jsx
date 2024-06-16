@@ -5,7 +5,7 @@ import bannerImg from '@/images/banner-guy.png';
 import React from 'react';
 
 const UnstichedProducts = () => {
-  useDocumentTitle('Stiched Products | Alaya Arts');
+  useDocumentTitle('UnStiched Products | Alaya Arts');
   useScrollTop();
 
   const {

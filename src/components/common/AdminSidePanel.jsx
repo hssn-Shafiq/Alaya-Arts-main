@@ -23,11 +23,7 @@ const SideNavigation = () => (
         >
           Products
         </NavLink>
-      </div>
-      <div className="sidenavigation-item">
-        <h4 className="sidenavigation-menu my-0">Users</h4>
-      </div>
-      
+      </div>      
       <div className="sidenavigation-item">
         <NavLink
           activeClassName="sidenavigation-menu-active"
