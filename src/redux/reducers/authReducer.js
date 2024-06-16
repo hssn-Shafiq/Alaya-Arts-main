@@ -8,13 +8,7 @@ const initState = null;
 // };
 
 export default (state = initState, action) => {
-  if (!action.type.startsWith('@@redux')) {
-    console.log('Auth reducer action:', {
-        type: action.type,
-        payload: action.payload
-    });
-}
-
+ 
   switch (action.type) {
     case SIGNIN_SUCCESS:
       return {

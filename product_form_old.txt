@@ -11,6 +11,8 @@ import { useFileHandler } from '@/hooks';
 import PropType from 'prop-types';
 import React from 'react';
 import * as Yup from 'yup';
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css';
 
 // Default brand names that I used. You can use what you want
 const brandOptions = [
@@ -32,6 +34,8 @@ const FormSchema = Yup.object().shape({
     .required('Price is required.'),
   description: Yup.string()
     .required('Description is required.'),
+    detailedDescription: Yup.string()
+    .required('Detailed description is required.'),
   maxQuantity: Yup.number()
     .positive('Max quantity is invalid.')
     .integer('Max quantity should be an integer.')
@@ -44,6 +48,10 @@ const FormSchema = Yup.object().shape({
     .min(1, 'Please enter a size for this product.'),
   isFeatured: Yup.boolean(),
   isRecommended: Yup.boolean(),
+  isKids: Yup.boolean(),
+  isStiched: Yup.boolean(),
+  isUnStiched: Yup.boolean(),
+  isAccessories: Yup.boolean(),
   availableColors: Yup.array()
     .of(Yup.string().required())
     .min(1, 'Please add a default color for this product.')
@@ -56,10 +64,15 @@ const ProductForm = ({ product, onSubmit, isLoading }) => {
     price: product?.price || 0,
     maxQuantity: product?.maxQuantity || 0,
     description: product?.description || '',
+    detailedDescription: product?.detailedDescription || '',
     keywords: product?.keywords || [],
     sizes: product?.sizes || [],
     isFeatured: product?.isFeatured || false,
     isRecommended: product?.isRecommended || false,
+    isKids: product?.isKids || false,
+    isStiched: product?.isStiched || false,
+    isUnStiched: product?.isUnStiched || false,
+    isAccessories: product?.isAccessories || false,
     availableColors: product?.availableColors || []
   };
 
@@ -134,6 +147,19 @@ const ProductForm = ({ product, onSubmit, isLoading }) => {
                   component={CustomTextarea}
                 />
               </div>
+              {/* <div className="product-form-field">
+              <Field name="detailedDescription "
+                  label="* Product Description"
+              >
+                  {({ field, form }) => (
+                    <ReactQuill
+                      value={field.value}
+                      onChange={(value) => form.setFieldValue(field.name, value)}
+                      
+                    />
+                  )}
+                </Field>
+              </div> */}
               <div className="d-flex">
                 <div className="product-form-field">
                   <Field
@@ -262,6 +288,64 @@ const ProductForm = ({ product, onSubmit, isLoading }) => {
                     </h5>
                   </label>
                 </div>
+                <div className="product-form-field">
+                  <input
+                    checked={values.isKids}
+                    className=""
+                    id="kids"
+                    onChange={(e) => setValues({ ...values, isKids: e.target.checked })}
+                    type="checkbox"
+                  />
+                  <label htmlFor="kids">
+                    <h5 className="d-flex-grow-1 margin-0">
+                      &nbsp; Add to Kids Collection &nbsp;
+                    </h5>
+                  </label>
+                </div>
+              </div>
+              <div className="d-flex">
+              <div className="product-form-field">
+                  <input
+                    checked={values.isStiched}
+                    className=""
+                    id="stiched"
+                    onChange={(e) => setValues({ ...values, isStiched: e.target.checked })}
+                    type="checkbox"
+                  />
+                  <label htmlFor="stiched">
+                    <h5 className="d-flex-grow-1 margin-0">
+                      &nbsp; Add to Stiched Collection &nbsp;
+                    </h5>
+                  </label>
+                </div>
+                <div className="product-form-field">
+                  <input
+                    checked={values.isUnStiched}
+                    className=""
+                    id="unstiched"
+                    onChange={(e) => setValues({ ...values, isUnStiched: e.target.checked })}
+                    type="checkbox"
+                  />
+                  <label htmlFor="unstiched">
+                    <h5 className="d-flex-grow-1 margin-0">
+                      &nbsp; Add to Unstiched Collection &nbsp;
+                    </h5>
+                  </label>
+                </div>
+                <div className="product-form-field">
+                  <input
+                    checked={values.isAccessories}
+                    className=""
+                    id="accessories"
+                    onChange={(e) => setValues({ ...values, isAccessories: e.target.checked })}
+                    type="checkbox"
+                  />
+                  <label htmlFor="accessories">
+                    <h5 className="d-flex-grow-1 margin-0">
+                      &nbsp; Add to Accessories Collection &nbsp;
+                    </h5>
+                  </label>
+                </div>
               </div>
               <br />
               <br />
@@ -327,6 +411,10 @@ ProductForm.propTypes = {
     imageUrl: PropType.string,
     isFeatured: PropType.bool,
     isRecommended: PropType.bool,
+    isKids: PropType.bool,
+    isStiched: PropType.bool,
+    isUnStiched: PropType.bool,
+    isAccessories: PropType.bool,
     availableColors: PropType.arrayOf(PropType.string)
   }).isRequired,
   onSubmit: PropType.func.isRequired,
