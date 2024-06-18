@@ -3,6 +3,8 @@ import logo from '@/images/alaya-arts-removebg.png';
 import React from 'react';
 import { useLocation } from 'react-router-dom';
 import { FacebookFilled, FacebookOutlined } from "@ant-design/icons"
+import { Link } from 'react-router-dom';
+
 // import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 const Footer = () => {
   const { pathname } = useLocation();
@@ -21,13 +23,13 @@ const Footer = () => {
           <h4>company</h4>
           <ul>
             <li>
-              <a href="#">about us</a>
+              <Link to="#">about us</Link>
             </li>
             <li>
-              <a href="#">Terms & Conditions</a>
+              <Link to="#">Terms & Conditions</Link>
             </li>
             <li>
-              <a href="#">privacy policy</a>
+              <Link to="#">privacy policy</Link>
             </li>
           </ul>
         </div>
@@ -35,16 +37,16 @@ const Footer = () => {
           <h4>get help</h4>
           <ul>
             <li>
-              <a href="#">FAQ</a>
+              <Link to="#">FAQ</Link>
             </li>
             <li>
-              <a href="#">returns</a>
+              <Link to="#">returns</Link>
             </li>
             <li>
-              <a href="#">order status</a>
+              <Link to="/all_orders">order status</Link>
             </li>
             <li>
-              <a href="#">Contact Us</a>
+              <Link to="#">Contact Us</Link>
             </li>
           </ul>
         </div>
@@ -52,35 +54,35 @@ const Footer = () => {
           <h4>online shop</h4>
           <ul>
             <li>
-              <a href="#">watch</a>
+              <Link to={"/stiched"}>Pret Collection</Link>
             </li>
             <li>
-              <a href="#">bag</a>
+              <Link to="/unstiched">Unstiched Collection</Link>
             </li>
             <li>
-              <a href="#">shoes</a>
+              <Link to="/kids">Kids Collection</Link>
             </li>
             <li>
-              <a href="#">dress</a>
+              <Link to="#">Accessories</Link>
             </li>
           </ul>
         </div>
         <div className="footer-col">
           <h4>follow us</h4>
-          <div className="social-links">
-            <a href="#">
-              {/* <i className="fab fa-facebook-f" /> */}
+          <div className="social-links" style={{marginLeft:"2em"}}>
+            <Link to="#" title='follow alaya arts on facebook'>
+              <i className="fab fa-facebook-f" />
               {/* <FontAwesomeIcon icon="fa-brands fa-facebook-f" /> */}
-            </a>
-            <a href="#">
+            </Link>
+            <Link to="#" title='follow alaya arts on twitter'>
               <i className="fab fa-twitter" />
-            </a>
-            <a href="#">
+            </Link>
+            <Link to="#" title='follow alaya arts on instagram'>
               <i className="fab fa-instagram" />
-            </a>
-            <a href="#">
+            </Link>
+            <Link to="#" title='follow alaya arts on linkedin '>
               <i className="fab fa-linkedin-in" />
-            </a>
+            </Link>
           </div>
         </div>
       </div>

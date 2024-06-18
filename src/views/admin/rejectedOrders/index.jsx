@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { useHistory } from 'react-router-dom';
 import useAdminOrders from '@/hooks/useAdminOrders';
 import firebaseInstance from '@/services/firebase';
@@ -7,6 +7,8 @@ import { StopFilled } from '@ant-design/icons';
 
 const RejectedOrders = () => {
   const { rejectedOrders, isLoading, error } = useAdminOrders();
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 5;
 
   if (isLoading) {
     return <div>Loading...</div>;
@@ -15,6 +17,24 @@ const RejectedOrders = () => {
   if (error) {
     return <div>Error: {error}</div>;
   }
+
+const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentOrders = rejectedOrders.slice(indexOfFirstItem, indexOfLastItem);
+
+  const totalPages = Math.ceil(rejectedOrders.length / itemsPerPage);
+
+  const handlePreviousPage = () => {
+    if (currentPage > 1) {
+      setCurrentPage(currentPage - 1);
+    }
+  };
+
+  const handleNextPage = () => {
+    if (currentPage < totalPages) {
+      setCurrentPage(currentPage + 1);
+    }
+  };
 
   return (
     <>
@@ -35,7 +55,7 @@ const RejectedOrders = () => {
             </tr>
           </thead>
           <tbody>
-            {rejectedOrders.map((order) => (
+            {currentOrders.map((order) => (
               <tr key={order.id}>
                 <td>{new Date(order.createdAt).toLocaleDateString()}</td>
                 <td>{order.shippingDetails?.fullname}</td>
@@ -62,6 +82,41 @@ const RejectedOrders = () => {
           ))}
         </tbody>
       </table>
+      <div className="pagination">
+          <button
+            onClick={handlePreviousPage}
+            disabled={currentPage === 1}
+            style={{
+              background: "gray",
+              color: "white",
+              border: "none",
+              borderRadius: "4px",
+              fontWeight: "600",
+              padding: "5px 10px",
+              margin: "5px"
+            }}
+          >
+            Previous
+          </button>
+          <span style={{ margin: "0 10px" }}>
+            Page {currentPage} of {totalPages}
+          </span>
+          <button
+            onClick={handleNextPage}
+            disabled={currentPage === totalPages}
+            style={{
+              background: "blue",
+              color: "white",
+              border: "none",
+              borderRadius: "4px",
+              fontWeight: "600",
+              padding: "5px 10px",
+              margin: "5px"
+            }}
+          >
+            Next
+          </button>
+        </div>
     </div>
     </>
   )

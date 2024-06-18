@@ -22,6 +22,7 @@ const AppRouter = () => (
         <Route component={view.Search} exact path={ROUTES.SEARCH} />
         <Route component={view.Home} exact path={ROUTES.HOME} />
         <Route component={view.Shop} exact path={ROUTES.SHOP} />
+        <Route component={view.AllOrders} exact path={ROUTES.ALL_ORDERS} />
         <Route
           component={view.FeaturedProducts}
           exact

@@ -99,4 +99,10 @@
   object-fit: contain;
 }
 
-
+.pagination{
+  display: flex;
+  align-items: center;
+    list-style: none;
+    gap: 5px;
+    justify-content: end;
+}

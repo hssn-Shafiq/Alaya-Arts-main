@@ -1,4 +1,4 @@
-import { CheckOutlined } from '@ant-design/icons';
+import { CheckOutlined, ShoppingCartOutlined } from '@ant-design/icons';
 import { ImageLoader } from '@/components/common';
 import { displayMoney } from '@/helpers/utils';
 import PropType from 'prop-types';
@@ -57,15 +57,19 @@ const ProductItem = ({ product, isItemOnBasket, addToBasket }) => {
             <h4 className="product-card-price">
               {product.price ? displayMoney(product.price) : <Skeleton width={40} />}
             </h4>
+            <h4 className="product-card-price product-card-compare-price">
+              <strike>{product.price ? displayMoney(product.price) : <Skeleton width={40} />}</strike>
+            </h4>
           </div>
+          
         </div>
         {product.id && (
           <button
-            className={`product-card-button button-small button button-block ${itemOnBasket ? 'button-border button-border-gray' : ''}`}
+            className={`product-card-button d-flex button-small button button-block ${itemOnBasket ? 'button-border button-border-gray' : ''}`}
             onClick={handleAddToBasket}
             type="button"
           >
-            {itemOnBasket ? 'Remove from basket' : 'Add to basket'}
+          <ShoppingCartOutlined style={{marginRight:"5px"}} />  {itemOnBasket ? 'Remove from basket' : 'Add to basket'}
           </button>
         )}
 

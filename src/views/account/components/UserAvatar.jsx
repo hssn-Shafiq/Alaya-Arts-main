@@ -8,6 +8,7 @@ import React, { useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, withRouter } from 'react-router-dom';
 import { signOut } from '@/redux/actions/authActions';
+import {ALL_ORDERS} from "@/constants/routes"
 
 const UserNav = () => {
   const { profile, isAuthenticating } = useSelector((state) => ({
@@ -73,6 +74,12 @@ const UserNav = () => {
             <UserOutlined />
           </Link>
         )}
+        <h6
+          className="user-nav-sub-link margin-0 d-flex"
+          role="presentation"
+        >
+          <Link to={ALL_ORDERS}>My Orders</Link>
+        </h6>
         <h6
           className="user-nav-sub-link margin-0 d-flex"
           onClick={() => dispatch(signOut())}
