@@ -1,4 +1,4 @@
-import { ADMIN_PRODUCTS, ADMIN_ORDERS,ADMIN_DASHBOARD,ADMIN_USERS,ADMIN_DELIVERED_ORDERS,ADMIN_REJECTED_ORDERS } from '@/constants/routes';
+import { ADMIN_PRODUCTS, ADMIN_ORDERS,ADMIN_DASHBOARD,ADMIN_USERS,ADMIN_DELIVERED_ORDERS,ADMIN_REJECTED_ORDERS, ADMIN_CONTACT_DETAILS } from '@/constants/routes';
 import { StopFilled } from '@ant-design/icons';
 import React from 'react';
 import { NavLink } from 'react-router-dom';
@@ -60,7 +60,15 @@ const SideNavigation = () => (
           Manage Users
         </NavLink>
       </div>
-     
+      <div className="sidenavigation-item">
+        <NavLink
+          activeClassName="sidenavigation-menu-active"
+          className="sidenavigation-menu"
+          to={ADMIN_CONTACT_DETAILS}
+        >
+          Contact Details
+        </NavLink>
+      </div>
     </div>
   </aside>
 );

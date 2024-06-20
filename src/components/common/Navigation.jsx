@@ -128,6 +128,8 @@ const Navigation = () => {
         <li ><NavLink activeClassName="navigation-menu-item navigation-bottom-menu-item" to={ROUTE.UNSTICHED_PRODUCTS}>Unstiched</NavLink></li>
         <li ><NavLink activeClassName="navigation-menu-item navigation-bottom-menu-item" to={ROUTE.KIDS_PRODUCTS}>Kids Collections</NavLink></li>
         <li ><NavLink activeClassName="navigation-menu-item navigation-bottom-menu-item" to={ROUTE.RECOMMENDED_PRODUCTS}>Accessories</NavLink></li>
+        <li ><NavLink activeClassName="navigation-menu-item navigation-bottom-menu-item" to={ROUTE.CONTACT_US}>Contact Us</NavLink></li>
+        <li ><NavLink activeClassName="navigation-menu-item navigation-bottom-menu-item" to={ROUTE.RECOMMENDED_PRODUCTS}>About Us</NavLink></li>
       </ul>
     </div>
     

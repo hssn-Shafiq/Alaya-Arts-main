@@ -44,13 +44,12 @@ const ShippingForm = () => {
           </div>
         </div>
         <div className="checkout-fieldset">
-          <Field name="isInternational">
+          {/* <Field name="isInternational">
             {({ field, form, meta }) => (
               <div className="checkout-field">
                 {meta.touched && meta.error ? (
                   <span className="label-input label-error">{meta.error}</span>
                 ) : (
-                  // eslint-disable-next-line jsx-a11y/label-has-associated-control
                   <label
                     className="label-input"
                     htmlFor={field.name}
@@ -70,15 +69,15 @@ const ShippingForm = () => {
                   />
                   <label className="d-flex w-100" htmlFor={field.name}>
                     <h5 className="d-flex-grow-1 margin-0">
-                      &nbsp; International Shipping &nbsp;
-                      <span className="text-subtle">7-14 days</span>
+                      &nbsp; Standard Shipping &nbsp;
+                      <span className="text-subtle">4-7 days</span>
                     </h5>
-                    <h4 className="margin-0">$50.00</h4>
+                    <h4 className="margin-0">350.00</h4>
                   </label>
                 </div>
               </div>
             )}
-          </Field>
+          </Field> */}
         </div>
       </div>
     </div>

@@ -13,6 +13,7 @@ export { default as useUnstichedProducts } from './useUnstichedProducts';
 export { default as useUserOrders } from './useUserOrders';
 export { default as useAdminOrders } from './useAdminOrders';
 export { default as useAdminUsers } from './useAdminUsers';
+export { default as useAdminContactDetails } from './useAdminContactDetails';
 
 
 

@@ -55,6 +55,8 @@ const AppRouter = () => (
           path={ROUTES.FORGOT_PASSWORD}
         />
         <Route component={view.ViewProduct} path={ROUTES.VIEW_PRODUCT} />
+        <Route component={view.ContactUs} path={ROUTES.CONTACT_US} />
+        <Route component={view.PrivacyPolicy} path={ROUTES.PRIVACY_POLICY} />
         <ClientRoute component={view.UserAccount} exact path={ROUTES.ACCOUNT} />
         <ClientRoute
           component={view.EditAccount}
@@ -96,6 +98,11 @@ const AppRouter = () => (
         component={view.RejectedOrders}
         exact
         path={ROUTES.ADMIN_REJECTED_ORDERS} 
+        />
+        <AdminRoute 
+        component={view.ContactDetails}
+        exact
+        path={ROUTES.ADMIN_CONTACT_DETAILS} 
         />
         <AdminRoute component={view.Users} path={ROUTES.ADMIN_USERS} />
         <AdminRoute component={view.AddProduct} path={ROUTES.ADD_PRODUCT} />

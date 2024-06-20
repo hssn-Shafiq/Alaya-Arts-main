@@ -1,0 +1,28 @@
+.contact_us_main .contact_us .row{
+
+  padding: 4rem 0rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+
+  
+  .form_fields, .contact_icons{
+    width: 30%;
+  }
+  .form-group{
+      width: 100%;
+
+    label{
+      border: none;
+      background: none;
+      padding-left: 0px;
+      padding-bottom: 4px;
+      cursor: none;
+
+    }
+    input{
+      width: 100%;
+      border-color: #e0dfdf;
+    }
+  }
+}

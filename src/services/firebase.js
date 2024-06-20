@@ -37,7 +37,7 @@ class Firebase {
   addUser = (id, user) => this.db.collection("users").doc(id).set(user);
 
   getUser = (id) => this.db.collection("users").doc(id).get();
-  
+
   getFirestore() {
     return this.db;
   }
@@ -265,8 +265,6 @@ class Firebase {
       .limit(itemsCount)
       .get();
 
-     
-
   addProduct = (id, product) =>
     this.db.collection("products").doc(id).set(product);
 
@@ -292,21 +290,21 @@ class Firebase {
   getUserOrders = (userId) => {
     return this.db.collection("orders").where("userId", "==", userId).get();
   };
-  
+
   // get all users
   getAllUsers = () => {
     return this.db.collection("users").get();
-  }
-  
-  // Update the user's role
-updateUserRole = (userId, newRole) => {
-  return this.db.collection("users").doc(userId).update({ role: newRole });
-};
+  };
 
-// Delete the user
-deleteAdminUser = (userId) => {
-  return this.db.collection("users").doc(userId).delete();
-};
+  // Update the user's role
+  updateUserRole = (userId, newRole) => {
+    return this.db.collection("users").doc(userId).update({ role: newRole });
+  };
+
+  // Delete the user
+  deleteAdminUser = (userId) => {
+    return this.db.collection("users").doc(userId).delete();
+  };
 
   getAllOrders = () => {
     return this.db.collection("orders").get();
@@ -325,11 +323,23 @@ deleteAdminUser = (userId) => {
     return this.db.collection("orders").doc(orderId).delete();
   };
 
- addOrderToCollection = async (collectionName, order) => {
-  const collectionRef = this.db.collection(collectionName);
-  await collectionRef.doc(order.id).set(order);
- }
+  addOrderToCollection = async (collectionName, order) => {
+    const collectionRef = this.db.collection(collectionName);
+    await collectionRef.doc(order.id).set(order);
+  };
 
+  // contact form details
+  addContactDetails = (id, contactDetails) =>
+    this.db.collection("contact_details").doc(id).set(contactDetails);
+
+  getContactDetails = () => {
+    return this.db.collection("contact_details").get();
+  };
+
+  deleteContactDetails(id) {
+    return this.db.collection("contact_details").doc(id).delete();
+
+  }
 }
 
 const firebaseInstance = new Firebase();

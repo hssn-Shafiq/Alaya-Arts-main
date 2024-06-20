@@ -7,6 +7,7 @@ export { default as DeliveredOrders } from './admin/deliveredOrders';
 export { default as RejectedOrders } from './admin/rejectedOrders';
 export { default as Users } from './admin/users';
 export { default as OrderDetails } from './admin/orderDetails';
+export { default as ContactDetails } from './admin/contactDetails';
 export { default as EditProduct } from './admin/edit_product';
 export { default as Products } from './admin/products';
 export { default as ForgotPassword } from './auth/forgot_password';
@@ -26,5 +27,7 @@ export { default as Search } from './search';
 export { default as Shop } from './shop';
 export { default as ViewProduct } from './view_product';
 export { default as AllOrders } from './AllOrders';
+export { default as ContactUs} from './ContactUs';
+export { default as PrivacyPolicy} from './PrivacyPolicy';
 
 

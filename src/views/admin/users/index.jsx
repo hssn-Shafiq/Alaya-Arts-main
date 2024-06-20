@@ -8,6 +8,8 @@ const Users = () => {
   const { users, isLoading, error } = useAdminUsers();
   const [editUserId, setEditUserId] = useState(null);
   const [newRole, setNewRole] = useState("");
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 5;
 
   const handleEditUserRole = async (userId) => {
     if (newRole) {
@@ -32,6 +34,24 @@ const Users = () => {
         console.error(err);
         displayActionMessage("Failed to delete user");
       }
+    }
+  };
+
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentUsers = users.slice(indexOfFirstItem, indexOfLastItem);
+
+  const totalPages = Math.ceil(users.length / itemsPerPage);
+
+  const handlePreviousPage = () => {
+    if (currentPage > 1) {
+      setCurrentPage(currentPage - 1);
+    }
+  };
+
+  const handleNextPage = () => {
+    if (currentPage < totalPages) {
+      setCurrentPage(currentPage + 1);
     }
   };
 
@@ -64,7 +84,7 @@ const Users = () => {
             </tr>
           </thead>
           <tbody>
-            {users.map((user) => (
+            {currentUsers.map((user) => (
               <tr key={user.id}>
                 <td>{user.fullname}</td>
                 <td>{user.email}</td>
@@ -106,6 +126,41 @@ const Users = () => {
             ))}
           </tbody>
         </table>
+        <div className="pagination">
+          <button
+            onClick={handlePreviousPage}
+            disabled={currentPage === 1}
+            style={{
+              background: "gray",
+              color: "white",
+              border: "none",
+              borderRadius: "4px",
+              fontWeight: "600",
+              padding: "5px 10px",
+              margin: "5px"
+            }}
+          >
+            Previous
+          </button>
+          <span style={{ margin: "0 10px" }}>
+            Page {currentPage} of {totalPages}
+          </span>
+          <button
+            onClick={handleNextPage}
+            disabled={currentPage === totalPages}
+            style={{
+              background: "blue",
+              color: "white",
+              border: "none",
+              borderRadius: "4px",
+              fontWeight: "600",
+              padding: "5px 10px",
+              margin: "5px"
+            }}
+          >
+            Next
+          </button>
+        </div>
       </div>
     </>
   );

@@ -11,7 +11,8 @@ const Footer = () => {
 
   const visibleOnlyPath = [
     Route.HOME,
-    Route.SHOP
+    Route.SHOP,
+    Route.PRIVACY_POLICY
   ];
 
   return !visibleOnlyPath.includes(pathname) ? null : (
@@ -29,7 +30,7 @@ const Footer = () => {
               <Link to="#">Terms & Conditions</Link>
             </li>
             <li>
-              <Link to="#">privacy policy</Link>
+              <Link to="/privacy_policy">privacy policy</Link>
             </li>
           </ul>
         </div>

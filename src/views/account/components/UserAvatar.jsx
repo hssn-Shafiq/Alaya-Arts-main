@@ -1,6 +1,6 @@
 /* eslint-disable indent */
 import {
-  DownOutlined, LoadingOutlined, LogoutOutlined, UserOutlined
+  DownOutlined, LoadingOutlined, LogoutOutlined, OrderedListOutlined, UserOutlined
 } from '@ant-design/icons';
 import { ACCOUNT } from '@/constants/routes';
 import PropTypes from 'prop-types';
@@ -74,12 +74,15 @@ const UserNav = () => {
             <UserOutlined />
           </Link>
         )}
-        <h6
-          className="user-nav-sub-link margin-0 d-flex"
-          role="presentation"
-        >
-          <Link to={ALL_ORDERS}>My Orders</Link>
-        </h6>
+        {profile.role !== 'ADMIN' && (
+          <Link
+            to={ALL_ORDERS}
+            className="user-nav-sub-link"
+          >
+            My Orders
+            <OrderedListOutlined/>
+          </Link>
+        )}
         <h6
           className="user-nav-sub-link margin-0 d-flex"
           onClick={() => dispatch(signOut())}

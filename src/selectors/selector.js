@@ -1,5 +1,3 @@
-/* eslint-disable no-plusplus */
-/* eslint-disable no-else-return */
 export const selectFilter = (products, filter) => {
   if (!products || products.length === 0) return [];
 

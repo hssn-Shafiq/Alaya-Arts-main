@@ -7,7 +7,7 @@ const useAdminOrders = () => {
   const [rejectedOrders, setRejectedOrders] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
-
+  
   useEffect(() => {
     const fetchOrders = async () => {
       try {

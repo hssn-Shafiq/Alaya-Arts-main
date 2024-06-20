@@ -74,7 +74,7 @@ const Payment = ({ shipping, payment, subtotal }) => {
             quantity: product.quantity,
           })),
           subtotal,
-          total: subtotal + (shipping.isInternational ? 50 : 0),
+          total: subtotal + (shipping.isInternational ? 350 : 0),
           paymentStatus: 'Pending',
           createdAt: new Date().toISOString(),
         };

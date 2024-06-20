@@ -80,8 +80,8 @@ const ProductForm = ({ product, onSubmit, isLoading }) => {
     sizes: product?.sizes || [],
     isFeatured: product?.isFeatured || false,
     isRecommended: product?.isRecommended || false,
-    isKids: product?.isKids || false,
     isStiched: product?.isStiched || false,
+    isKids: product?.isKids || false,
     isUnStiched: product?.isUnStiched || false,
     isAccessories: product?.isAccessories || false,
     availableColors: product?.availableColors || [],
@@ -319,17 +319,17 @@ const ProductForm = ({ product, onSubmit, isLoading }) => {
               <div className="d-flex">
                 <div className="product-form-field">
                   <input
-                    checked={values.isKids}
+                    checked={values.isStiched}
                     className=""
-                    id="kids"
+                    id="stiched"
                     onChange={(e) =>
-                      setValues({ ...values, isKids: e.target.checked })
+                      setValues({ ...values, isStiched: e.target.checked })
                     }
                     type="checkbox"
                   />
                   <label htmlFor="unstiched">
                     <h5 className="d-flex-grow-1 margin-0">
-                      &nbsp; Add to Kids Collection &nbsp;
+                      &nbsp; Add to Stiched Collection &nbsp;
                     </h5>
                   </label>
                 </div>

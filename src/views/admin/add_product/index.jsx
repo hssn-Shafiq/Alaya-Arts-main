@@ -42,6 +42,10 @@ const AddProduct = () => {
             image: '',
             isFeatured: false,
             isRecommended: false,
+            isStiched: false,
+            isUnStiched: false,
+            isKids: false,
+            isAccessories: false,
             availableColors: [],
             imageCollection: []
           }}
