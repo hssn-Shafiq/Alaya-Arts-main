@@ -2,7 +2,7 @@ import { ArrowLeftOutlined, LoadingOutlined } from '@ant-design/icons';
 import { ColorChooser, ImageLoader, MessageDisplay } from '@/components/common';
 import { ProductShowcaseGrid } from '@/components/product';
 import { RECOMMENDED_PRODUCTS, SHOP } from '@/constants/routes';
-import { displayMoney } from '@/helpers/utils';
+import { displayMoney, salesOff } from '@/helpers/utils';
 import {
   useBasket,
   useDocumentTitle,
@@ -130,7 +130,12 @@ const ViewProduct = () => {
                   />
                 </div>
               )}
+              <div className="price d-flex">
               <h1>{displayMoney(product.price)}</h1>
+              <h3 className='compare_price'><strike>{product.comparePrice ? `PKR: ${product.comparePrice }`: null}</strike></h3>
+              <span className='discount_percentage'>-{salesOff(product.comparePrice, product.price)}</span>
+              </div>
+              
               <div className="product-modal-action">
                 <button
                   className={`button button-small ${isItemOnBasket(product.id) ? 'button-border button-border-gray' : ''}`}

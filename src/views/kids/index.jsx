@@ -1,7 +1,8 @@
 import { MessageDisplay } from '@/components/common';
 import { ProductShowcaseGrid } from '@/components/product';
 import { useDocumentTitle, useKidsProducts, useScrollTop } from '@/hooks';
-import bannerImg from '@/images/banner-guy.png';
+import banImg from "@/images/bannerimg1.png"
+import { BannerImage } from '@/components/common';
 import React from 'react';
 
 const KidsProducts = () => {
@@ -16,16 +17,10 @@ const KidsProducts = () => {
   } = useKidsProducts();
 
   return (
+    <>
+    <BannerImage backgroundImage={banImg} display_content="banner_display_none"/>
     <main className="content">
       <div className="featured">
-        <div className="banner">
-          <div className="banner-desc">
-            <h1>Kids Products</h1>
-          </div>
-          <div className="banner-img">
-            <img src={bannerImg} alt="" />
-          </div>
-        </div>
         <div className="display">
           <div className="product-display-grid">
             {(error && !isLoading) ? (
@@ -44,6 +39,7 @@ const KidsProducts = () => {
         </div>
       </div>
     </main>
+    </>
   );
 };
 

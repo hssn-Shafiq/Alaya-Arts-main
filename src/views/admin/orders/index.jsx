@@ -76,7 +76,10 @@ const Orders = () => {
                 ))}
               </td>
               <td>
-                <button >{order.orderStatus || 'Processing'}</button>
+
+                <button style={{
+                  background:"orangered", border:"none", color:"white", padding:"5px 10px", borderRadius:"5px"
+                }} >{order.orderStatus || 'Processing'}</button>
               </td>
               <td>
                 <button onClick={() => handleViewDetails(order.id)}><EyeFilled /></button>

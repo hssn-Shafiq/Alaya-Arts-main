@@ -1,8 +1,12 @@
 import { MessageDisplay, BannerImage } from '@/components/common';
+// import { ImageGallery } from '@/components/common';
 import { ProductShowcaseGrid } from '@/components/product';
 import { useDocumentTitle, useStichedProducts, useScrollTop } from '@/hooks';
 import React from 'react';
 import bannerImg from "@/images/bannerimg2.png"
+import { ImageGallery } from '@/components/common';
+import luxury_lawn from '@/images/luxury_lawn.jpg';
+
 const StichedProducts = () => {
   useDocumentTitle('Stiched Products | Alaya Arts');
   useScrollTop();
@@ -11,12 +15,14 @@ const StichedProducts = () => {
     stichedProducts,
     fetchStichedProducts,
     isLoading,
-    error
+        error
   } = useStichedProducts();
 
   return (
     <>
       <BannerImage backgroundImage={bannerImg} display_content="banner_display_none" />
+      {/* <ImageGallery /> */}
+      <ImageGallery img1={luxury_lawn} />
     <main className="content">
       <div className="featured">
         <div className="display">

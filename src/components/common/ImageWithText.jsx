@@ -3,27 +3,30 @@ import { ArrowRightOutlined } from '@ant-design/icons';
 import { Link } from 'react-router-dom';
 import {SHOP } from '@/constants/routes';
 
-const ImageWithText = () => {
+const ImageWithText = ({t1,t2,t3,desc,link, img,place}) => {
   return(
     <>
     <div className="banner mb-5" >
-          <div className="banner-desc">
+          <div className="banner-desc"
+          style={{
+            order: {place}
+          }}
+          >
             <h1 className="text-thin">
-              <strong>Discover</strong> 
-              &nbsp;style with&nbsp;
-              <strong>eligence</strong>
+              <strong>{t1}</strong> 
+              &nbsp;{t2}&nbsp;
+              <strong>{t3}</strong>
             </h1>
             <p>
-            Shopping for clothes should make you feel great and look fabulous, all while saving you money.
-            From chic dresses to cozy sweaters, our collection has something for every wardrobe.
+            {desc}
             </p>
             <br />
-            <Link to={SHOP} className="button">
+            <Link to={link} className="button">
               Explore Now &nbsp;
               <ArrowRightOutlined />
             </Link>
           </div>
-          <div className="banner-img"><img src={bannerImg} alt="" /></div>
+          <div className="banner-img" ><img src={img} alt="" /></div>
         </div>
     </>
   )

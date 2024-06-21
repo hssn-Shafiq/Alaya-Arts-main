@@ -15,6 +15,12 @@ export const displayDate = (timestamp) => {
   return `${monthNames[monthIndex]} ${day}, ${year}`;
 };
 
+export const salesOff = (originalPrice, salePrice) => {
+  let discount = originalPrice - salePrice;
+  let discountPercentage = (discount / originalPrice) * 100;
+
+  return discountPercentage;
+}
 export const displayMoney = (n) => {
   const format = new Intl.NumberFormat('en-US', {
     style: 'currency',

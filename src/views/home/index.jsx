@@ -1,15 +1,12 @@
 import { ArrowRightOutlined } from '@ant-design/icons';
-import { MessageDisplay } from '@/components/common';
 import { ProductShowcaseGrid } from '@/components/product';
-import {Slider} from "@/components/common"
-
 import { FEATURED_PRODUCTS, RECOMMENDED_PRODUCTS,KIDS_PRODUCTS,STICHED_PRODUCTS, SHOP } from '@/constants/routes';
 import {
   useDocumentTitle, useFeaturedProducts, useRecommendedProducts,useKidsProducts,useStichedProducts, useScrollTop
 } from '@/hooks';
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { ImageWithText, BannerImage, ImageGallery } from '@/components/common';
+import { ImageWithText, BannerImage, ImageGallery,MessageDisplay,Slider } from '@/components/common';
 
 import bannerImg from '@/images/banner-shop.jpg';
 import bannerImg2 from '@/images/luxury_lawn.jpg';
@@ -76,7 +73,15 @@ const Home = () => {
           )}
         </div>
           {/* image With Text */}
-          <ImageWithText />
+          <ImageWithText 
+          t1="Discover"
+          t2="style with"
+          t3="eligence"
+          desc="Shopping for clothes should make you feel great and look fabulous, all while saving you money.
+    From chic dresses to cozy sweaters, our collection has something for every wardrobe."
+    link="/shop"
+      img={bannerImg2}
+          />
         <BannerImage backgroundImage= {bg2}  display_content="banner_display_none"  />
         {/* pret products */}
         <div className="display">
@@ -98,66 +103,29 @@ const Home = () => {
           )}
         </div>
 {/* 1 */}
-        <div className="banner mb-5" >
-          <div className="banner-desc">
-            <h1 className="text-thin">
-              <strong>Discover</strong> 
-              &nbsp;style with&nbsp;
-              <strong>eligence</strong>
-            </h1>
-            <p>
-            Shopping for clothes should make you feel great and look fabulous, all while saving you money.
-    From chic dresses to cozy sweaters, our collection has something for every wardrobe.
-            </p>
-            <br />
-            <Link to={SHOP} className="button">
-              Explore Now &nbsp;
-              <ArrowRightOutlined />
-            </Link>
-          </div>
-          <div className="banner-img"><img src={bannerImg3} alt="" /></div>
-        </div>
+<ImageWithText 
+          t1="Discover"
+          t2="style with"
+          t3="eligence"
+          desc="Shopping for clothes should make you feel great and look fabulous, all while saving you money.
+    From chic dresses to cozy sweaters, our collection has something for every wardrobe."
+    link="/shop"
+      img={bannerImg}
+      
+          />
+           <ImageWithText 
+          t1="Discover"
+          t2="style with"
+          t3="eligence"
+          desc="Shopping for clothes should make you feel great and look fabulous, all while saving you money.
+    From chic dresses to cozy sweaters, our collection has something for every wardrobe."
+    link="/shop"
+      img={bannerImg3}
+      place="2"
+          />
         {/* 2 */}
-        <div className="banner mb-5" >
-        <div className="banner-img"><img src={bannerImg2} alt="" /></div>
-
-          <div className="banner-desc">
-            <h1 className="text-thin">
-              <strong>Discover</strong> 
-              &nbsp;style with&nbsp;
-              <strong>eligence</strong>
-            </h1>
-            <p>
-            Shopping for clothes should make you feel great and look fabulous, all while saving you money.
-    From chic dresses to cozy sweaters, our collection has something for every wardrobe.
-            </p>
-            <br />
-            <Link to={SHOP} className="button">
-              Explore Now &nbsp;
-              <ArrowRightOutlined />
-            </Link>
-          </div>
-        </div>
         {/* 3 */}
-        <div className="banner mb-5" >
-          <div className="banner-desc">
-            <h1 className="text-thin">
-              <strong>Discover</strong> 
-              &nbsp;style with&nbsp;
-              <strong>eligence</strong>
-            </h1>
-            <p>
-            Shopping for clothes should make you feel great and look fabulous, all while saving you money.
-    From chic dresses to cozy sweaters, our collection has something for every wardrobe.
-            </p>
-            <br />
-            <Link to={SHOP} className="button">
-              Explore Now &nbsp;
-              <ArrowRightOutlined />
-            </Link>
-          </div>
-          <div className="banner-img"><img src={bannerImg4} alt="" /></div>
-        </div>
+      
         {/* 3 end */}
        
         {/* <Slider /> */}

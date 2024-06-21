@@ -35,6 +35,7 @@ const AddProduct = () => {
             name: '',
             brand: '',
             price: 0,
+            comparePrice: 0,
             maxQuantity: 0,
             description: '',
             keywords: [],

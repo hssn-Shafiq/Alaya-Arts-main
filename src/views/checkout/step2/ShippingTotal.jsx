@@ -21,7 +21,6 @@ const ShippingTotal = ({ subtotal }) => {
                 {displayMoney(subtotal)}
               </h4>
             </td>
-            
           </tr>
           <tr>
           <td>
