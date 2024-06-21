@@ -4,6 +4,7 @@ import { useDocumentTitle, useUnstichedProducts, useScrollTop } from '@/hooks';
 import bannerImg from '@/images/banner-guy.png';
 import React from 'react';
 
+
 const UnstichedProducts = () => {
   useDocumentTitle('UnStiched Products | Alaya Arts');
   useScrollTop();
