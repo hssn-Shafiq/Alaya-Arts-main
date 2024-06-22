@@ -5,6 +5,7 @@ import bannerImg from '@/images/bannerimg2.png';
 import { BannerImage } from '@/components/common';
 import React from 'react';
 
+
 const UnstichedProducts = () => {
   useDocumentTitle('UnStiched Products | Alaya Arts');
   useScrollTop();
