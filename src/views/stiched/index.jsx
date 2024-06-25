@@ -3,6 +3,8 @@ import { ProductShowcaseGrid } from "@/components/product";
 import { useDocumentTitle, useStichedProducts, useScrollTop } from "@/hooks";
 import React from "react";
 import bannerImg from "@/images/bannerimg2.png";
+import { ImageWithText } from '@/components/common';
+
 const StichedProducts = () => {
   useDocumentTitle("Stiched Products | Alaya Arts");
   useScrollTop();
@@ -16,6 +18,8 @@ const StichedProducts = () => {
         backgroundImage={bannerImg}
         display_content="banner_display_none"
       />
+      <ImageWithText />
+
       <main className="content">
         <div className="featured">
           <div className="display">
