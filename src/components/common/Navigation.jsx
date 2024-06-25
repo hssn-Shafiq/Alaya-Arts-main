@@ -17,7 +17,6 @@ import SearchBar from './SearchBar';
 const Navigation = () => {
   const navbar = useRef(null);
   const { pathname } = useLocation();
-
   const store = useSelector((state) => ({
     basketLength: state.basket.length,
     user: state.auth,
