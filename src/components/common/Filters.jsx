@@ -18,7 +18,8 @@ const Filters = ({ closeModal }) => {
     brand: filter.brand,
     minPrice: filter.minPrice,
     maxPrice: filter.maxPrice,
-    sortBy: filter.sortBy
+    sortBy: filter.sortBy,
+    isStiched: filter.isStiched
   });
   const dispatch = useDispatch();
   const history = useHistory();
@@ -53,6 +54,10 @@ const Filters = ({ closeModal }) => {
     setFilter({ ...field, sortBy: e.target.value });
   };
 
+  const onIsStichedFilterChange = (e) => {
+    setFilter({ ...field, isStiched: e.target.value });
+  };
+
   const onApplyFilter = () => {
     const isChanged = Object.keys(field).some((key) => field[key] !== filter[key]);
 
@@ -68,7 +73,7 @@ const Filters = ({ closeModal }) => {
   };
 
   const onResetFilter = () => {
-    const filterFields = ['brand', 'minPrice', 'maxPrice', 'sortBy'];
+    const filterFields = ['brand', 'minPrice', 'maxPrice', 'sortBy', 'isStiched'];
 
     if (filterFields.some((key) => !!filter[key])) {
       dispatch(resetFilter());
@@ -80,7 +85,7 @@ const Filters = ({ closeModal }) => {
   return (
     <div className="filters">
       <div className="filters-field">
-        <span>Brand</span>
+        <span>Style</span>
         <br />
         <br />
         {products.length === 0 && isLoading ? (
@@ -93,10 +98,10 @@ const Filters = ({ closeModal }) => {
             onChange={onBrandFilterChange}
           >
             <option value="">All Brands</option>
-            <option value="salt">Kids</option>
-            <option value="betsin">Stiched</option>
-            <option value="black">Unstiched</option>
-            <option value="sexbomb">Sexbomb</option>
+            <option value="lawn">lawn</option>
+            <option value="stiched">Stiched</option>
+            <option value="unstiched">Unstiched</option>
+            <option value="accessories">Accessories</option>
           </select>
         )}
       </div>

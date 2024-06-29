@@ -1,5 +1,5 @@
 import { ADMIN_PRODUCTS, ADMIN_ORDERS,ADMIN_DASHBOARD,ADMIN_USERS,ADMIN_DELIVERED_ORDERS,ADMIN_REJECTED_ORDERS, ADMIN_CONTACT_DETAILS } from '@/constants/routes';
-import { StopFilled } from '@ant-design/icons';
+import { CloseCircleFilled, ContactsFilled, DashboardOutlined, DeliveredProcedureOutlined, OrderedListOutlined, StopFilled,  UserOutlined, TagsFilled  } from '@ant-design/icons';
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 
@@ -12,7 +12,7 @@ const SideNavigation = () => (
           className="sidenavigation-menu"
           to={ADMIN_DASHBOARD}
         >
-          Dashboard
+        <DashboardOutlined />  Dashboard
         </NavLink>
       </div>
       <div className="sidenavigation-item">
@@ -21,7 +21,7 @@ const SideNavigation = () => (
           className="sidenavigation-menu"
           to={ADMIN_PRODUCTS}
         >
-          Products
+        <TagsFilled />  Products
         </NavLink>
       </div>      
       <div className="sidenavigation-item">
@@ -30,7 +30,7 @@ const SideNavigation = () => (
           className="sidenavigation-menu"
           to={ADMIN_ORDERS}
         >
-          Orders
+        <OrderedListOutlined />  Orders
         </NavLink>
       </div>
       <div className="sidenavigation-item">
@@ -39,7 +39,7 @@ const SideNavigation = () => (
           className="sidenavigation-menu"
           to={ADMIN_DELIVERED_ORDERS}
         >
-          Delivered Orders
+        <DeliveredProcedureOutlined />  Delivered Orders
         </NavLink>
       </div>
       <div className="sidenavigation-item">
@@ -48,16 +48,18 @@ const SideNavigation = () => (
           className="sidenavigation-menu"
           to={ADMIN_REJECTED_ORDERS}
         >
-          Rejected Orders
+        <CloseCircleFilled />  Rejected Orders
         </NavLink>
       </div>
       <div className="sidenavigation-item">
         <NavLink
           activeClassName="sidenavigation-menu-active"
-          className="sidenavigation-menu"
+          className="sidenavigation-menu"  
           to={ADMIN_USERS}
         >
-          Manage Users
+
+          <UserOutlined />
+          Manage Users 
         </NavLink>
       </div>
       <div className="sidenavigation-item">
@@ -66,7 +68,7 @@ const SideNavigation = () => (
           className="sidenavigation-menu"
           to={ADMIN_CONTACT_DETAILS}
         >
-          Contact Details
+         <ContactsFilled /> Contact Details
         </NavLink>
       </div>
     </div>

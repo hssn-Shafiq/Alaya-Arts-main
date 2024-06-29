@@ -55,17 +55,10 @@ const Users = () => {
     }
   };
 
-  if (isLoading) {
-    return <div>Loading users...</div>;
-  }
-
   if (error) {
     return <div>{error}</div>;
   }
 
-  if (!users || users.length === 0) {
-    return <div>No users found.</div>;
-  }
 
   return (
     <>
@@ -84,46 +77,57 @@ const Users = () => {
             </tr>
           </thead>
           <tbody>
-            {currentUsers.map((user) => (
-              <tr key={user.id}>
-                <td>{user.fullname}</td>
-                <td>{user.email}</td>
-                <td>{user.mobile.value ? user.mobile.value : "not added yet"}</td>
-                <td>
-                  {editUserId === user.id ? (
-                    <input
-                      type="text"
-                      value={newRole}
-                      placeholder={user.role}
-                      onChange={(e) => setNewRole(e.target.value)}
-                    />
-                  ) : (
-                    user.role
-                  )}
-                </td>
-                <td>
-                  {editUserId === user.id ? (
-                    <>
-                      <button onClick={() => handleEditUserRole(user.id)}>
-                        Save
-                      </button>
-                      <button onClick={() => setEditUserId(null)}>
-                        Cancel
-                      </button>
-                    </>
-                  ) : (
-                    <>
-                      <button onClick={() => setEditUserId(user.id)}>
-                        <EditFilled />
-                      </button>
-                      <button onClick={() => handleDeleteUser(user.id)}>
-                        <DeleteFilled />
-                      </button>
-                    </>
-                  )}
-                </td>
-              </tr>
-            ))}
+            {currentUsers.length === 0 ?
+            (
+              <tr>
+              <td colSpan="6" style={{ textAlign: 'center', padding: '20px' }}>
+              {isLoading ? <div class="order_loader"></div> :  "No Users found"}
+              </td>
+            </tr>
+            ) :
+            (
+              currentUsers.map((user) => (
+                <tr key={user.id}>
+                  <td>{user.fullname}</td>
+                  <td>{user.email}</td>
+                  <td>{user.mobile.value ? user.mobile.value : "not added yet"}</td>
+                  <td>
+                    {editUserId === user.id ? (
+                      <input
+                        type="text"
+                        value={newRole}
+                        placeholder={user.role}
+                        onChange={(e) => setNewRole(e.target.value)}
+                      />
+                    ) : (
+                      user.role
+                    )}
+                  </td>
+                  <td>
+                    {editUserId === user.id ? (
+                      <>
+                        <button onClick={() => handleEditUserRole(user.id)}>
+                          Save
+                        </button>
+                        <button onClick={() => setEditUserId(null)}>
+                          Cancel
+                        </button>
+                      </>
+                    ) : (
+                      <>
+                        <button onClick={() => setEditUserId(user.id)}>
+                          <EditFilled />
+                        </button>
+                        <button onClick={() => handleDeleteUser(user.id)}>
+                          <DeleteFilled />
+                        </button>
+                      </>
+                    )}
+                  </td>
+                </tr>
+              ))
+            )
+           }
           </tbody>
         </table>
         <div className="pagination">

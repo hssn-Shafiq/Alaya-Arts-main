@@ -1,7 +1,7 @@
 .sidenavigation {
   width: 250px;
   height: 100%;
-  background: #292929; 
+  background: #101219; 
   position: relative;
   padding-top: 1rem;
   border-right: 1px solid $border-color;
@@ -20,16 +20,22 @@
   color: $white;
   font-weight: bold;
   opacity: .8;
-
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  transition: all .3s ease-in;
   &:hover {
-    background: lighten($black, 5%);
+    background: lighten($background-color-02, 5%);
     text-decoration: none;
     opacity: 1;
+  border-right: 4px solid $background-color-03;
   }
 }
 
 .sidenavigation-menu-active {
-  background: lighten($black, 7%);
+  background: lighten($background-color-02, 7%);
   opacity: 1;
-  border-right: 4px solid $yellow;
+  border-right: 4px solid $background-color-03;
+  // transform: translateX(-5px); 
+  
 }

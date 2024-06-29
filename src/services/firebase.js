@@ -312,6 +312,9 @@ class Firebase {
   getDeliveredOrders = () => {
     return this.db.collection("deliveredOrders").get();
   };
+  deleteDeliveredOrders = (orderId) => {
+    return this.db.collection("deliveredOrders").doc(orderId).delete();
+  };
   getRejectedOrders = () => {
     return this.db.collection("rejectedOrders").get();
   };

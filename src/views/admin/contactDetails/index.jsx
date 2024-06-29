@@ -66,16 +66,26 @@ const ContactsDetails = () => {
             </tr>
           </thead>
           <tbody>
-            {currentContacts.map((contact) => (
-              <tr key={contact.id}>
-                <td>{contact.name}</td>
-                <td>{contact.email}</td>
-                <td>{contact.message}</td>
-                <td>
-                  <button onClick={() => handleDelete(contact.id)}><DeleteFilled /></button>
-                </td>
-              </tr>
-            ))}
+            {currentContacts.length === 0 ? (
+               <tr>
+               <td colSpan="6" style={{ textAlign: 'center', padding: '20px' }}>
+               {isLoading ? <div class="order_loader"></div> :  "Sorry we found nothing.!😢"}
+               </td>
+             </tr>
+            ) : (
+              currentContacts.map((contact) => (
+                <tr key={contact.id}>
+                  <td>{contact.name}</td>
+                  <td>{contact.email}</td>
+                  <td>{contact.message}</td>
+                  <td>
+                    <button onClick={() => handleDelete(contact.id)}><DeleteFilled /></button>
+                  </td>
+                </tr>
+              ))
+            )
+            
+           }
           </tbody>
         </table>
         <div className="pagination">
