@@ -15,10 +15,8 @@
 	color: #ffffff;
 	text-transform: capitalize;
 	margin-bottom: 35px;
-  margin-left: 2em;
 	font-weight: 500;
 	position: relative;
-  font-family: "Rajdhani", sans-serif;
 }
 .footer-col h4::before{
 	content: '';
@@ -35,6 +33,7 @@
 }
 .footer-col ul{
   list-style: none;
+	padding: 0px;
 }
 .footer-col ul li a{
 	font-size: 16px;
@@ -44,6 +43,7 @@
   font-family: "Rajdhani", sans-serif;
 	font-weight: 500;
 	display: block;
+	width: fit-content;
 	transition: all 0.3s ease;
 }
 .footer-col ul li a:hover{
@@ -68,7 +68,7 @@
 }
 .footer-col .social-links a:hover{
 	color: #24262b;
-	background-color: #ffffff;
+	background-color: #5ad4fb;
 }
 
 /*responsive*/
