@@ -39,7 +39,7 @@ const Home = () => {
     fetchFeaturedProducts,
     isLoading: isLoadingFeatured,
     error: errorFeatured,
-  } = useFeaturedProducts(6);
+  } = useFeaturedProducts(4);
   const {
     recommendedProducts,
     fetchRecommendedProducts,
@@ -86,7 +86,7 @@ const Home = () => {
           )}
         </div>
         {/* image With Text */}
-        <ImageWithText />
+
         <div className="banner mb-5">
           <div className="banner-desc">
             <h1 className="text-thin">
@@ -219,7 +219,7 @@ const Home = () => {
           ) : (
             <ProductShowcaseGrid
               products={featuredProducts}
-              skeletonCount={6}
+              skeletonCount={4}
             />
           )}
         </div>
