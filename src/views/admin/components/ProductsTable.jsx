@@ -6,13 +6,16 @@ import { ProductItem } from '.';
 const ProductsTable = ({ filteredProducts }) => (
   <div>
     {filteredProducts.length > 0 && (
-      <div className="grid grid-product grid-count-6">
+      <div className="grid grid-product grid-count-6 mt-5">
         <div className="grid-col" />
         <div className="grid-col">
           <h5>Name</h5>
         </div>
         <div className="grid-col">
-          <h5>Brand</h5>
+          <h5>Style</h5>
+        </div>
+        <div className="grid-col">
+          <h5>Collection</h5>
         </div>
         <div className="grid-col">
           <h5>Price</h5>

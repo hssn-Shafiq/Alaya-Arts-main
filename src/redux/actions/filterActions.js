@@ -3,7 +3,7 @@ import {
   CLEAR_RECENT_SEARCH,
   REMOVE_SELECTED_RECENT, RESET_FILTER, SET_BRAND_FILTER,
   SET_MAX_PRICE_FILTER,
-  SET_MIN_PRICE_FILTER, SET_TEXT_FILTER
+  SET_MIN_PRICE_FILTER, SET_TEXT_FILTER, SET_STYLE_FILTER, SET_COLLECTION_FILTER
 } from '@/constants/constants';
 
 export const setTextFilter = (keyword) => ({
@@ -26,6 +26,15 @@ export const setMaxPriceFilter = (max) => ({
   payload: max
 });
 
+export const setStyleFilter = (style) => ({
+  type: SET_STYLE_FILTER,
+  payload: style
+});
+
+export const setCollectionFilter = (collection) => ({
+  type: SET_COLLECTION_FILTER,
+  payload: collection
+});
 export const resetFilter = () => ({
   type: RESET_FILTER
 });

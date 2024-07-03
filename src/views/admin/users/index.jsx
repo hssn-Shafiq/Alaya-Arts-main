@@ -68,7 +68,7 @@ const Users = () => {
       <div className="all_orders">
         <table width={"100%"}>
           <thead>
-            <tr>
+            <tr className="text-center">
               <th>User Name</th>
               <th>User email</th>
               <th>User Contact</th>
@@ -115,10 +115,10 @@ const Users = () => {
                       </>
                     ) : (
                       <>
-                        <button onClick={() => setEditUserId(user.id)}>
+                        <button  className="btn btn-primary" onClick={() => setEditUserId(user.id)}>
                           <EditFilled />
                         </button>
-                        <button onClick={() => handleDeleteUser(user.id)}>
+                        <button className="btn btn-danger ms-1"  onClick={() => handleDeleteUser(user.id)}>
                           <DeleteFilled />
                         </button>
                       </>

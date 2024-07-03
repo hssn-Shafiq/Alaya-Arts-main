@@ -40,7 +40,7 @@ const RejectedOrders = () => {
       <div className="all_orders">
         <table>
           <thead>
-            <tr>
+            <tr className="text-center">
               <th>Date</th>
               <th>Customer</th>
               <th>Shipping Address</th>
@@ -94,14 +94,12 @@ const RejectedOrders = () => {
                   </td>
                   <td>
                     <button
+                    className="btn btn-danger"
                       style={{
-                        background: "#DC143C",
                         color: "rgba(255, 255, 255, 0.47)",
-                        border: "none",
-                        borderRadius: "4px",
                         fontWeight: "600",
-                        padding: "5px",
                         cursor: "not-allowed",
+                        fontSize:"14px"
                       }}
                       disabled
                       title="this order is cancelled"

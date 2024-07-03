@@ -19,7 +19,9 @@ export const salesOff = (originalPrice, salePrice) => {
   let discount = originalPrice - salePrice;
   let discountPercentage = (discount / originalPrice) * 100;
 
-  return discountPercentage;
+  if(discountPercentage > 0) {
+    return Math.round(discountPercentage);
+  } 
 }
 export const displayMoney = (n) => {
   const format = new Intl.NumberFormat('en-US', {

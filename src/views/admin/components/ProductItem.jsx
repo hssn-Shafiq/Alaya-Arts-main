@@ -8,7 +8,7 @@ import { useDispatch } from 'react-redux';
 import { useHistory, withRouter } from 'react-router-dom';
 import { removeProduct } from '@/redux/actions/productActions';
 
-const ProductItem = ({ product }) => {
+const ProductItem = ({ product, searchTerm }) => {
   const dispatch = useDispatch();
   const history = useHistory();
   const productRef = useRef(null);
@@ -31,6 +31,25 @@ const ProductItem = ({ product }) => {
     productRef.current.classList.remove('item-active');
   };
 
+  const getCollection = () => {
+    if (product.isStiched) return 'Stiched';
+    if (product.isFeatured) return 'Featured';
+    if (product.isKids) return 'Kids';
+    if (product.isRecommended) return 'Recommended';
+    return 'Not added';
+  };
+
+  // Function to check if a field matches the search term
+  const matchesSearchTerm = (fieldValue) => {
+    if (!searchTerm) return true; // If no search term, show all products
+
+    const lowerCaseSearch = searchTerm.toLowerCase();
+    return (
+      fieldValue &&
+      fieldValue.toString().toLowerCase().includes(lowerCaseSearch)
+    );
+  };
+
   return (
     <SkeletonTheme
       color="#e1e1e1"
@@ -51,21 +70,58 @@ const ProductItem = ({ product }) => {
             ) : <Skeleton width={50} height={30} />}
           </div>
           <div className="grid-col">
-            <span className="text-overflow-ellipsis">{product.name || <Skeleton width={50} />}</span>
-          </div>
-          <div className="grid-col">
-            <span>{product.brand || <Skeleton width={50} />}</span>
-          </div>
-          <div className="grid-col">
-            <span>{product.price ? displayMoney(product.price) : <Skeleton width={30} />}</span>
-          </div>
-          <div className="grid-col">
-            <span>
-              {product.dateAdded ? displayDate(product.dateAdded) : <Skeleton width={30} />}
+            <span className="text-overflow-ellipsis">
+              {matchesSearchTerm(product.name) ? (
+                product.name
+              ) : (
+                <Skeleton width={50} />
+              )}
             </span>
           </div>
           <div className="grid-col">
-            <span>{product.maxQuantity || <Skeleton width={20} />}</span>
+            <span>
+              {matchesSearchTerm(product.style) ? (
+                product.style || 'Not added'
+              ) : (
+                <Skeleton width={50} />
+              )}
+            </span>
+          </div>
+          <div className="grid-col">
+            <span>
+              {matchesSearchTerm(getCollection()) ? (
+                getCollection()
+              ) : (
+                <Skeleton width={50} />
+              )}
+            </span>
+          </div>
+          <div className="grid-col">
+            <span>
+              {matchesSearchTerm(product.price) ? (
+                product.price ? displayMoney(product.price) : '-'
+              ) : (
+                <Skeleton width={30} />
+              )}
+            </span>
+          </div>
+          <div className="grid-col">
+            <span>
+              {matchesSearchTerm(product.dateAdded) ? (
+                product.dateAdded ? displayDate(product.dateAdded) : '-'
+              ) : (
+                <Skeleton width={30} />
+              )}
+            </span>
+          </div>
+          <div className="grid-col">
+            <span>
+              {matchesSearchTerm(product.maxQuantity) ? (
+                product.maxQuantity || '-'
+              ) : (
+                <Skeleton width={20} />
+              )}
+            </span>
           </div>
         </div>
         {product.id && (
@@ -127,7 +183,8 @@ ProductItem.propTypes = {
     isRecommended: PropType.bool,
     dateAdded: PropType.number,
     availableColors: PropType.arrayOf(PropType.string)
-  }).isRequired
+  }).isRequired,
+  searchTerm: PropType.string.isRequired, // Prop for search term
 };
 
 export default withRouter(ProductItem);

@@ -1,49 +1,85 @@
-import React, { useState, useEffect } from 'react';
-import { Bar, Pie } from 'react-chartjs-2';
-import 'chart.js/auto';
-import firebaseInstance from '@/services/firebase'; // Adjust the import according to your file structure
-import { useDocumentTitle, useScrollTop } from '@/hooks';
+import React, { useState, useEffect } from "react";
+import { Bar, Pie } from "react-chartjs-2";
+import "chart.js/auto";
+import firebaseInstance from "@/services/firebase"; // Adjust the import according to your file structure
+import { useDocumentTitle, useScrollTop } from "@/hooks";
+import {
+  CalendarFilled,
+  DeliveredProcedureOutlined,
+  DollarCircleOutlined,
+  OrderedListOutlined,
+} from "@ant-design/icons";
 
 const Dashboard = () => {
-  useDocumentTitle('Welcome | Admin Dashboard');
+  useDocumentTitle("Welcome | Admin Dashboard");
   useScrollTop();
   const [totalEarnings, setTotalEarnings] = useState(0);
   const [totalDeliveredProducts, setTotalDeliveredProducts] = useState(0);
+  const [yearlyEarnings, setYearlyEarnings] = useState(0);
   const [chartData, setChartData] = useState({});
   const [pieData, setPieData] = useState({});
-  const [filter, setFilter] = useState('today');
+  const [filter, setFilter] = useState("thisMonth");
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [pendingOrders, setPendingOrders] = useState([]);
 
   useEffect(() => {
     const fetchDeliveredOrders = async () => {
       try {
         setLoading(true);
-        const deliveredOrdersSnapshot = await firebaseInstance.getDeliveredOrders();
-        const deliveredOrders = deliveredOrdersSnapshot.docs.map(doc => doc.data());
+        const deliveredOrdersSnapshot =
+          await firebaseInstance.getDeliveredOrders();
+        const deliveredOrders = deliveredOrdersSnapshot.docs.map((doc) =>
+          doc.data()
+        );
+
+        const allOrdersSnapshot = await firebaseInstance.getAllOrders();
+        const allOrders = allOrdersSnapshot.docs.map((doc) => doc.data());
 
         // Filter and process data based on the selected filter
         const filteredOrders = filterOrders(deliveredOrders, filter);
 
-        const totalEarnings = filteredOrders.reduce((sum, order) => sum + order.total, 0);
+        const totalEarnings = filteredOrders.reduce(
+          (sum, order) => sum + order.total,
+          0
+        );
         setTotalEarnings(totalEarnings);
 
-        const totalDeliveredProducts = filteredOrders.reduce((sum, order) => sum + order.products.length, 0);
+        const totalDeliveredProducts = filteredOrders.reduce(
+          (sum, order) => sum + order.products.length,
+          0
+        );
         setTotalDeliveredProducts(totalDeliveredProducts);
 
+        const monthlyEarnings = Array(12).fill(0);
+        let yearlyTotal = 0;
+        deliveredOrders.forEach((order) => {
+          const month = new Date(order.createdAt).getMonth();
+          monthlyEarnings[month] += order.total;
+          yearlyTotal += order.total;
+        });
+        setYearlyEarnings(yearlyTotal);
+
         const chartData = {
-          labels: filteredOrders.map(order => new Date(order.createdAt).toLocaleDateString()), // Adjust date handling
+          labels: [
+            "January",
+            "February",
+            "March",
+            "April",
+            "May",
+            "June",
+            "July",
+            "August",
+            "September",
+            "October",
+            "November",
+            "December",
+          ],
           datasets: [
             {
-              label: 'Earnings',
-              data: filteredOrders.map(order => order.total),
-              backgroundColor: 'rgba(83, 217, 217, 0.7)',
-              borderWidth: 1,
-            },
-            {
-              label: 'Delivered Products',
-              data: filteredOrders.map(order => order.products.length),
-              backgroundColor: 'rgba(0, 43, 73, 0.7)',
+              label: "Earnings",
+              data: monthlyEarnings,
+              backgroundColor: "rgba(83, 217, 217, 0.7)",
               borderWidth: 1,
             },
           ],
@@ -51,21 +87,31 @@ const Dashboard = () => {
         setChartData(chartData);
 
         const pieChartData = {
-          labels: ['Earnings', 'Delivered Products'],
-          datasets: [{
-            data: [totalEarnings, totalDeliveredProducts],
-            backgroundColor: ['rgba(83, 217, 217, 0.7)', 'rgba(0, 43, 73, 0.7)'],
-            borderWidth: 1,
-          }],
+          labels: ["Earnings", "Delivered Products"],
+          datasets: [
+            {
+              data: [totalEarnings, totalDeliveredProducts],
+              backgroundColor: [
+                "rgba(83, 217, 217, 0.7)",
+                "rgba(0, 43, 73, 0.7)",
+              ],
+              borderWidth: 1,
+            },
+          ],
         };
         setPieData(pieChartData);
+
+        const pendingOrders = allOrders.filter(
+          (order) => order.orderStatus === "Processing"
+        );
+        setPendingOrders(pendingOrders);
 
         setLoading(false);
         setError(null);
       } catch (error) {
-        console.error('Error fetching delivered orders:', error);
+        console.error("Error fetching orders:", error);
         setLoading(false);
-        setError('Failed to fetch earnings data.');
+        setError("Failed to fetch earnings data.");
       }
     };
 
@@ -77,21 +123,22 @@ const Dashboard = () => {
     let filteredOrders = [];
 
     switch (filter) {
-      case 'today':
-        filteredOrders = orders.filter(order => isSameDay(new Date(order.createdAt), now));
+      case "today":
+        filteredOrders = orders.filter((order) =>
+          isSameDay(new Date(order.createdAt), now)
+        );
         break;
-      case 'yesterday':
-        const yesterday = new Date(now);
-        yesterday.setDate(yesterday.getDate() - 1);
-        filteredOrders = orders.filter(order => isSameDay(new Date(order.createdAt), yesterday));
-        break;
-      case 'lastWeek':
-        const lastWeek = new Date(now);
-        lastWeek.setDate(lastWeek.getDate() - 7);
-        filteredOrders = orders.filter(order => new Date(order.createdAt) > lastWeek);
+      case "thisMonth":
+        const thisMonth = now.getMonth();
+        filteredOrders = orders.filter(
+          (order) => new Date(order.createdAt).getMonth() === thisMonth
+        );
         break;
       default:
-        filteredOrders = orders;
+        const monthIndex = parseInt(filter, 10);
+        filteredOrders = orders.filter(
+          (order) => new Date(order.createdAt).getMonth() === monthIndex
+        );
         break;
     }
 
@@ -106,93 +153,197 @@ const Dashboard = () => {
     );
   };
 
-  if (loading) {
-    return <p>Loading...</p>;
-  }
-
   if (error) {
     return <p>Error: {error}</p>;
   }
 
   return (
-    <div className="dashboard">
-      <h2>Welcome to Admin Dashboard</h2>
-
-      <div className="filter">
-        <button onClick={() => setFilter('today')}>Today</button>
-        <button onClick={() => setFilter('yesterday')}>Yesterday</button>
-        <button onClick={() => setFilter('lastWeek')}>Last Week</button>
-      </div>
-
-      <div className="row pie-chart-row">
-        <div className="col-pi-6 dashboard-section">
-          <h3>Total Earnings</h3>
-          <p>PKR: {totalEarnings}</p>
+    <>
+      {loading ? (
+        <div className="dashboard p-3 h-100 d-flex align-items-center justify-content-center">
+          <div className="container-fluid">
+            <div className="row">
+              <div className="col-md-12 text-center">
+                <div class="order_loader"></div>
+              </div>
+            </div>
+          </div>
         </div>
-        <div className="col-pi-6">
-          <Pie
-            data={pieData}
-            options={{
-              responsive: true,
-              maintainAspectRatio: false,
-              plugins: {
-                legend: {
-                  position: 'top',
-                },
-              },
-            }}
-          />
+      ) : (
+        <div className="dashboard p-3">
+          <div className="container-fluid">
+            <h2 className="dashboard_title">Welcome to Admin Dashboard</h2>
+            <div className="row pie-chart-row justify-content-between">
+              <div className="col-md-3 earning-box">
+                <div className="earning-box-content">
+                  <h3>Total Earnings (monthly)</h3>
+                  <p>PKR: {totalEarnings}</p>
+                </div>
+                <div className="icon">
+                  <CalendarFilled />
+                </div>
+              </div>
+              <div className="col-md-3 earning-box">
+                <div className="earning-box-content">
+                  <h3>Total Earnings (yearly)</h3>
+                  <p>PKR: {yearlyEarnings}</p>
+                </div>
+                <div className="icon">
+                  <DollarCircleOutlined />
+                </div>
+              </div>
+              <div className="col-md-3 earning-box">
+                <div className="earning-box-content">
+                  <h3>Delivered Orders</h3>
+                  <p>{totalDeliveredProducts}</p>
+                </div>
+                <div className="icon">
+                  <DeliveredProcedureOutlined />
+                </div>
+              </div>
+              <div className="col-md-3 earning-box">
+                <div className="earning-box-content">
+                  <h3>Pending Orders</h3>
+                  <p>{pendingOrders.length}</p>
+                </div>
+                <div className="icon">
+                  <OrderedListOutlined />
+                </div>
+              </div>
+            </div>
+            {/* filter */}
+            <div className="earning_filter d-flex align-content-center justify-content-between">
+              <h2 className="earning_filter_title">Earning Overview</h2>
+              <select
+                onChange={(e) => setFilter(e.target.value)}
+                value={filter}
+              >
+                <option value="today">Today's Earnings</option>
+                <option value="thisMonth">This Month</option>
+                {[
+                  "January",
+                  "February",
+                  "March",
+                  "April",
+                  "May",
+                  "June",
+                  "July",
+                  "August",
+                  "September",
+                  "October",
+                  "November",
+                  "December",
+                ].map((month, index) => (
+                  <option key={index} value={index}>
+                    {month}
+                  </option>
+                ))}
+              </select>
+            </div>
+            <div
+              className="dashboard-section"
+              style={{
+                minHeight: "400px",
+                height: "400px",
+                minWidth: "100%",
+                width: "100%",
+              }}
+            >
+              <Bar
+                data={chartData}
+                options={{
+                  responsive: true,
+                  maintainAspectRatio: false,
+                  scales: {
+                    x: {
+                      grid: {
+                        display: false,
+                      },
+                    },
+                    y: {
+                      beginAtZero: true,
+                      ticks: {
+                        callback: function (value) {
+                          return "₨" + value;
+                        },
+                      },
+                      title: {
+                        display: true,
+                        text: "Amount in PKR",
+                      },
+                    },
+                  },
+                  plugins: {
+                    legend: {
+                      display: true,
+                      position: "top",
+                    },
+                    tooltip: {
+                      callbacks: {
+                        label: function (tooltipItem) {
+                          return "₨" + tooltipItem.raw;
+                        },
+                      },
+                    },
+                  },
+                }}
+              />
+            </div>
+          </div>
+          {/* Pending orders  */}
+          <div className="row mt-5">
+            <div className="col-md-12">
+              <h1 className="text-center">
+                <b>Pending orders</b>
+              </h1>
+            </div>
+            <div className="col-md-12">
+              <table className="table table-striped">
+                <thead>
+                  <tr>
+                    <th>Product</th>
+                    <th>Customer Name</th>
+                    <th>Total Amount</th>
+                    <th>Order Date</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {pendingOrders.map((order) => (
+                    <tr key={order.id}>
+                      <td>
+                        {order.products.map((product, index) => (
+                          <div
+                            key={`${order.id}-${index}`}
+                            className="d-flex"
+                            style={{
+                              marginBottom: "10px",
+                              alignItems: "center",
+                              gap: "10px",
+                            }}
+                          >
+                            <img
+                              src={product.imageUrl}
+                              alt={product.name}
+                              width={30}
+                              style={{ marginRight: "10px" }}
+                            />
+                            {/* <div>{product.name}</div>
+                    <div>Qty: {product.quantity}</div> */}
+                          </div>
+                        ))}
+                      </td>
+                      <td>{order.shippingDetails.fullname}</td>
+                      <td>{order.total}</td>
+                      <td>{new Date(order.createdAt).toLocaleDateString()}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
         </div>
-      </div>
-
-      <div className="dashboard-section">
-        <h3>Total Delivered Products</h3>
-        <p>{totalDeliveredProducts}</p>
-      </div>
-
-      <div className="dashboard-section" style={{ minHeight: '400px', height: '400px',minWidth: '500px', width: '500px' }}>
-        <h3>Earnings and Delivered Products Bar Chart</h3>
-        <Bar
-          data={chartData}
-          options={{
-            responsive: true,
-            maintainAspectRatio: false,
-            scales: {
-              x: {
-                grid: {
-                  display: false,
-                },
-              },
-              y: {
-                beginAtZero: true,
-                ticks: {
-                  callback: function(value) {
-                    return '₨' + value;
-                  },
-                },
-                title: {
-                  display: true,
-                  text: 'Amount in PKR',
-                },
-              },
-            },
-            plugins: {
-              legend: {
-                display: true,
-                position: 'top',
-              },
-              tooltip: {
-                callbacks: {
-                  label: function(tooltipItem) {
-                    return '₨' + tooltipItem.raw;
-                  },
-                },
-              },
-            },
-          }}
-        />
-      </div>
-    </div>
+      )}
+    </>
   );
 };
 

@@ -46,9 +46,9 @@ const FormSchema = Yup.object().shape({
     .positive('Max quantity is invalid.')
     .integer('Max quantity should be an integer.')
     .required('Max quantity is required.'),
-  keywords: Yup.array()
+  style: Yup.array()
     .of(Yup.string())
-    .min(1, 'Please enter at least 1 keyword for this product.'),
+    .min(1, 'Please enter at least 1 style for this product.'),
     sizes: Yup.array()
     .of(
       Yup.mixed().test("is-valid", "Invalid size value", (value) => {
@@ -75,7 +75,7 @@ const ProductForm = ({ product, onSubmit, isLoading }) => {
     comparePrice: product?.comparePrice || 0,
     maxQuantity: product?.maxQuantity || 0,
     description: product?.description || '',
-    keywords: product?.keywords || [],
+    style: product?.style || [],
     sizes: product?.sizes || [],
     isFeatured: product?.isFeatured || false,
     isRecommended: product?.isRecommended || false,
@@ -180,13 +180,13 @@ const ProductForm = ({ product, onSubmit, isLoading }) => {
               <div className="d-flex">
                 <div className="product-form-field">
                   <CustomCreatableSelect
-                    defaultValue={values.keywords.map((key) => ({ value: key, label: key }))}
-                    name="keywords"
-                    iid="keywords"
+                    defaultValue={values.style.map((key) => ({ value: key, label: key }))}
+                    name="style"
+                    iid="style"
                     isMulti
                     disabled={isLoading}
-                    placeholder="Create/Select Keywords"
-                    label="* Keywords"
+                    placeholder="Enter Style e.g lawn.."
+                    label="* Style"
                   />
                 </div>
                 <div className="product-form-field">
@@ -420,7 +420,7 @@ ProductForm.propTypes = {
     comparePrice: PropType.number,
     maxQuantity: PropType.number,
     description: PropType.string,
-    keywords: PropType.arrayOf(PropType.string),
+    style: PropType.arrayOf(PropType.string),
     imageCollection: PropType.arrayOf(PropType.object),
     sizes: PropType.arrayOf(PropType.string),
     image: PropType.string,

@@ -8,13 +8,33 @@ export const selectFilter = (products, filter) => {
       ? (product.price >= filter.minPrice && product.price <= filter.maxPrice)
       : true;
     const matchKeyword = product.keywords ? product.keywords.includes(keyword) : true;
-    // const matchName = product.name ? product.name.toLowerCase().includes(keyword) : true;
     const matchDescription = product.description
       ? product.description.toLowerCase().includes(keyword)
       : true;
     const matchBrand = product.brand ? product.brand.toLowerCase().includes(filter.brand) : true;
+    const matchStyle = filter.style ? product.style === filter.style : true;
 
-    return ((matchKeyword || matchDescription) && matchBrand && isInRange);
+    let matchCollection = true;
+    if (filter.collection) {
+      switch (filter.collection) {
+        case 'Stiched':
+          matchCollection = product.isStiched;
+          break;
+        case 'Featured':
+          matchCollection = product.isFeatured;
+          break;
+        case 'Kids':
+          matchCollection = product.isKids;
+          break;
+        case 'Recommended':
+          matchCollection = product.isRecommended;
+          break;
+        default:
+          matchCollection = true;
+      }
+    }
+
+    return (matchKeyword || matchDescription) && matchBrand && matchStyle && matchCollection && isInRange;
   }).sort((a, b) => {
     if (filter.sortBy === 'name-desc') {
       return a.name < b.name ? 1 : -1;

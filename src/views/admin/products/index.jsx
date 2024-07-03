@@ -13,6 +13,10 @@ const Products = () => {
   useDocumentTitle('Product List | Alaya Arts Admin');
   useScrollTop();
 
+  const [searchTerm, setSearchTerm] = useState('');
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 10;
+
   const store = useSelector((state) => ({
     filteredProducts: selectFilter(state.products.items, state.filter),
     requestStatus: state.app.requestStatus,
@@ -20,14 +24,30 @@ const Products = () => {
     products: state.products
   }));
 
-  const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 10;
+  const handleSearchChange = (event) => {
+    setSearchTerm(event.target.value);
+    setCurrentPage(1); // Reset current page when search term changes
+  };
+
+  // Filter products based on search term
+  const filteredProducts = store.filteredProducts.filter((product) => {
+    return (
+      (product.name?.toLowerCase().includes(searchTerm.toLowerCase()) || // Check for name
+      (product.isStiched && 'Stiched'.toLowerCase().includes(searchTerm.toLowerCase())) || // Check for stitched
+      (product.isFeatured && 'Featured'.toLowerCase().includes(searchTerm.toLowerCase())) || // Check for featured
+      (product.isKids && 'Kids'.toLowerCase().includes(searchTerm.toLowerCase())) || // Check for kids
+      (product.isRecommended && 'Recommended'.toLowerCase().includes(searchTerm.toLowerCase())) || // Check for recommended
+      (product.price && product.price.toString().includes(searchTerm)) || // Check for price
+      (product.dateAdded && product.dateAdded.toString().includes(searchTerm)) || // Check for dateAdded
+      (product.maxQuantity && product.maxQuantity.toString().includes(searchTerm)) // Check for maxQuantity
+    ));
+  });
 
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentProducts = store.filteredProducts.slice(indexOfFirstItem, indexOfLastItem);
+  const currentProducts = filteredProducts.slice(indexOfFirstItem, indexOfLastItem);
 
-  const totalPages = Math.ceil(store.filteredProducts.length / itemsPerPage);
+  const totalPages = Math.ceil(filteredProducts.length / itemsPerPage);
 
   const handlePreviousPage = () => {
     if (currentPage > 1) {
@@ -48,6 +68,8 @@ const Products = () => {
       <ProductsNavbar
         productsCount={store.products.items.length}
         totalProductsCount={store.products.total}
+        searchTerm={searchTerm}
+        onSearchChange={handleSearchChange}
       />
       <div className="product-admin-items">
         <ProductList {...store}>
@@ -117,7 +139,6 @@ const Pagination = ({ totalPages, currentPage, paginate, handlePreviousPage, han
             Next
           </button>
         </li>
-       
       </ul>
     </nav>
   );

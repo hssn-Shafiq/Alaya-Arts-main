@@ -19,7 +19,9 @@ const Filters = ({ closeModal }) => {
     minPrice: filter.minPrice,
     maxPrice: filter.maxPrice,
     sortBy: filter.sortBy,
-    isStiched: filter.isStiched
+    isStiched: filter.isStiched,
+    style: filter.style, // Added for style filter
+    collection: filter.collection // Added for collection filter
   });
   const dispatch = useDispatch();
   const history = useHistory();
@@ -57,7 +59,15 @@ const Filters = ({ closeModal }) => {
   const onIsStichedFilterChange = (e) => {
     setFilter({ ...field, isStiched: e.target.value });
   };
+  const onStyleFilterChange = (e) => {
+    const val = e.target.value;
+    setFilter({ ...field, style: val });
+  };
 
+  const onCollectionFilterChange = (e) => {
+    const val = e.target.value;
+    setFilter({ ...field, collection: val });
+  };
   const onApplyFilter = () => {
     const isChanged = Object.keys(field).some((key) => field[key] !== filter[key]);
 
@@ -73,7 +83,7 @@ const Filters = ({ closeModal }) => {
   };
 
   const onResetFilter = () => {
-    const filterFields = ['brand', 'minPrice', 'maxPrice', 'sortBy', 'isStiched'];
+    const filterFields = ['style', 'minPrice', 'maxPrice', 'sortBy', 'isStiched', 'collection'];
 
     if (filterFields.some((key) => !!filter[key])) {
       dispatch(resetFilter());
@@ -97,13 +107,31 @@ const Filters = ({ closeModal }) => {
             disabled={isLoading || products.length === 0}
             onChange={onBrandFilterChange}
           >
-            <option value="">All Brands</option>
+            <option value="">All Styles</option>
             <option value="lawn">lawn</option>
-            <option value="stiched">Stiched</option>
-            <option value="unstiched">Unstiched</option>
-            <option value="accessories">Accessories</option>
+            <option value="stiched">washingweaar</option>
+            <option value="unstiched">cotton</option>
+            <option value="accessories">nashat</option>
           </select>
         )}
+      </div>
+        <div className="filters-field">
+        <span>Collection</span>
+        <br />
+        <br />
+        <select
+          className="filters-collection"
+          value={field.collection}
+          disabled={isLoading || products.length === 0}
+          onChange={onCollectionFilterChange}
+        >
+          <option value="">All Collections</option>
+          <option value="isstiched">isStiched</option>
+          <option value="summer">Summer Collection</option>
+          <option value="fall">Fall Collection</option>
+          <option value="winter">Winter Collection</option>
+          {/* Add more options as needed */}
+        </select>
       </div>
       <div className="filters-field">
         <span>Sort By</span>
