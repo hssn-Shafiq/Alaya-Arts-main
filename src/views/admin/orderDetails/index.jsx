@@ -12,6 +12,7 @@ import { displayActionMessage } from "@/helpers/utils";
 import OrderDetailsPrint from "./OrderDetailsPrint";
 import ReactToPrint from "react-to-print";
 import emailjs from '@emailjs/browser';
+import { displayDate } from "@/helpers/utils";
 
 const OrderDetails = () => {
   const { id } = useParams();
@@ -250,53 +251,123 @@ const OrderDetails = () => {
                 Order ID: <span className="cost_value">{id}</span>
               </p>
             </div>
-            <div className="col-md-4">
+            <div className="col-md-4 text-center">
               <p>
-                Payment Type:
-                <span className="cost_value">
-                  {order.paymentDetails.paymentType}
-                </span>
+                Payment Mode:{" "}
+                <span className="cost_value">{order.paymentDetails.type}</span>
               </p>
             </div>
-            <div className="col-md-4">
+            <div className="col-md-4 text-end">
               <p>
-                Payment Method:
-                <span className="cost_value">
-                  {order.paymentDetails.paymentMethod}
-                </span>
+                Order Date:{" "}
+                <span className="cost_value">{displayDate(order.createdAt)}</span>
               </p>
             </div>
-            <div className="col-md-4">
+            <div className="col-md-12 cost d-flex ">
+              <div className="col-md-4">
               <p>
-                Products Price:
-                <span className="cost_value">{order.subtotalAmount}</span>
+                Shipping Cost: <span className="cost_value">{}</span>
               </p>
-            </div>
-            <div className="col-md-4">
-              <p>
-                Shipping Cost:
-                <span className="cost_value">{order.shippingDetails.cost}</span>
+              </div>
+              <div className="col-md-8">
+              <p className="total_cost_value text-end">
+                Amount to Recieved: <span className="cost_value">{order.total}</span>
               </p>
-            </div>
-            <div className="col-md-4">
-              <p>
-                Shipping Details:
-                <span className="cost_value">
-                  {order.shippingDetails.province},{" "}
-                  {order.shippingDetails.district},{" "}
-                  {order.shippingDetails.address}
-                </span>
-              </p>
-            </div>
-            <div className="col-md-4">
-              <p>
-                Grand Total:
-                <span className="cost_value">{order.totalAmount}</span>
-              </p>
+              </div>
+              
             </div>
           </div>
-          <div className="order_placed_time">
-            <span>Order placed on: {order.dateAdded}</span>
+          {/* ===== customer details */}
+          <div className="customer_details">
+            <h3>Customer Details</h3>
+            <div className="details">
+              <table>
+                <thead>
+                  <tr className="text-center">
+                    <th>Name</th>
+                    <th>Address</th>
+                    <th>Email</th>
+                    <th>Contact</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>
+                      <p>{order?.shippingDetails?.fullname}</p>
+                    </td>
+                    <td>
+                      <p>{order?.shippingDetails?.address}</p>
+                    </td>
+                    <td>
+                      <p>{order?.shippingDetails?.email}</p>
+                    </td>
+                    <td>
+                      <p>{order?.shippingDetails?.mobile?.value}</p>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <div className="status_updated_buttons">
+            <div className="order_confirmation">
+              <button
+                className="confirm_btn"
+                onClick={() => handleUpdateStatus("confirmed")}
+                disabled={
+                  order.orderStatus === "confirmed" ||
+                  order.orderStatus === "cancelled" ||
+                  order.orderStatus === "out for delivery" ||
+                  order.orderStatus === "delivered"
+                }
+              >
+                <CheckCircleOutlined />{" "}
+                {order.orderStatus === "confirmed" ||
+                order.orderStatus === "out for delivery" ||
+                order.orderStatus === "delivered"
+                  ? "accepted"
+                  : "accept order"}
+              </button>
+              <button
+                className="reject_btn"
+                onClick={handleRejectOrder}
+                disabled={
+                  order.orderStatus === "cancelled" ||
+                  order.orderStatus === "confirmed" ||
+                  order.orderStatus === "out for delivery" ||
+                  order.orderStatus === "delivered"
+                }
+              >
+                <CloseCircleOutlined /> Reject Order
+              </button>
+            </div>
+            <div className="status">
+              <button
+                className="out_delv_btn"
+                onClick={() => handleUpdateStatus("out for delivery")}
+                disabled={
+                  order.orderStatus === "out for delivery" ||
+                  order.orderStatus === "delivered"
+                }
+              >
+                <DeliveredProcedureOutlined />{" "}
+                {order.orderStatus === "out for delivery"
+                  ? "under delivery process"
+                  : "Out for Delivery"}
+              </button>
+              <button
+                className="deliv_btn"
+                // onClick={handleMoveToDelivered}
+                onClick={() => handleUpdateStatus("delivered")}
+                disabled={order.orderStatus === "delivered"}
+              >
+                <HomeOutlined />{" "}
+                {order.orderStatus === "delivered"
+                  ? "order delivered"
+                  : "Delivered"}
+              </button>
+            </div>
           </div>
         </div>
       </div>

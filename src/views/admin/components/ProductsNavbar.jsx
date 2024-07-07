@@ -16,7 +16,7 @@ const ProductsNavbar = ({ productsCount, totalProductsCount, searchTerm, onSearc
       </h3>
       <input
         type="text"
-        className="search-input"
+        className="search-input ps-3"
         placeholder="Search by Name, Style, Collection, Price, Date Added, Quantity..."
         value={searchTerm}
         onChange={onSearchChange}

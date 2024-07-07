@@ -1,19 +1,20 @@
 /* eslint-disable react/jsx-props-no-spreading */
-import { Boundary } from '@/components/common';
-import { AppliedFilters, ProductList } from '@/components/product';
-import { useDocumentTitle, useScrollTop } from '@/hooks';
-import React, { useState } from 'react';
-import { useSelector } from 'react-redux';
-import { withRouter } from 'react-router-dom';
-import { selectFilter } from '@/selectors/selector';
-import { ProductsNavbar } from '../components';
-import ProductsTable from '../components/ProductsTable';
+import { Boundary } from "@/components/common";
+import { AppliedFilters, ProductList } from "@/components/product";
+import { useDocumentTitle, useScrollTop } from "@/hooks";
+import React, { useState } from "react";
+import { useSelector } from "react-redux";
+import { withRouter } from "react-router-dom";
+import { selectFilter } from "@/selectors/selector";
+import { ProductsNavbar } from "../components";
+import ProductsTable from "../components/ProductsTable";
+import { displayDate } from "@/helpers/utils";
 
 const Products = () => {
-  useDocumentTitle('Product List | Alaya Arts Admin');
+  useDocumentTitle("Product List | Alaya Arts Admin");
   useScrollTop();
 
-  const [searchTerm, setSearchTerm] = useState('');
+  const [searchTerm, setSearchTerm] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
 
@@ -21,7 +22,7 @@ const Products = () => {
     filteredProducts: selectFilter(state.products.items, state.filter),
     requestStatus: state.app.requestStatus,
     isLoading: state.app.loading,
-    products: state.products
+    products: state.products,
   }));
 
   const handleSearchChange = (event) => {
@@ -31,21 +32,38 @@ const Products = () => {
 
   // Filter products based on search term
   const filteredProducts = store.filteredProducts.filter((product) => {
+    const keywordsArray = Array.isArray(product.keywords)
+      ? product.keywords
+      : [];
+    const formattedDate = product.dateAdded
+      ? displayDate(product.dateAdded)
+      : "";
     return (
-      (product.name?.toLowerCase().includes(searchTerm.toLowerCase()) || // Check for name
-      (product.isStiched && 'Stiched'.toLowerCase().includes(searchTerm.toLowerCase())) || // Check for stitched
-      (product.isFeatured && 'Featured'.toLowerCase().includes(searchTerm.toLowerCase())) || // Check for featured
-      (product.isKids && 'Kids'.toLowerCase().includes(searchTerm.toLowerCase())) || // Check for kids
-      (product.isRecommended && 'Recommended'.toLowerCase().includes(searchTerm.toLowerCase())) || // Check for recommended
+      product.name?.toLowerCase().includes(searchTerm.toLowerCase()) || // Check for name
+      (product.isStiched &&
+        "Stiched".toLowerCase().includes(searchTerm.toLowerCase())) || // Check for stitched
+      (product.isFeatured &&
+        "Featured".toLowerCase().includes(searchTerm.toLowerCase())) || // Check for featured
+      (product.isKids &&
+        "Kids".toLowerCase().includes(searchTerm.toLowerCase())) || // Check for kids
+      (product.isRecommended &&
+        "Recommended".toLowerCase().includes(searchTerm.toLowerCase())) || // Check for recommended
       (product.price && product.price.toString().includes(searchTerm)) || // Check for price
-      (product.dateAdded && product.dateAdded.toString().includes(searchTerm)) || // Check for dateAdded
-      (product.maxQuantity && product.maxQuantity.toString().includes(searchTerm)) // Check for maxQuantity
-    ));
+      formattedDate.toLowerCase().includes(searchTerm.toLowerCase()) || // Check for dateAdded
+      (product.maxQuantity &&
+        product.maxQuantity.toString().includes(searchTerm)) || // Check for maxQuantity
+      keywordsArray.some((keyword) =>
+        keyword.toLowerCase().includes(searchTerm.toLowerCase())
+      ) // Check for keywords
+    );
   });
 
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentProducts = filteredProducts.slice(indexOfFirstItem, indexOfLastItem);
+  const currentProducts = filteredProducts.slice(
+    indexOfFirstItem,
+    indexOfLastItem
+  );
 
   const totalPages = Math.ceil(filteredProducts.length / itemsPerPage);
 
@@ -88,7 +106,13 @@ const Products = () => {
   );
 };
 
-const Pagination = ({ totalPages, currentPage, paginate, handlePreviousPage, handleNextPage }) => {
+const Pagination = ({
+  totalPages,
+  currentPage,
+  paginate,
+  handlePreviousPage,
+  handleNextPage,
+}) => {
   const pageNumbers = [];
 
   for (let i = 1; i <= totalPages; i++) {
@@ -110,7 +134,7 @@ const Pagination = ({ totalPages, currentPage, paginate, handlePreviousPage, han
               borderRadius: "4px",
               fontWeight: "600",
               padding: "5px 10px",
-              margin: "5px"
+              margin: "5px",
             }}
           >
             Previous
@@ -133,7 +157,7 @@ const Pagination = ({ totalPages, currentPage, paginate, handlePreviousPage, han
               borderRadius: "4px",
               fontWeight: "600",
               padding: "5px 10px",
-              margin: "5px"
+              margin: "5px",
             }}
           >
             Next
