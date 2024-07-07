@@ -38,7 +38,7 @@ const AddProduct = () => {
             comparePrice: 0,
             maxQuantity: 0,
             description: '',
-            keywords: [],
+            style: [],
             sizes: [],
             image: '',
             isFeatured: false,

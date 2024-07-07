@@ -42,7 +42,7 @@ const ProductAppliedFilters = ({ filteredProductsCount }) => {
           <div className="pill-wrapper">
             <span className="d-block">Keyword</span>
             <div className="pill padding-right-l">
-              <h5 className="pill-content margin-0">{filter.keyword}</h5>
+              <h5 className="pill-content margin-0">{filter.style}</h5>
               <div className="pill-remove" onClick={onRemoveKeywordFilter} role="presentation">
                 <h5 className="margin-0 text-subtle">
                   <CloseCircleOutlined />
@@ -53,7 +53,7 @@ const ProductAppliedFilters = ({ filteredProductsCount }) => {
         )}
         {filter.brand && (
           <div className="pill-wrapper">
-            <span className="d-block">Brand</span>
+            <span className="d-block">Style</span>
             <div className="pill padding-right-l">
               <h5 className="pill-content margin-0">{filter.brand}</h5>
               <div className="pill-remove" onClick={onRemoveBrandFilter} role="presentation">

@@ -3,7 +3,7 @@ import {
   CLEAR_RECENT_SEARCH,
   REMOVE_SELECTED_RECENT, RESET_FILTER, SET_BRAND_FILTER,
   SET_MAX_PRICE_FILTER,
-  SET_MIN_PRICE_FILTER, SET_TEXT_FILTER
+  SET_MIN_PRICE_FILTER, SET_TEXT_FILTER, SET_COLLECTION_FILTER, SET_STYLE_FILTER
 } from '@/constants/constants';
 
 const initState = {
@@ -13,7 +13,8 @@ const initState = {
   minPrice: 0,
   maxPrice: 0,
   sortBy: '',
-  isStiched:''
+  style: '',
+  collection: ''
 };
 
 export default (state = initState, action) => {
@@ -39,6 +40,17 @@ export default (state = initState, action) => {
         ...state,
         minPrice: action.payload
       };
+      case SET_STYLE_FILTER:
+      return {
+        ...state,
+        style: action.payload
+      };
+    case SET_COLLECTION_FILTER:
+      return {
+        ...state,
+        collection: action.payload
+      };
+
     case RESET_FILTER:
       return initState;
     case CLEAR_RECENT_SEARCH:

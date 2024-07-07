@@ -5,6 +5,7 @@ import firebaseInstance from '@/services/firebase';
 import * as ROUTES from '@/constants/routes';
 import { FiltersToggle, SearchBar } from '@/components/common';
 import { displayActionMessage } from '@/helpers/utils';
+import { DeleteFilled } from '@ant-design/icons';
 const DeliveredOrders = () => {
   const { deliveredOrders, isLoading, error, deletedOrders } = useAdminOrders();
   const [currentPage, setCurrentPage] = useState(1);
@@ -48,7 +49,7 @@ const DeliveredOrders = () => {
       <div className="all_orders">
         <table>
           <thead>
-            <tr>
+            <tr className='text-center'>
               <th>Date</th>
               <th>Customer</th>
               <th>Shipping Address</th>
@@ -83,32 +84,25 @@ const DeliveredOrders = () => {
           </div>
         ))}
       </td>
-      <td>
+      <td className='text-start'>
         <button
+        className='btn '
           style={{
             background: "green",
             color: "rgba(255, 255, 255, 0.47)",
             border: "none",
-            borderRadius: "4px",
-            fontWeight: "600",
-            padding: "5px"
+            fontSize:"12px",
+            fontWeight:"bold"
           }}
           disabled
         >
           {order.orderStatus}
         </button>
         <button
-          style={{
-            background: "red",
-            color: "white",
-            border: "none",
-            borderRadius: "4px",
-            fontWeight: "600",
-            padding: "5px"
-          }}
+        className='btn btn-danger ms-1'
           onClick={() => handleDeleteOrder(order.id)}
         >
-          Delete
+          <DeleteFilled />
         </button>
       </td>
     </tr>

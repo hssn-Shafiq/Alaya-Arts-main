@@ -1,16 +1,108 @@
+.dashboard .dashboard_title{
+  font-size: 25px;
+  font-weight: 800;
+  font-family: "Arial";
+  text-align: center;
+  margin-top: 1rem;
+}
+
 .dashboard .pie-chart-row{
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  padding: 2rem;
-
-  .col-pi-6{
-    width: 40%;
-    border: 2px solid rgba(0, 0, 0, 0.237);
-    height: 300px;
-    transition: all .4s ease-in-out;
+  justify-content: start;
+  padding: 2rem 0px;
+  .earning-box{
+    box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px 0px;
+    border-radius: 5px;
+    width: 24%;
+    padding: 10px;
+    border-left: 5px solid black;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    transition: all .1s ease-in-out;
+    cursor: default;
     
-  }
+    h3{
+      font-weight: 800;
+      font-family: "Helvetica",;
+      font-size: 12px;
+    }
+    p{
+      color: black;
+      font-weight: 600;
+    }
+    svg{
+      color: rgba(0, 0, 0, 0.438);
+      font-size: 18px;
+      font-weight: 800;
+    }
+    &:first-child{
+      border-color: $background-color-02;
 
-  
+      h3{
+        color: $background-color-02;
+      }
+
+      &:hover{
+        background: $background-color-02;
+        
+        h3, p, svg{
+          color: white;
+        }
+      }
+    }
+    &:nth-child(2){
+      border-color: green;
+      h3{
+        color: green;
+      }
+
+        &:hover{
+        background: green;
+        
+        h3, p, svg{
+          color: white;
+        }
+      }
+    }
+    &:nth-child(3){
+      border-color: rgb(0, 72, 255);
+      h3{
+        color: rgb(0, 72, 255);
+      }
+
+        &:hover{
+        background: rgb(0, 72, 255);
+        
+        h3, p, svg{
+          color: white;
+        }
+      }
+    }
+    &:last-child{
+      border-color: rgb(255, 123, 0);
+      h3{
+        color: rgb(255, 123, 0);
+      }
+
+        &:hover{
+        background: rgb(255, 123, 0);
+        
+        h3, p, svg{
+          color: white;
+        }
+      }
+    }
+  }
+  .earning-box-content p{
+    margin-bottom: 0px;
+  }
+}
+
+.dashboard .earning_filter .earning_filter_title{
+
+  font-weight: 700;
+  font-size: 20px;
+  font-family: "Helvetica";
 }

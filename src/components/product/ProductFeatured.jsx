@@ -3,7 +3,7 @@ import PropType from 'prop-types';
 import React from 'react';
 import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
 import { useHistory } from 'react-router-dom';
-
+import { salesOff } from '@/helpers/utils';
 const ProductFeatured = ({ product }) => {
   const history = useHistory();
   const onClickItem = () => {
@@ -15,6 +15,19 @@ const ProductFeatured = ({ product }) => {
   return (
     <SkeletonTheme color="#e1e1e1" highlightColor="#f2f2f2">
       <div className="product-display" onClick={onClickItem} role="presentation">
+        {salesOff(product.comparePrice, product.price) ? (
+            // <div className="sale_off">
+            //   <span>- {salesOff(product.comparePrice, product.price)}%</span>
+            // </div>
+        <div className='sale_off'>
+          <span style={{left:"auto", borderRadius:"0px 0px 25px 0px"}} className='p-3'>
+          - {salesOff(product.comparePrice, product.price)}%   
+          </span>
+         </div>
+
+          ) : (
+            ""
+          )}
         <div className="product-display-img">
           {product.image ? (
             <ImageLoader

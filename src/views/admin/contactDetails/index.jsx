@@ -20,9 +20,9 @@ const ContactsDetails = () => {
     }
   };
 
-  if (isLoading) {
-    return <div>Loading...</div>;
-  }
+  // if (isLoading) {
+  //   return <div>Loading...</div>;
+  // }
 
   if (error) {
     return <div>Error: {error}</div>;
@@ -58,7 +58,7 @@ const ContactsDetails = () => {
       <div className="all_orders">
         <table>
           <thead>
-            <tr>
+            <tr className='text-center'>
               <th>Name</th>
               <th>Email</th>
               <th>Message</th>
@@ -66,26 +66,32 @@ const ContactsDetails = () => {
             </tr>
           </thead>
           <tbody>
-            {currentContacts.length === 0 ? (
+            {isLoading ? (
                <tr>
                <td colSpan="6" style={{ textAlign: 'center', padding: '20px' }}>
-               {isLoading ? <div class="order_loader"></div> :  "Sorry we found nothing.!😢"}
+               {isLoading ? <div class="order_loader"></div> :  "Not found"}
                </td>
              </tr>
             ) : (
-              currentContacts.map((contact) => (
-                <tr key={contact.id}>
-                  <td>{contact.name}</td>
-                  <td>{contact.email}</td>
-                  <td>{contact.message}</td>
-                  <td>
-                    <button onClick={() => handleDelete(contact.id)}><DeleteFilled /></button>
-                  </td>
-                </tr>
-              ))
-            )
-            
-           }
+              currentContacts.length === 0 ? (
+                <tr>
+                <td colSpan="6" style={{ textAlign: 'center', padding: '20px' }}>
+                {isLoading ? <div class="order_loader"></div> :  "Sorry we found nothing.!😢"}
+                </td>
+              </tr>
+             ) : (
+               currentContacts.map((contact) => (
+                 <tr key={contact.id}>
+                   <td>{contact.name}</td>
+                   <td>{contact.email}</td>
+                   <td>{contact.message}</td>
+                   <td>
+                     <button className='btn btn-danger ' onClick={() => handleDelete(contact.id)}><DeleteFilled /></button>
+                   </td>
+                 </tr>
+               ))
+             )
+            )}
           </tbody>
         </table>
         <div className="pagination">

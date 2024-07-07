@@ -1,24 +1,27 @@
-import { FilterOutlined, PlusOutlined } from '@ant-design/icons';
-import { FiltersToggle, SearchBar } from '@/components/common';
-import { ADD_PRODUCT } from '@/constants/routes';
-import PropType from 'prop-types';
 import React from 'react';
+import { FilterOutlined, PlusOutlined } from '@ant-design/icons';
+import { FiltersToggle } from '@/components/common';
+import { ADD_PRODUCT } from '@/constants/routes';
+import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
 
-const ProductsNavbar = (props) => {
-  const { productsCount, totalProductsCount } = props;
+const ProductsNavbar = ({ productsCount, totalProductsCount, searchTerm, onSearchChange }) => {
   const history = useHistory();
 
   return (
     <div className="product-admin-header">
       <h3 className="product-admin-header-title">
         Products &nbsp;
-        (
-        {`${productsCount} / ${totalProductsCount}`}
-        )
+        ({`${productsCount} / ${totalProductsCount}`})
       </h3>
-      <SearchBar />
-            &nbsp;
+      <input
+        type="text"
+        className="search-input ps-3"
+        placeholder="Search by Name, Style, Collection, Price, Date Added, Quantity..."
+        value={searchTerm}
+        onChange={onSearchChange}
+      />
+      &nbsp;
       <FiltersToggle>
         <button className="button-muted button-small" type="button">
           <FilterOutlined />
@@ -38,8 +41,10 @@ const ProductsNavbar = (props) => {
 };
 
 ProductsNavbar.propTypes = {
-  productsCount: PropType.number.isRequired,
-  totalProductsCount: PropType.number.isRequired
+  productsCount: PropTypes.number.isRequired,
+  totalProductsCount: PropTypes.number.isRequired,
+  searchTerm: PropTypes.string.isRequired,
+  onSearchChange: PropTypes.func.isRequired,
 };
 
 export default ProductsNavbar;

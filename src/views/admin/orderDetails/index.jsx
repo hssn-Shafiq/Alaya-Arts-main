@@ -1,18 +1,18 @@
 import React, { useEffect, useState, useRef } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useHistory } from "react-router-dom";
 import firebaseInstance from "@/services/firebase";
 import {
   CheckCircleOutlined,
   CloseCircleOutlined,
   DeliveredProcedureOutlined,
   HomeOutlined,
-  FilePdfOutlined,
   PrinterFilled,
 } from "@ant-design/icons";
 import { displayActionMessage } from "@/helpers/utils";
 import OrderDetailsPrint from "./OrderDetailsPrint";
 import ReactToPrint from "react-to-print";
-import { useHistory } from "react-router-dom";
+import emailjs from '@emailjs/browser';
+import { displayDate } from "@/helpers/utils";
 
 const OrderDetails = () => {
   const { id } = useParams();
@@ -26,10 +26,7 @@ const OrderDetails = () => {
   useEffect(() => {
     const fetchOrderDetails = async () => {
       try {
-        const orderDoc = await firebaseInstance.db
-          .collection("orders")
-          .doc(id)
-          .get();
+        const orderDoc = await firebaseInstance.db.collection("orders").doc(id).get();
         if (orderDoc.exists) {
           setOrder(orderDoc.data());
         } else {
@@ -45,11 +42,29 @@ const OrderDetails = () => {
     fetchOrderDetails();
   }, [id]);
 
+  const sendEmail = (newStatus) => {
+    const templateParams = {
+      user_name: order?.shippingDetails?.fullname,
+      user_email: order?.shippingDetails?.email,
+      order_id: id,
+      order_status: newStatus,
+    };
+
+    emailjs.send('service_r2cp54l', 'template_u5icr7l', templateParams, 'C4yj4xkxzDemU9Wpt')
+      .then((response) => {
+        console.log('Email sent successfully!', response.status, response.text);
+      })
+      .catch((error) => {
+        console.error('Failed to send email:', error);
+      });
+  };
+
   const handleUpdateStatus = async (newStatus) => {
     try {
       await firebaseInstance.updateOrderStatus(id, newStatus);
       setOrder((prevOrder) => ({ ...prevOrder, orderStatus: newStatus }));
       displayActionMessage("Order updated successfully");
+      sendEmail(newStatus);
     } catch (error) {
       setError("Error updating order status");
       displayActionMessage("Error updating order status");
@@ -58,32 +73,17 @@ const OrderDetails = () => {
 
   const handleRejectOrder = async () => {
     try {
-      // Update the order status to "delivered"
       await firebaseInstance.updateOrderStatus(id, "rejected");
-
-      // Fetch the updated order details to ensure the status is "delivered"
-      const updatedOrder = await firebaseInstance.db
-        .collection("orders")
-        .doc(id)
-        .get();
-
+      const updatedOrder = await firebaseInstance.db.collection("orders").doc(id).get();
       if (updatedOrder.exists) {
         const orderData = updatedOrder.data();
-
-        // Add the updated order to the "deliveredOrders" collection
-        await firebaseInstance.addOrderToCollection("rejectedOrders", {
-          id,
-          ...orderData,
-        });
-        history.push("/admin/rejected_orders");
-        // Delete the order from the original "orders" collection
+        await firebaseInstance.addOrderToCollection("rejectedOrders", { id, ...orderData });
         await firebaseInstance.deleteOrder(id);
-
+        history.push("/admin/rejected_orders");
         setOrder(null);
         setLoading(false);
-        displayActionMessage(
-          "This order is rejected and cancelled"
-        );
+        displayActionMessage("This order is rejected and cancelled");
+        sendEmail("rejected");
       } else {
         throw new Error("Order not found after updating status");
       }
@@ -95,32 +95,17 @@ const OrderDetails = () => {
 
   const handleMoveToDelivered = async () => {
     try {
-      // Update the order status to "delivered"
       await firebaseInstance.updateOrderStatus(id, "delivered");
-
-      // Fetch the updated order details to ensure the status is "delivered"
-      const updatedOrder = await firebaseInstance.db
-        .collection("orders")
-        .doc(id)
-        .get();
-
+      const updatedOrder = await firebaseInstance.db.collection("orders").doc(id).get();
       if (updatedOrder.exists) {
         const orderData = updatedOrder.data();
-
-        // Add the updated order to the "deliveredOrders" collection
-        await firebaseInstance.addOrderToCollection("deliveredOrders", {
-          id,
-          ...orderData,
-        });
-        history.push("/admin/delivered_orders");
-        // Delete the order from the original "orders" collection
+        await firebaseInstance.addOrderToCollection("deliveredOrders", { id, ...orderData });
         await firebaseInstance.deleteOrder(id);
-
+        history.push("/admin/delivered_orders");
         setOrder(null);
         setLoading(false);
-        displayActionMessage(
-          "Order status updated to delivered and moved to delivered orders"
-        );
+        displayActionMessage("Order status updated to delivered and moved to delivered orders");
+        sendEmail("delivered");
       } else {
         throw new Error("Order not found after updating status");
       }
@@ -203,7 +188,6 @@ const OrderDetails = () => {
               <button
                 className="deliv_btn"
                 onClick={handleMoveToDelivered}
-                // onClick={() => handleUpdateStatus("delivered")}
                 disabled={order.orderStatus === "delivered"}
               >
                 <HomeOutlined />{" "}
@@ -226,39 +210,37 @@ const OrderDetails = () => {
           <div className="product_details">
             <h3>Product Details</h3>
             {order?.products?.map((product, index) => (
-              <>
-                <div key={index} className="product_details_all">
-                  <img src={product.imageUrl} alt={product.name} width={50} />
-                  <div className="detail">
-                    <p>Name</p>
-                    <span>{product.name}</span>
-                  </div>
-                  <div className="detail">
-                    <p>Quantity </p>
-                    <span>{product.quantity}/p</span>
-                  </div>
-                  <div className="detail">
-                    <p>Size </p>
-                    <span>{product.size}</span>
-                  </div>
-                  <div className="detail">
-                    <p>Price </p>
-                    <span>PKR: {product.price}</span>
-                  </div>
-                  <div className="detail">
-                    <p>color</p>
-                    <span
-                      style={{
-                        backgroundColor: product.color || "N/A",
-                        width: "15px",
-                        height: "15px",
-                        borderRadius: "50%",
-                        marginLeft: "5px",
-                      }}
-                    ></span>
-                  </div>
+              <div key={index} className="product_details_all">
+                <img src={product.imageUrl} alt={product.name} width={50} />
+                <div className="detail">
+                  <p>Name</p>
+                  <span>{product.name}</span>
                 </div>
-              </>
+                <div className="detail">
+                  <p>Quantity </p>
+                  <span>{product.quantity}/p</span>
+                </div>
+                <div className="detail">
+                  <p>Size </p>
+                  <span>{product.size}</span>
+                </div>
+                <div className="detail">
+                  <p>Price </p>
+                  <span>PKR: {product.price}</span>
+                </div>
+                <div className="detail">
+                  <p>color</p>
+                  <span
+                    style={{
+                      backgroundColor: product.color || "N/A",
+                      width: "15px",
+                      height: "15px",
+                      borderRadius: "50%",
+                      marginLeft: "5px",
+                    }}
+                  ></span>
+                </div>
+              </div>
             ))}
           </div>
           {/* ===== total cost */}
@@ -269,20 +251,30 @@ const OrderDetails = () => {
                 Order ID: <span className="cost_value">{id}</span>
               </p>
             </div>
-            <div className="col-md-4">
+            <div className="col-md-4 text-center">
               <p>
                 Payment Mode:{" "}
                 <span className="cost_value">{order.paymentDetails.type}</span>
               </p>
             </div>
-
-            <div className="col-md-6 cost">
+            <div className="col-md-4 text-end">
+              <p>
+                Order Date:{" "}
+                <span className="cost_value">{displayDate(order.createdAt)}</span>
+              </p>
+            </div>
+            <div className="col-md-12 cost d-flex ">
+              <div className="col-md-4">
               <p>
                 Shipping Cost: <span className="cost_value">{}</span>
               </p>
-              <p className="total_cost_value">
-                Total Cost: <span className="cost_value">{order.total}</span>
+              </div>
+              <div className="col-md-8">
+              <p className="total_cost_value text-end">
+                Amount to Recieved: <span className="cost_value">{order.total}</span>
               </p>
+              </div>
+              
             </div>
           </div>
           {/* ===== customer details */}
@@ -291,7 +283,7 @@ const OrderDetails = () => {
             <div className="details">
               <table>
                 <thead>
-                  <tr>
+                  <tr className="text-center">
                     <th>Name</th>
                     <th>Address</th>
                     <th>Email</th>
