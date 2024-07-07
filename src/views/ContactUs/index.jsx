@@ -105,17 +105,17 @@ const ContactUs = () => {
           <div className="col-lg-5 ml-auto contact_icons">
             <div className="quick-contact-item d-flex align-items-center mb-4">
               <i className="fa-solid fa-house flaticon-house" />
-              <address className="text mb-0">
-                155 Market St #101, Paterson, NJ 07505, United States
+              <address className="text mb-0 ms-3">
+                Riwend Road Lahore
               </address>
             </div>
             <div className="quick-contact-item d-flex align-items-center mb-4">
               <i className="fa-solid fa-phone flaticon-phone-call" />
-              <address className="text mb-0">+1 202 2020 200</address>
+              <address className="text mb-0  ms-3">+92 348 8831990</address>
             </div>
             <div className="quick-contact-item d-flex align-items-center mb-4">
               <i className="fa-solid fa-envelope flaticon-mail" />
-              <address className="text mb-0">@info@mydomain.com</address>
+              <address className="text mb-0  ms-3">alayatextile@gmail.com</address>
             </div>
           </div>
         </div>

@@ -1,5 +1,5 @@
 import React from 'react';
-import { MessageDisplay } from '@/components/common';
+import { MessageDisplay, MultiCarousel } from '@/components/common';
 import { ProductShowcaseGrid } from '@/components/product';
 import { useDocumentTitle, useRecommendedProducts, useScrollTop } from '@/hooks';
 import bannerImg from '@/images/img1.jpg';
@@ -20,6 +20,15 @@ const RecommendedProducts = () => {
   useDocumentTitle('Recommended Products');
   useScrollTop();
 
+  const images = [
+    { src: bg1, alt: 'The Best' },
+    { src: bg2, alt: 'Choose Best' },
+    { src: bg3, alt: 'According to Your taste' },
+    { src: bg4, alt: 'Discount' },
+    { src: bg5, alt: 'Demanding Sell Items' },
+    { src: bg6, alt: 'Choose Your Best Ideas' }
+  ];
+
   const {
     recommendedProducts,
     fetchRecommendedProducts,
@@ -29,7 +38,8 @@ const RecommendedProducts = () => {
 
   return (
     <>
-      <BannerImage backgroundImage={bg5} /> {/* Ensure bg1 is defined */}
+      <MultiCarousel images={images} />
+
 
       <main className="content">
         <div className="featured">
@@ -80,7 +90,7 @@ const RecommendedProducts = () => {
             </div>
           </div>
 
-          
+
 
         </div>
       </main>
