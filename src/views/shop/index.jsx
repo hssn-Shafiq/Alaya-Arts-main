@@ -22,7 +22,7 @@ const Shop = () => {
   return (
     <>
     {/* <BannerImage /> */}
-    <BannerImage backgroundImage= {bg3}  position="bottom"  />
+    <BannerImage backgroundImage= {bg3}  position="center"  />
     <main className="content mb-5">
       <section className="product-list-wrapper" style={{marginTop:"10rem"}}>
         <AppliedFilters filteredProductsCount={store.filteredProducts.length} />

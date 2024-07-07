@@ -4,6 +4,10 @@ import { useDocumentTitle, useUnstichedProducts, useScrollTop } from '@/hooks';
 import bannerImg from '@/images/bannerimg2.png';
 import { BannerImage } from '@/components/common';
 import React from 'react';
+import { MultiCarousel } from '@/components/common';
+
+
+
 
 
 const UnstichedProducts = () => {
@@ -19,29 +23,34 @@ const UnstichedProducts = () => {
 
   return (
 
-   <>
-   <BannerImage backgroundImage={bannerImg}  />
-    <main className="content">
-      <div className="featured">
-        <div className="display">
-          <div className="product-display-grid">
-            {(error && !isLoading) ? (
-              <MessageDisplay
-                message={error}
-                action={fetchUnstichedProducts}
-                buttonLabel="Try Again"
-              />
-            ) : (
-              <ProductShowcaseGrid
-                products={unstichedProducts}
-                skeletonCount={6}
-              />
-            )}
+
+    <>
+      <MultiCarousel />
+      {/* <BannerImage backgroundImage={bannerImg}  /> */}
+
+      <main className="content">
+        <div className="featured">
+          
+          <div className="display">
+            <div className="product-display-grid">
+              {(error && !isLoading) ? (
+                <MessageDisplay
+                  message={error}
+                  action={fetchUnstichedProducts}
+                  buttonLabel="Try Again"
+                />
+              ) : (
+                <ProductShowcaseGrid
+                  products={unstichedProducts}
+                  skeletonCount={6}
+                />
+              )}
+            </div>
           </div>
         </div>
-      </div>
-    </main>
-   </>
+      </main>
+      {/* <Footer /> */}
+    </>
   );
 };
 

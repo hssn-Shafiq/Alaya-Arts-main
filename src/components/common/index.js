@@ -21,6 +21,8 @@ export { default as BannerImage } from './BannerImage';
 export { default as ImageGallery } from './ImageGallery';  
 export { default as OrderDetailsModal } from './OrderDetailsModal';
 export { default as ImageWithText } from './ImageWithText';
+export { default as MultiCarousel } from './MultiCarousel';
+
 
 
 
