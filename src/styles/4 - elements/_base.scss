@@ -99,9 +99,10 @@ h6 {
 }
 
 .content-admin-wrapper {
+  margin-top: 1rem;
   overflow-y: scroll;
   flex-grow: 1;
-  padding: $m-size 0;
+  padding: $m-size 2rem;
   padding-top: 0;
   animation: fadeIn .5s ease;
   position: relative;

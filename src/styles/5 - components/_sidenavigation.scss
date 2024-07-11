@@ -54,19 +54,25 @@
   transform: translateX(-300px);
   display: none;
 }
-
+.sidenavigation-wrapper{
+  margin-top: 3rem;
+}
 .bar_side {
-  position: relative;
-  top: 20px;
-  left: 1rem;
+  position: absolute;
+  top: 5px;
+  left: 18rem;
   z-index: 1000;
-  transition: all .1s ease-in-out;
+  color: white;
 }
 
 .bar_side.closed {
   left: 1rem;
+  top: 10px;
+  color: black;
 }
-
+.bar_side.closed .product-admin-header-title{
+  margin-left: 3rem;
+}
 .menu_bar {
   font-size: 25px;
   cursor: pointer;

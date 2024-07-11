@@ -28,9 +28,9 @@ const ContactsDetails = () => {
     return <div>Error: {error}</div>;
   }
 
-  if (contacts.length === 0) {
-    return <div>No contact details available.</div>;
-  }
+  // if (contacts.length === 0) {
+  //   return <div>No contact details available.</div>;
+  // }
 
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
@@ -53,7 +53,7 @@ const ContactsDetails = () => {
   return (
     <>
       <div className="loader">
-        <h2>All Contact Details</h2>
+        <h2 className=' order_page_title'>All Contact Details</h2>
       </div>
       <div className="all_orders">
         <table>

@@ -44,7 +44,7 @@ const DeliveredOrders = () => {
   return (
     <>
       <div className="loader">
-        <h2>All Delivered Orders</h2>
+        <h1 className=' order_page_title'>All Delivered Orders</h1>
       </div>
       <div className="all_orders">
         <table>
@@ -55,7 +55,7 @@ const DeliveredOrders = () => {
               <th>Shipping Address</th>
               <th>Total Price</th>
               <th>Products</th>
-              <th>Status</th>
+              <th>Action</th>
             </tr>
           </thead>
           <tbody>
@@ -84,26 +84,38 @@ const DeliveredOrders = () => {
           </div>
         ))}
       </td>
-      <td className='text-start'>
+      <td>
         <button
-        className='btn '
-          style={{
-            background: "green",
-            color: "rgba(255, 255, 255, 0.47)",
-            border: "none",
-            fontSize:"12px",
-            fontWeight:"bold"
-          }}
-          disabled
-        >
-          {order.orderStatus}
-        </button>
-        <button
-        className='btn btn-danger ms-1'
+        className='btn btn-danger me-1'
+        style={{
+          border: "none",
+          color: "white",
+          padding: "5px",
+          width:"60px",
+          boxShadow:"inset 0px 0px 24px rgb(0 0 0 / 40%)",
+          fontWeight: "bold",
+          borderRadius: "5px",
+        }}
           onClick={() => handleDeleteOrder(order.id)}
         >
-          <DeleteFilled />
+          <DeleteFilled /> Remove
         </button>
+        {/* <button
+        className='btn bg-success'
+          style={{
+            color: "rgba(255, 255, 255, 0.47)",
+            border: "none",
+            color: "white",
+            padding: "5px",
+            width:"80px",
+            boxShadow:"inset 0px 0px 24px #000000a8",
+            fontWeight: "bold",
+            fontSize: "14px",
+            borderRadius: "5px",
+          }}
+        >
+          {order.orderStatus}
+        </button> */}
       </td>
     </tr>
   ))

@@ -35,7 +35,7 @@ const RejectedOrders = () => {
   return (
     <>
       <div className="loader">
-        <h2>All Rejected Orders</h2>
+        <h2 className=' order_page_title'>All Rejected Orders</h2>
       </div>
       <div className="all_orders">
         <table>

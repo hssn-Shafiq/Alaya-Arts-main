@@ -92,6 +92,7 @@ const SideNavigation = () => {
         </div>
       </aside>
       <div className={`bar_side ${!isSidebarOpen ? 'closed' : ''}`}>
+
         {isSidebarOpen ? (
           <MenuFoldOutlined className="menu_bar justify-content-end" style={{ fontSize: "25px", cursor: "pointer" }} onClick={toggleSidebar} />
         ) : (
