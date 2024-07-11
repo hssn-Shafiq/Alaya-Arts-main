@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useHistory } from "react-router-dom";
 import { Bar, Pie } from "react-chartjs-2";
 import "chart.js/auto";
 import firebaseInstance from "@/services/firebase"; // Adjust the import according to your file structure
@@ -8,7 +9,9 @@ import {
   DeliveredProcedureOutlined,
   DollarCircleOutlined,
   OrderedListOutlined,
+  EyeFilled,
 } from "@ant-design/icons";
+import * as ROUTES from "@/constants/routes";
 
 const Dashboard = () => {
   useDocumentTitle("Welcome | Admin Dashboard");
@@ -22,33 +25,36 @@ const Dashboard = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [pendingOrders, setPendingOrders] = useState([]);
+  const history = useHistory();
+
+  // handle orderDetails
+  const handleViewDetails = (orderId) => {
+    history.push(`${ROUTES.ORDER_DETAILS.replace(":id", orderId)}`);
+  };
 
   useEffect(() => {
     const fetchDeliveredOrders = async () => {
       try {
         setLoading(true);
-        const deliveredOrdersSnapshot =
-          await firebaseInstance.getDeliveredOrders();
-        const deliveredOrders = deliveredOrdersSnapshot.docs.map((doc) =>
-          doc.data()
-        );
+        const deliveredOrdersSnapshot = await firebaseInstance.getDeliveredOrders();
+        const deliveredOrders = deliveredOrdersSnapshot.docs.map((doc) => ({
+          id: doc.id,
+          ...doc.data()
+        }));
 
         const allOrdersSnapshot = await firebaseInstance.getAllOrders();
-        const allOrders = allOrdersSnapshot.docs.map((doc) => doc.data());
+        const allOrders = allOrdersSnapshot.docs.map((doc) => ({
+          id: doc.id,
+          ...doc.data()
+        }));
 
         // Filter and process data based on the selected filter
         const filteredOrders = filterOrders(deliveredOrders, filter);
 
-        const totalEarnings = filteredOrders.reduce(
-          (sum, order) => sum + order.total,
-          0
-        );
+        const totalEarnings = filteredOrders.reduce((sum, order) => sum + order.total, 0);
         setTotalEarnings(totalEarnings);
 
-        const totalDeliveredProducts = filteredOrders.reduce(
-          (sum, order) => sum + order.products.length,
-          0
-        );
+        const totalDeliveredProducts = filteredOrders.reduce((sum, order) => sum + order.products.length, 0);
         setTotalDeliveredProducts(totalDeliveredProducts);
 
         const monthlyEarnings = Array(12).fill(0);
@@ -101,9 +107,7 @@ const Dashboard = () => {
         };
         setPieData(pieChartData);
 
-        const pendingOrders = allOrders.filter(
-          (order) => order.orderStatus === "Processing"
-        );
+        const pendingOrders = allOrders.filter((order) => order.orderStatus === "Processing");
         setPendingOrders(pendingOrders);
 
         setLoading(false);
@@ -305,10 +309,11 @@ const Dashboard = () => {
                     <th>Customer Name</th>
                     <th>Total Amount</th>
                     <th>Order Date</th>
+                    <th>Action</th>
                   </tr>
                 </thead>
                 <tbody>
-                  {pendingOrders.map((order) => (
+                  {pendingOrders.map((order, index) => (
                     <tr key={order.id}>
                       <td>
                         {order.products.map((product, index) => (
@@ -335,6 +340,11 @@ const Dashboard = () => {
                       <td>{order.shippingDetails.fullname}</td>
                       <td>{order.total}</td>
                       <td>{new Date(order.createdAt).toLocaleDateString()}</td>
+                      <td>
+                        <button className="btn btn-outline-dark" onClick={() => handleViewDetails(order.id)}>
+                          <EyeFilled />
+                        </button>
+                      </td>
                     </tr>
                   ))}
                 </tbody>
