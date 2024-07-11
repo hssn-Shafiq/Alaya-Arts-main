@@ -74,16 +74,14 @@ const RecommendedProducts = () => {
               ) : (
                 <ProductShowcaseGrid
                   products={recommendedProducts}
-                  skeletonCount={6}
+                  skeletonCount={5}
                 />
               )}
             </div>
           </div>
-
-          
-
         </div>
       </main>
+
     </>
   );
 };

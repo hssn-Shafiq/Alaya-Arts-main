@@ -12,7 +12,12 @@ const Footer = () => {
   const visibleOnlyPath = [
     Route.HOME,
     Route.SHOP,
-    Route.PRIVACY_POLICY
+    Route.PRIVACY_POLICY,
+    Route.STICHED_PRODUCTS,
+    Route.UNSTICHED_PRODUCTS,
+    Route.KIDS_PRODUCTS,
+    Route.RECOMMENDED_PRODUCTS,
+    Route.CONTACT_US,
   ];
 
   useEffect(() => {

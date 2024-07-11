@@ -7,11 +7,13 @@ import ImageWithText from '@/components/common/ImageWithText'; // Correct import
 
 import BannerImage from '@/components/common/BannerImage'; // Correct import path for BannerImage
 import { SHOP } from '@/constants/routes'; // Ensure SHOP is defined
-import bg1 from "@/images/bannerimg1.png";
-import bg2 from "@/images/bannerimg2.png";
-import bg3 from "@/images/bannerimg3.jpg";
-import bg4 from "@/images/bannerimg4.png";
-import bg5 from "@/images/bannerimg5.png";
+import img1 from "@/images/accessories01.jpeg";
+import img2 from "@/images/accessories02.jpg";
+import img3 from "@/images/accessories03.jpg";
+import img4 from "@/images/accessories04.jpeg";
+import img5 from "@/images/accessories05.jpg";
+import img6 from "@/images/accessories06.jpeg";
+
 import bg6 from "@/images/bannerimg6.jpg";
 import bg7 from "@/images/bannerimg7.jpg";
 
@@ -21,12 +23,12 @@ const RecommendedProducts = () => {
   useScrollTop();
 
   const images = [
-    { src: bg1, alt: 'The Best' },
-    { src: bg2, alt: 'Choose Best' },
-    { src: bg3, alt: 'According to Your taste' },
-    { src: bg4, alt: 'Discount' },
-    { src: bg5, alt: 'Demanding Sell Items' },
-    { src: bg6, alt: 'Choose Your Best Ideas' }
+    { src: img1, alt: 'The Best' },
+    { src: img2, alt: 'Choose Best' },
+    { src: img3, alt: 'According to Your taste' },
+    { src: img4, alt: 'Discount' },
+    { src: img5, alt: 'Demanding Sell Items' },
+    { src: img6, alt: 'Choose Your Best Ideas' }
   ];
 
   const {
