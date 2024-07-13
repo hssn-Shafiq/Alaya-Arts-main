@@ -18,7 +18,12 @@
   font-size: 40px !important;
   font-weight: 800;
   font-family: "Rajdhani";
+
+  @include mobile{
+    font-size: 25px !important;
+  }
 }
+
 .order_page_title::after{
   content:  "";
   position: absolute;
