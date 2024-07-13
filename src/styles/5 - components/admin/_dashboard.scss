@@ -4,6 +4,10 @@
   font-family: "Arial";
   text-align: center;
   margin-top: 1rem;
+  @include mobile{
+
+    font-size: 18px;
+  }
 }
 
 .dashboard .pie-chart-row{
@@ -11,6 +15,12 @@
   align-items: center;
   justify-content: start;
   padding: 2rem 0px;
+  flex-wrap: wrap;
+
+  @include mobile{
+    gap: 1rem !important;
+  }
+
   .earning-box{
     box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px 0px;
     border-radius: 5px;
@@ -22,7 +32,10 @@
     justify-content: space-between;
     transition: all .1s ease-in-out;
     cursor: default;
-    
+
+    @include mobile{
+      width: 100%;
+    }
     h3{
       font-weight: 800;
       font-family: "Helvetica",;

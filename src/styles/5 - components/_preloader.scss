@@ -28,9 +28,6 @@
     flex-direction: column;
     animation: fadeIn .3s ease;
 
-    @include mobile {
-        min-height: 80vh;
-    }
 }
 
 .logo-symbol {

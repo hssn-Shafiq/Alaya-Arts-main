@@ -7,6 +7,10 @@
   border-right: 1px solid $border-color;
   transition: all 1s ease-in-out, display 1s ease-in-out;
   overflow-x: hidden;
+
+  @include mobile{
+    display: none;
+  }
 }
 
 // .sidenavigation-wrapper {
@@ -63,6 +67,10 @@
   left: 18rem;
   z-index: 1000;
   color: white;
+
+  @include mobile{
+    display: none;
+  }
 }
 
 .bar_side.closed {
