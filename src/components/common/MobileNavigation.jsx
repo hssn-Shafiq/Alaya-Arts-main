@@ -7,6 +7,7 @@ import UserNav from '@/views/account/components/UserAvatar';
 import Badge from './Badge';
 import FiltersToggle from './FiltersToggle';
 import SearchBar from './SearchBar';
+import logo from '@/images/Mobile-logo.png';
 
 const Navigation = (props) => {
   const {
@@ -22,9 +23,9 @@ const Navigation = (props) => {
     <nav className="mobile-navigation">
       <div className="mobile-navigation-main">
         <div className="mobile-navigation-logo">
-          <Link onClick={onClickLink} to={HOME}>
-            <h2>SALINAKA</h2>
-          </Link>
+          <div className="logo">
+            <Link onClick={onClickLink} to="/"><img alt="Logo" src={logo} style={{height:'35px'}} /></Link>
+          </div>
         </div>
 
         <BasketToggle>
