@@ -115,7 +115,7 @@ const ContactUs = () => {
             </div>
             <div className="quick-contact-item d-flex align-items-center mb-4">
               <i className="fa-solid fa-envelope flaticon-mail" />
-              <address className="text mb-0  ms-3">alayatextile@gmail.com</address>
+              <address className="text mb-0  ms-3">alayaarts2021@gmail.com</address>
             </div>
           </div>
         </div>

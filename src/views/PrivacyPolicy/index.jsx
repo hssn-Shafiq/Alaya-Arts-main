@@ -5,7 +5,7 @@ const PrivacyPolicy = () => {
       <>
       <main>
         <div className="privacy_policy" style={{margin:"10px auto", padding:"4rem",width:"70%"}}>
-        <h1 className="text-center">Privacy Policy</h1>
+        <h1 className="text-center fw-bold">Privacy Policy</h1>
         <p>Last updated: June 20, 2024</p>
         <p>
           This Privacy Policy describes Our policies and procedures on the

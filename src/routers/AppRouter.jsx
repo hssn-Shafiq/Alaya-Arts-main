@@ -50,13 +50,19 @@ const AppRouter = () => (
         />
         <PublicRoute component={view.SignUp} path={ROUTES.SIGNUP} />
         <PublicRoute component={view.SignIn} exact path={ROUTES.SIGNIN} />
+
         <PublicRoute
           component={view.ForgotPassword}
           path={ROUTES.FORGOT_PASSWORD}
         />
+
         <Route component={view.ViewProduct} path={ROUTES.VIEW_PRODUCT} />
         <Route component={view.ContactUs} path={ROUTES.CONTACT_US} />
+        <Route component={view.AboutUs} path={ROUTES.ABOUT_US} />
         <Route component={view.PrivacyPolicy} path={ROUTES.PRIVACY_POLICY} />
+        <Route component={view.FAQ} path={ROUTES.FAQ} />
+        <Route component={view.TermCondition} path={ROUTES.TERM_CONDITION} />
+        <Route component={view.ReturnExchange} path={ROUTES.RETURN_EXCHANGE} />
         <ClientRoute component={view.UserAccount} exact path={ROUTES.ACCOUNT} />
         <ClientRoute
           component={view.EditAccount}

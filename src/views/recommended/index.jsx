@@ -13,7 +13,6 @@ import img3 from "@/images/accessories03.jpg";
 import img4 from "@/images/accessories04.jpeg";
 import img5 from "@/images/accessories05.jpg";
 import img6 from "@/images/accessories06.jpeg";
-
 import bg6 from "@/images/bannerimg6.jpg";
 import bg7 from "@/images/bannerimg7.jpg";
 
