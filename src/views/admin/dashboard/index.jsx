@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
-import { Bar, Pie } from "react-chartjs-2";
+import { Bar, Pie, Line } from "react-chartjs-2";
 import "chart.js/auto";
 import firebaseInstance from "@/services/firebase"; // Adjust the import according to your file structure
 import { useDocumentTitle, useScrollTop } from "@/hooks";
@@ -20,6 +20,7 @@ const Dashboard = () => {
   const [totalDeliveredProducts, setTotalDeliveredProducts] = useState(0);
   const [yearlyEarnings, setYearlyEarnings] = useState(0);
   const [chartData, setChartData] = useState({});
+  const [lineChartData, setLineChartData] = useState({});
   const [pieData, setPieData] = useState({});
   const [filter, setFilter] = useState("thisMonth");
   const [loading, setLoading] = useState(true);
@@ -36,32 +37,42 @@ const Dashboard = () => {
     const fetchDeliveredOrders = async () => {
       try {
         setLoading(true);
-        const deliveredOrdersSnapshot = await firebaseInstance.getDeliveredOrders();
+        const deliveredOrdersSnapshot =
+          await firebaseInstance.getDeliveredOrders();
         const deliveredOrders = deliveredOrdersSnapshot.docs.map((doc) => ({
           id: doc.id,
-          ...doc.data()
+          ...doc.data(),
         }));
 
         const allOrdersSnapshot = await firebaseInstance.getAllOrders();
         const allOrders = allOrdersSnapshot.docs.map((doc) => ({
           id: doc.id,
-          ...doc.data()
+          ...doc.data(),
         }));
 
         // Filter and process data based on the selected filter
         const filteredOrders = filterOrders(deliveredOrders, filter);
 
-        const totalEarnings = filteredOrders.reduce((sum, order) => sum + order.total, 0);
+        const totalEarnings = filteredOrders.reduce(
+          (sum, order) => sum + order.total,
+          0
+        );
         setTotalEarnings(totalEarnings);
 
-        const totalDeliveredProducts = filteredOrders.reduce((sum, order) => sum + order.products.length, 0);
+        const totalDeliveredProducts = filteredOrders.reduce(
+          (sum, order) => sum + order.products.length,
+          0
+        );
         setTotalDeliveredProducts(totalDeliveredProducts);
 
         const monthlyEarnings = Array(12).fill(0);
+        const dailyEarnings = Array(31).fill(0);
         let yearlyTotal = 0;
         deliveredOrders.forEach((order) => {
           const month = new Date(order.createdAt).getMonth();
+          const day = new Date(order.createdAt).getDate();
           monthlyEarnings[month] += order.total;
+          dailyEarnings[day - 1] += order.total;
           yearlyTotal += order.total;
         });
         setYearlyEarnings(yearlyTotal);
@@ -85,12 +96,27 @@ const Dashboard = () => {
             {
               label: "Earnings",
               data: monthlyEarnings,
-              backgroundColor: "rgba(83, 217, 217, 0.7)",
+              backgroundColor: "#003a63", // Update bar color here
+         // Update bar border color here
               borderWidth: 1,
             },
           ],
         };
         setChartData(chartData);
+
+        const lineChartData = {
+          labels: Array.from({ length: 31 }, (_, i) => i + 1),
+          datasets: [
+            {
+              label: "Daily Earnings",
+              data: dailyEarnings,
+              fill: false,
+              borderColor: "#fe8c05",
+              tension: 0.1,
+            },
+          ],
+        };
+        setLineChartData(lineChartData);
 
         const pieChartData = {
           labels: ["Earnings", "Delivered Products"],
@@ -107,7 +133,9 @@ const Dashboard = () => {
         };
         setPieData(pieChartData);
 
-        const pendingOrders = allOrders.filter((order) => order.orderStatus === "Processing");
+        const pendingOrders = allOrders.filter(
+          (order) => order.orderStatus === "Processing"
+        );
         setPendingOrders(pendingOrders);
 
         setLoading(false);
@@ -168,7 +196,7 @@ const Dashboard = () => {
           <div className="container-fluid">
             <div className="row">
               <div className="col-md-12 text-center">
-                <div class="order_loader"></div>
+                <div className="order_loader"></div>
               </div>
             </div>
           </div>
@@ -244,54 +272,110 @@ const Dashboard = () => {
                 ))}
               </select>
             </div>
-            <div
-              className="dashboard-section"
-              style={{
-                minHeight: "400px",
-                height: "400px",
-                minWidth: "100%",
-                width: "100%",
-              }}
-            >
-              <Bar
-                data={chartData}
-                options={{
-                  responsive: true,
-                  maintainAspectRatio: false,
-                  scales: {
-                    x: {
-                      grid: {
-                        display: false,
-                      },
-                    },
-                    y: {
-                      beginAtZero: true,
-                      ticks: {
-                        callback: function (value) {
-                          return "₨" + value;
+            <div className="row mt-3">
+              <div className="col-md-7">
+                <div
+                  className="dashboard-section"
+                  style={{
+                    minHeight: "400px",
+                    height: "400px",
+                    minWidth: "100%",
+                    width: "100%",
+                  }}
+                >
+                  <Bar
+                    data={chartData}
+                    options={{
+                      responsive: true,
+                      maintainAspectRatio: false,
+                      scales: {
+                        x: {
+                          grid: {
+                            display: false,
+                          },
+                        },
+                        y: {
+                          beginAtZero: true,
+                          ticks: {
+                            callback: function (value) {
+                              return "₨" + value;
+                            },
+                          },
+                          title: {
+                            display: true,
+                            text: "Amount in PKR",
+                          },
                         },
                       },
-                      title: {
-                        display: true,
-                        text: "Amount in PKR",
-                      },
-                    },
-                  },
-                  plugins: {
-                    legend: {
-                      display: true,
-                      position: "top",
-                    },
-                    tooltip: {
-                      callbacks: {
-                        label: function (tooltipItem) {
-                          return "₨" + tooltipItem.raw;
+                      plugins: {
+                        legend: {
+                          display: true,
+                          position: "top",
+                        },
+                        tooltip: {
+                          callbacks: {
+                            label: function (tooltipItem) {
+                              return "₨" + tooltipItem.raw;
+                            },
+                          },
                         },
                       },
-                    },
-                  },
-                }}
-              />
+                    }}
+                  />
+                </div>
+              </div>
+              <div className="col-md-5">
+                <div
+                  className="dashboard-section"
+                  style={{
+                    minHeight: "300px",
+                    height: "300px",
+                    minWidth: "100%",
+                    width: "100%",
+                    boxShadow: "0px 0px 8px #00000038"
+                  }}
+                >
+                  <Line
+                    data={lineChartData}
+                    options={{
+                      responsive: true,
+                      maintainAspectRatio: false,
+                      scales: {
+                        x: {
+                          grid: {
+                            display: false,
+                          },
+                        },
+                        y: {
+                          beginAtZero: true,
+                          ticks: {
+                            callback: function (value) {
+                              return "₨" + value;
+                            },
+                          },
+                          title: {
+                            display: true,
+                            text: "Amount in PKR",
+                          },
+                        },
+                      },
+                      plugins: {
+                        legend: {
+                          display: true,
+                          position: "top",
+                        },
+                        tooltip: {
+                          callbacks: {
+                            label: function (tooltipItem) {
+                              return "₨" + tooltipItem.raw;
+                            },
+                          },
+                        },
+                      },
+                    }}
+                  />
+                </div>
+              </div>
             </div>
           </div>
           {/* Pending orders  */}
@@ -341,7 +425,10 @@ const Dashboard = () => {
                       <td>{order.total}</td>
                       <td>{new Date(order.createdAt).toLocaleDateString()}</td>
                       <td>
-                        <button className="btn btn-outline-dark" onClick={() => handleViewDetails(order.id)}>
+                        <button
+                          className="btn btn-outline-dark"
+                          onClick={() => handleViewDetails(order.id)}
+                        >
                           <EyeFilled />
                         </button>
                       </td>

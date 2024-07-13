@@ -63,7 +63,7 @@ const Users = () => {
   return (
     <>
       <div className="loader">
-        <h2>Users</h2>
+        <h2 className=' order_page_title'>Users</h2>
       </div>
       <div className="all_orders">
         <table width={"100%"}>

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import useAdminOrders from "@/hooks/useAdminOrders";
 import firebaseInstance from "@/services/firebase";
@@ -8,6 +8,9 @@ import { EyeFilled } from "@ant-design/icons";
 const Orders = () => {
   const { orders, isLoading, error } = useAdminOrders();
   const history = useHistory();
+
+  const [selectedDate, setSelectedDate] = useState("");
+  const [selectedStatus, setSelectedStatus] = useState("");
 
   const handleViewDetails = (orderId) => {
     history.push(`${ROUTES.ORDER_DETAILS.replace(":id", orderId)}`);
@@ -24,6 +27,56 @@ const Orders = () => {
     }
   };
 
+  const getStatusButtonColor = (status) => {
+    switch (status) {
+      case "confirmed":
+        return "green";
+      case "out for delivery":
+        return "blue";
+      case "Processing":
+        return "orangered";
+      default:
+        return "grey";
+    }
+  };
+
+  const handleDateChange = (event) => {
+    setSelectedDate(event.target.value);
+  };
+
+  const handleStatusChange = (event) => {
+    setSelectedStatus(event.target.value);
+  };
+
+  const filteredOrders = orders.filter((order) => {
+    const orderDate = new Date(order.createdAt).toISOString().split("T")[0];
+    return (
+      (selectedDate === "" || orderDate === selectedDate) &&
+      (selectedStatus === "" || order.orderStatus === selectedStatus)
+    );
+  });
+
+  const sortOrders = (orders) => {
+    return orders.sort((a, b) => {
+      const statusPriority = {
+        "Processing": 1,
+        "confirmed": 2,
+        "out for delivery": 3,
+      };
+
+      const dateA = new Date(a.createdAt);
+      const dateB = new Date(b.createdAt);
+
+      if (statusPriority[a.orderStatus] !== statusPriority[b.orderStatus]) {
+        return statusPriority[a.orderStatus] - statusPriority[b.orderStatus];
+      } else {
+        return dateB - dateA;
+      }
+    });
+  };
+
+  const sortedOrders = sortOrders(filteredOrders);
+
   if (error) {
     return <div>{error}</div>;
   }
@@ -31,12 +84,37 @@ const Orders = () => {
   return (
     <>
       <div className="loader">
-        <h2>My Orders</h2>
+        <h1 className=' order_page_title'>My Orders</h1>
+      </div>
+      <div className="filters row align-items-center my-4">
+        <div className="col-md-6">
+          <h2 className="mb-0">Filter By</h2>
+        </div>
+        <div className="col-md-6 d-flex flex-wrap justify-content-between">
+          <div className="by_date">
+            <label htmlFor="Date" className="bg-transparent border-0">By Date</label>
+            <input
+              type="date"
+              value={selectedDate}
+              onChange={handleDateChange}
+              placeholder="Filter by date"
+            />
+          </div>
+          <div className="by_status">
+            <label htmlFor="" className="bg-transparent border-0">By Status</label>
+            <select value={selectedStatus} onChange={handleStatusChange}>
+              <option value="">All Statuses</option>
+              <option value="confirmed">confirmed</option>
+              <option value="out for delivery">out for delivery</option>
+              <option value="Processing">Pending</option>
+            </select>
+          </div>
+        </div>
       </div>
       <div className="all_orders">
         <table>
           <thead>
-            <tr>
+            <tr className="text-center">
               <th>Date</th>
               <th>Customer</th>
               <th>Shipping Address</th>
@@ -47,21 +125,21 @@ const Orders = () => {
             </tr>
           </thead>
           <tbody>
-            {orders.length === 0 ? (
+            {sortedOrders.length === 0 ? (
               <tr>
                 <td
                   colSpan="7"
                   style={{ textAlign: "center", padding: "20px" }}
                 >
                   {isLoading ? (
-                    <div class="order_loader"></div>
+                    <div className="order_loader"></div>
                   ) : (
                     "Sorry no new order found keep patience.!😢"
                   )}
                 </td>
               </tr>
             ) : (
-              orders.map((order) => (
+              sortedOrders.map((order) => (
                 <tr key={order.id}>
                   <td>{new Date(order.createdAt).toLocaleDateString()}</td>
                   <td>{order.shippingDetails?.fullname}</td>
@@ -87,18 +165,19 @@ const Orders = () => {
                           width={30}
                           style={{ marginRight: "10px" }}
                         />
-                        {/* <div>{product.name}</div>
-                      <div>Qty: {product.quantity}</div> */}
                       </div>
                     ))}
                   </td>
                   <td>
                     <button
                       style={{
-                        background: "orangered",
+                        background: getStatusButtonColor(order.orderStatus || "Processing"),
                         border: "none",
                         color: "white",
-                        padding: "5px 10px",
+                        padding: "5px",
+                        width:"100px",
+                        boxShadow:"inset 0px 0px 24px #000000a8",
+                        fontWeight: "bold",
                         borderRadius: "5px",
                       }}
                     >
@@ -106,7 +185,7 @@ const Orders = () => {
                     </button>
                   </td>
                   <td>
-                    <button onClick={() => handleViewDetails(order.id)}>
+                    <button className="btn btn-outline-dark" onClick={() => handleViewDetails(order.id)}>
                       <EyeFilled />
                     </button>
                   </td>
