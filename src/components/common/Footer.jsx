@@ -23,6 +23,10 @@ const Footer = () => {
   ];
 
   useEffect(() => {
+    window.scrollTo(0, 0); // Scroll to the top whenever pathname changes
+  }, [pathname]);
+
+  useEffect(() => {
     var tooltipTriggerList = [].slice.call(
       document.querySelectorAll('[data-bs-toggle="tooltip"]')
     );
