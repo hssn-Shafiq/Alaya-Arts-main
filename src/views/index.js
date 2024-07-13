@@ -28,6 +28,11 @@ export { default as Shop } from './shop';
 export { default as ViewProduct } from './view_product';
 export { default as AllOrders } from './AllOrders';
 export { default as ContactUs} from './ContactUs';
+export {default as AboutUs} from './AboutUs';
+export {default as FAQ} from './FAQ';
+export {default as TermCondition} from './TermCondition';
+export {default as ReturnExchange} from './ReturnExchange';
+
 export { default as PrivacyPolicy} from './PrivacyPolicy';
 
 
