@@ -106,7 +106,7 @@ const Total = ({ isInternational, subtotal }) => {
       displayActionMessage('Order placed successfully!', 'success');
   
       // Redirect to account page
-      history.push('/account');
+      history.push('/all_orders');
     } catch (error) {
       console.log('Error placing order:', error);
       displayActionMessage(`Failed to place order: ${error.message}`, 'error');

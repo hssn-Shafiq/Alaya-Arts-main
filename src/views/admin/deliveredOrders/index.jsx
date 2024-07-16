@@ -90,11 +90,12 @@ const DeliveredOrders = () => {
         style={{
           border: "none",
           color: "white",
-          padding: "5px",
+          padding: "3px",
           width:"60px",
           boxShadow:"inset 0px 0px 24px rgb(0 0 0 / 40%)",
           fontWeight: "bold",
           borderRadius: "5px",
+          fontSize:"12px"
         }}
           onClick={() => handleDeleteOrder(order.id)}
         >
