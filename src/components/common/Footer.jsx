@@ -36,7 +36,7 @@ const Footer = () => {
   }, []);
 
   return !visibleOnlyPath.includes(pathname) ? null : (
-    <footer className="footer">
+    <footer className="footer pb-0">
       <div className="container">
         <div className="row">
           <div className="footer-col col-md-3">
@@ -74,22 +74,22 @@ const Footer = () => {
             <h4>online shop</h4>
             <ul>
               <li>
-                <Link to="/stiched">Pret Collection</Link>
+                <Link to="/collection/stiched">Pret Collection</Link>
               </li>
               <li>
-                <Link to="/unstiched">Unstiched Collection</Link>
+                <Link to="/collection/unstiched">Unstiched Collection</Link>
               </li>
               <li>
-                <Link to="/kids">Kids Collection</Link>
+                <Link to="/collection/kids">Kids Collection</Link>
               </li>
               <li>
-                <Link to="/recommended">Accessories</Link>
+                <Link to="/collection/recommended">Accessories</Link>
               </li>
             </ul>
           </div>
           <div className="footer-col col-md-3">
             <h4>follow us</h4>
-            <div className="social-links" style={{ marginLeft: "2em" }}>
+            <div className="social-links">
               <a href="https://www.facebook.com/profile.php?id=61562088893728&mibextid=JRoKGi" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Follow Alaya Arts on Facebook" target="_blank" rel="noopener noreferrer">
                 <i className="fab fa-facebook-f" />
               </a>
@@ -106,6 +106,11 @@ const Footer = () => {
           </div>
         </div>
       </div>
+        <div className="row mt-3 py-5 border-top">
+          <div className="col-md-12 text-center copyrights_text ">
+            <p className='mb-0 fs-2 text-light'>copyright @ 2024 All Rights Reserved | <a href="/" className='text-light  text-decoration-underline'>Alaya Arts</a></p>
+          </div>
+        </div>
     </footer>
   );
 };

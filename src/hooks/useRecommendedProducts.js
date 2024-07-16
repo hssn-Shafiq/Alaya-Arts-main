@@ -1,8 +1,9 @@
+// src/hooks/useRecommendedProducts.js
 import { useDidMount } from '@/hooks';
 import { useEffect, useState } from 'react';
 import firebase from '@/services/firebase';
 
-const useRecommendedProducts = (itemsCount) => {
+const useRecommendedProducts = () => {
   const [recommendedProducts, setRecommendedProducts] = useState([]);
   const [isLoading, setLoading] = useState(false);
   const [error, setError] = useState('');
@@ -13,7 +14,7 @@ const useRecommendedProducts = (itemsCount) => {
       setLoading(true);
       setError('');
 
-      const docs = await firebase.getRecommendedProducts(itemsCount);
+      const docs = await firebase.getRecommendedProducts();
 
       if (docs.empty) {
         if (didMount) {
@@ -42,11 +43,10 @@ const useRecommendedProducts = (itemsCount) => {
   };
 
   useEffect(() => {
-    if (recommendedProducts.length === 0 && didMount) {
+    if (didMount) {
       fetchRecommendedProducts();
     }
-  }, []);
-
+  }, [didMount]);
 
   return {
     recommendedProducts, fetchRecommendedProducts, isLoading, error

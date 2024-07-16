@@ -42,7 +42,7 @@ const ProductFeatured = ({ product }) => {
             {product.brand || <Skeleton width={40} />}
           </p>
           <p className="text-subtle text-italic">
-           price:{product.price || <Skeleton width={40} />}
+          {product.price || <Skeleton width={40} />}
           </p>
           <p className="text-subtle text-italic">
            <strike>{product.comparePrice ? product.comparePrice : "  " || <Skeleton width={40} />}</strike> 
