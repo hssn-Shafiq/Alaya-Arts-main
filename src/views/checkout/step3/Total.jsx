@@ -1,5 +1,3 @@
-// Total.jsx
-
 import { ArrowLeftOutlined, CheckOutlined } from '@ant-design/icons';
 import { displayActionMessage } from '@/helpers/utils';
 import { CHECKOUT_STEP_2 } from '@/constants/routes';
@@ -8,7 +6,7 @@ import PropTypes from 'prop-types';
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import { setPaymentDetails } from '@/redux/actions/checkoutActions'; // Make sure clearBasket is imported correctly
+import { setPaymentDetails } from '@/redux/actions/checkoutActions';
 import { clearBasket } from '@/redux/actions/basketActions';
 import { placeOrder } from '@/redux/actions/orderActions';
 import firebase from '@/services/firebase';
@@ -17,24 +15,24 @@ const Total = ({ isInternational, subtotal }) => {
   const { values, setFieldValue } = useFormikContext();
   const history = useHistory();
   const dispatch = useDispatch();
-  const basket = useSelector((state) => state.basket); // Assuming your basket is stored in Redux
-  const shippingDetails = useSelector((state) => state.checkout.shipping); // Adjust this based on your Redux structure
+  const basket = useSelector((state) => state.basket);
+  const shippingDetails = useSelector((state) => state.checkout.shipping);
   const [uploading, setUploading] = useState(false);
 
   const onClickBack = () => {
-    const { cardnumber, ccv, ...rest } = values;
-    dispatch(setPaymentDetails({ ...rest })); // Save payment details
+    const { bank, senderBankAccountName, senderBankAccountNumber, trxOrTid, ...rest } = values;
+    dispatch(setPaymentDetails({ ...rest }));
     history.push(CHECKOUT_STEP_2);
   };
 
   const handlePlaceOrder = async () => {
     const user = firebase.auth.currentUser;
-  
+
     if (!user) {
       displayActionMessage('You need to be logged in to place an order.', 'error');
       return;
     }
-  
+
     const orderDetails = {
       userId: user.uid,
       orderStatus: 'Processing',
@@ -56,10 +54,10 @@ const Total = ({ isInternational, subtotal }) => {
         isDone: true,
       },
       paymentDetails: {
-        name: values.name,
-        cardnumber: values.cardnumber,
-        expiry: values.expiry,
-        ccv: values.ccv,
+        bank: values.bank,
+        senderBankAccountName: values.senderBankAccountName,
+        senderBankAccountNumber: values.senderBankAccountNumber,
+        trxOrTid: values.trxOrTid,
         type: values.paymentMethod,
       },
       subtotal,
@@ -67,16 +65,16 @@ const Total = ({ isInternational, subtotal }) => {
       paymentStatus: 'Pending',
       createdAt: new Date().toISOString(),
     };
-  
+
     try {
       setUploading(true);
-  
+
       // Upload product images to Firestore storage
       for (const product of basket) {
         const imageUrl = await firebase.storeImage(product.id, 'orderProducts', product.imageFile);
         product.imageUrl = imageUrl; // Add imageUrl to the product
       }
-  
+
       // Update order details with image URLs
       orderDetails.products = basket.map((product) => ({
         id: product.id,
@@ -87,24 +85,24 @@ const Total = ({ isInternational, subtotal }) => {
         color: product.selectedColor || 'N/A',
         size: product.selectedSize || 'N/A'
       }));
-  
+
       // Place order in Firestore
       await dispatch(placeOrder(orderDetails));
-  
+
       // Clear the basket
       dispatch(clearBasket());
-  
-      // Clear payment card details
-      setFieldValue('cardnumber', '');
-      setFieldValue('ccv', '');
-      setFieldValue('expiry', '');
-      setFieldValue('name', '');
+
+      // Clear payment details
+      setFieldValue('bank', '');
+      setFieldValue('senderBankAccountName', '');
+      setFieldValue('senderBankAccountNumber', '');
+      setFieldValue('trxOrTid', '');
       setFieldValue('paymentMethod', '');
-  
+
       // Display success message
       console.log('Order placed successfully!', orderDetails);
       displayActionMessage('Order placed successfully!', 'success');
-  
+
       // Redirect to account page
       history.push('/all_orders');
     } catch (error) {

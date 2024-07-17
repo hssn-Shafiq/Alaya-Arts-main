@@ -1,5 +1,3 @@
-// Payment.jsx
-
 import { CHECKOUT_STEP_1 } from '@/constants/routes';
 import { Form, Formik } from 'formik';
 import { displayActionMessage } from '@/helpers/utils';
@@ -10,7 +8,7 @@ import { Redirect, useHistory } from 'react-router-dom';
 import * as Yup from 'yup';
 import { StepTracker } from '../components';
 import withCheckout from '../hoc/withCheckout';
-import CreditPayment from './CreditPayment';
+import BankTransferPayment from './BankTransferPayment';
 import PayPalPayment from './PayPalPayment';
 import { useDispatch, useSelector } from 'react-redux';
 import { setPaymentDetails } from '@/redux/actions/checkoutActions';
@@ -19,19 +17,10 @@ import firebaseInstance from '@/services/firebase';
 import Total from './Total';
 
 const FormSchema = Yup.object().shape({
-  name: Yup.string()
-    .min(4, 'Name should be at least 4 characters.')
-    .required('Name is required'),
-  cardnumber: Yup.string()
-    .min(13, 'Card number should be 13-19 digits long')
-    .max(19, 'Card number should only be 13-19 digits long')
-    .required('Card number is required.'),
-  expiry: Yup.date()
-    .required('Credit card expiry is required.'),
-  ccv: Yup.string()
-    .min(3, 'CCV length should be 3-4 digit')
-    .max(4, 'CCV length should only be 3-4 digit')
-    .required('CCV is required.'),
+  bank: Yup.string().required('Please select a bank'),
+  senderBankAccountName: Yup.string().required('Sender bank account name is required'),
+  senderBankAccountNumber: Yup.string().required('Sender bank account number is required'),
+  trxOrTid: Yup.string().required('TRX/TID number is required'),
   paymentMethod: Yup.string().required('Please select payment method'),
 });
 
@@ -41,27 +30,25 @@ const Payment = ({ shipping, payment, subtotal }) => {
   const dispatch = useDispatch();
   const history = useHistory();
   const userId = useSelector((state) => state.auth.id);
-  const basket = useSelector((state) => state.basket); // Assuming your basket is stored in Redux
+  const basket = useSelector((state) => state.basket);
 
   const initFormikValues = {
-    name: payment.name || '',
-    cardnumber: payment.cardnumber || '',
-    expiry: payment.expiry || '',
-    ccv: payment.ccv || '',
-    paymentMethod: payment.paymentMethod || 'paypal',
+    bank: payment.bank || 'meezan',
+    senderBankAccountName: payment.senderBankAccountName || '',
+    senderBankAccountNumber: payment.senderBankAccountNumber || '',
+    trxOrTid: payment.trxOrTid || '',
+    paymentMethod: payment.paymentMethod || 'bank',
   };
 
   const onConfirm = async (formValues) => {
     try {
       const paymentDetails = {
         ...formValues,
-        timestamp: firebaseInstance.firestore.FieldValue.serverTimestamp(), // Add a timestamp
+        timestamp: firebaseInstance.firestore.FieldValue.serverTimestamp(),
       };
 
-      // Save payment details to Redux
       dispatch(setPaymentDetails(paymentDetails));
 
-      // Save order details to Firestore
       if (userId) {
         const orderDetails = {
           userId,
@@ -81,20 +68,12 @@ const Payment = ({ shipping, payment, subtotal }) => {
 
         await firebaseInstance.firestore().collection('orders').add(orderDetails);
 
-        // Clear the basket or perform other necessary cleanup
-        // dispatch(clearBasket()); // Uncomment if you have a clear basket action
-
-        // Display success message
-        console.log('Order placed successfully!');
         displayActionMessage('Order placed successfully!', 'success');
-
-        // You can handle navigation within this component or show a message without navigating
-        // history.push('/confirmation'); // Example redirection to a confirmation page
       } else {
         displayActionMessage('User not authenticated.', 'error');
       }
     } catch (error) {
-      console.error('Error placing order:', error); // Log error
+      console.error('Error placing order:', error);
       displayActionMessage(`Failed to place order: ${error.message}`, 'error');
     }
   };
@@ -102,6 +81,7 @@ const Payment = ({ shipping, payment, subtotal }) => {
   if (!shipping || !shipping.isDone) {
     return <Redirect to={CHECKOUT_STEP_1} />;
   }
+
   return (
     <div className="checkout">
       <StepTracker current={3} />
@@ -113,7 +93,7 @@ const Payment = ({ shipping, payment, subtotal }) => {
       >
         {() => (
           <Form className="checkout-step-3">
-            <CreditPayment />
+            <BankTransferPayment />
             <PayPalPayment />
             <Total isInternational={shipping.isInternational} subtotal={subtotal} />
           </Form>
@@ -129,10 +109,10 @@ Payment.propTypes = {
     isInternational: PropTypes.bool,
   }).isRequired,
   payment: PropTypes.shape({
-    name: PropTypes.string,
-    cardnumber: PropTypes.string,
-    expiry: PropTypes.string,
-    ccv: PropTypes.string,
+    bank: PropTypes.string,
+    senderBankAccountName: PropTypes.string,
+    senderBankAccountNumber: PropTypes.string,
+    trxOrTid: PropTypes.string,
     paymentMethod: PropTypes.string,
   }).isRequired,
   subtotal: PropTypes.number.isRequired,

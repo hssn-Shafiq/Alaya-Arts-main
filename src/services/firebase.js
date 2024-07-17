@@ -277,6 +277,13 @@ class Firebase {
     return downloadURL;
   };
 
+  async storeOrderProof(id, folder, imageFile) {
+    const storageRef = this.storage.ref().child(`${folder}/${id}`);
+    const snapshot = await storageRef.put(imageFile);
+    const downloadURL = await snapshot.ref.getDownloadURL();
+    return downloadURL;
+  }
+  
   deleteImage = (id) => this.storage.ref("products").child(id).delete();
 
   editProduct = (id, updates) =>
