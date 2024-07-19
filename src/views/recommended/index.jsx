@@ -74,7 +74,7 @@ const RecommendedProducts = () => {
 
 
           <div className="display">
-            <h1>Recommended Products</h1>
+            <h1 className='fw-bold' style={{padding:"0px 10px"}}>Recommended Products</h1>
             <div className="product-display-grid">
               {error && !isLoading ? (
                 <MessageDisplay

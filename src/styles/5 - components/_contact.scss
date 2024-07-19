@@ -26,3 +26,18 @@
     }
   }
 }
+@include mobile{
+  .contact_us_main .contact_us .row{
+
+    padding: 4rem 0rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    flex-direction: column;
+    .form_fields, .contact_icons{
+      width: 80%;
+    }
+  }
+  
+
+}

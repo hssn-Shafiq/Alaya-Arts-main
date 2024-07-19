@@ -168,7 +168,7 @@ const PrivacyPolicy = () => {
           visit our Service or when You access the Service by or through a
           mobile device.
         </p>
-        <h4>Tracking Technologies and Cookies</h4>
+        <h4 className="fw-bold">Tracking Technologies and Cookies</h4>
         <p>
           We use Cookies and similar tracking technologies to track the activity
           on Our Service and store certain information. Tracking technologies

@@ -22,7 +22,7 @@ const FAQ = () => {
             forget to ‘sign out’ upon completing the shopping to ensure online security.
           </p>
           <p>
-            Customers can also contact the ‘Customer Service Team’ at +92 348 8831990 to
+            Customers can also contact the ‘Customer Service Team’ at <span className="fw-bold">+92 348 8831990</span> to
             place an order over the phone.
           </p>
           <p>

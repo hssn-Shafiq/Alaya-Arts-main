@@ -35,7 +35,7 @@ const UnstichedProducts = () => {
       <main className="content">
         <div className="featured">
           <div className="display">
-            <h1 className='fw-bold fs-1'>Products:</h1>
+            <h1 className='fw-bold fs-1' style={{padding:"0px 10px"}}>Products:</h1>
             <div className="product-display-grid">
               {error && !isLoading ? (
                 <MessageDisplay
