@@ -1,11 +1,11 @@
 export const HOME = '/';
-export const SHOP = '/shop';
+export const SHOP = '/collection/shop';
 export const ALL_ORDERS = '/all_orders';
-export const FEATURED_PRODUCTS = '/featured';
-export const RECOMMENDED_PRODUCTS = '/recommended';
-export const KIDS_PRODUCTS = '/kids';
-export const STICHED_PRODUCTS = '/stiched';
-export const UNSTICHED_PRODUCTS = '/unstiched';
+export const FEATURED_PRODUCTS = '/collection/featured';
+export const RECOMMENDED_PRODUCTS = '/collection/recommended';
+export const KIDS_PRODUCTS = '/collection/kids';
+export const STICHED_PRODUCTS = '/collection/stiched';
+export const UNSTICHED_PRODUCTS = '/collection/unstiched';
 export const ACCOUNT = '/account';
 export const ACCOUNT_EDIT = '/account/edit';
 export const ADMIN_DASHBOARD = '/admin/dashboard';

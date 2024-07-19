@@ -1,3 +1,4 @@
+// src/selectors/selector.js
 export const selectFilter = (products, filter) => {
   if (!products || products.length === 0) return [];
 
@@ -16,18 +17,24 @@ export const selectFilter = (products, filter) => {
 
     let matchCollection = true;
     if (filter.collection) {
-      switch (filter.collection) {
-        case 'Stiched':
+      switch (filter.collection.toLowerCase()) {
+        case 'stitched':
           matchCollection = product.isStiched;
           break;
-        case 'Featured':
+        case 'featured':
           matchCollection = product.isFeatured;
           break;
-        case 'Kids':
+        case 'kids':
           matchCollection = product.isKids;
           break;
-        case 'Recommended':
+        case 'recommended':
           matchCollection = product.isRecommended;
+          break;
+        case 'accessories':
+          matchCollection = product.isAccessories;
+          break;
+        case 'unstiched':
+          matchCollection = product.isUnStiched;
           break;
         default:
           matchCollection = true;

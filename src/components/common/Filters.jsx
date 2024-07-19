@@ -115,7 +115,7 @@ const Filters = ({ closeModal }) => {
           </select>
         )}
       </div>
-        <div className="filters-field">
+        {/* <div className="filters-field">
         <span>Collection</span>
         <br />
         <br />
@@ -130,9 +130,8 @@ const Filters = ({ closeModal }) => {
           <option value="summer">Summer Collection</option>
           <option value="fall">Fall Collection</option>
           <option value="winter">Winter Collection</option>
-          {/* Add more options as needed */}
         </select>
-      </div>
+      </div> */}
       <div className="filters-field">
         <span>Sort By</span>
         <br />

@@ -278,6 +278,29 @@ const OrderDetails = () => {
               
             </div>
           </div>
+          {/* payment details */}
+          <div className="product_details my-4">
+          <h2 className="fs-1 text-center fw-bold mb-4">Payment Details</h2>
+          <div  className="product_details_all mb-5 ">
+                <div className="detail">
+                  <p>Bank Name</p>
+                  <span>{order?.paymentDetails?.bank}</span>
+                </div>
+                <div className="detail">
+                  <p>Sender Name </p>
+                  <span>{order?.paymentDetails?.senderBankAccountName}</span>
+                </div>
+                <div className="detail">
+                  <p>Sender Number </p>
+                  <span>{order?.paymentDetails?.senderBankAccountNumber}</span>
+                </div>
+                <div className="detail">
+                  <p>TRX or TID </p>
+                  <span>{order?.paymentDetails?.trxOrTid}</span>
+                </div>
+              </div>
+  </div>
+
           {/* ===== customer details */}
           <div className="customer-details mt-4">
           <h2 className="fs-1 text-center fw-bold">Customer Details</h2>

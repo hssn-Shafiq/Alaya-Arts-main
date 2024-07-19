@@ -1,8 +1,8 @@
 import { CloseOutlined } from '@ant-design/icons';
-import { BasketItemControl } from '@/components/basket';
+import BasketItemControl from '@/components/basket/BasketItemControl';
 import { ImageLoader } from '@/components/common';
 import { displayMoney } from '@/helpers/utils';
-import PropType from 'prop-types';
+import PropTypes from 'prop-types';
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
@@ -70,24 +70,28 @@ const BasketItem = ({ product }) => {
 };
 
 BasketItem.propTypes = {
-  product: PropType.shape({
-    id: PropType.string,
-    name: PropType.string,
-    brand: PropType.string,
-    price: PropType.number,
-    quantity: PropType.number,
-    maxQuantity: PropType.number,
-    description: PropType.string,
-    keywords: PropType.arrayOf(PropType.string),
-    selectedSize: PropType.string,
-    selectedColor: PropType.string,
-    imageCollection: PropType.arrayOf(PropType.string),
-    sizes: PropType.arrayOf(PropType.number),
-    image: PropType.string,
-    imageUrl: PropType.string,
-    isFeatured: PropType.bool,
-    isRecommended: PropType.bool,
-    availableColors: PropType.arrayOf(PropType.string)
+  product: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
+    brand: PropTypes.string,
+    price: PropTypes.number.isRequired,
+    quantity: PropTypes.number.isRequired,
+    maxQuantity: PropTypes.number.isRequired,
+    description: PropTypes.string,
+    keywords: PropTypes.arrayOf(PropTypes.string),
+    selectedSize: PropTypes.string,
+    selectedColor: PropTypes.string,
+    imageCollection: PropTypes.arrayOf(
+      PropTypes.shape({
+        url: PropTypes.string.isRequired
+      })
+    ).isRequired,
+    sizes: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.number, PropTypes.string])),
+    image: PropTypes.string,
+    imageUrl: PropTypes.string,
+    isFeatured: PropTypes.bool,
+    isRecommended: PropTypes.bool,
+    availableColors: PropTypes.arrayOf(PropTypes.string)
   }).isRequired
 };
 
