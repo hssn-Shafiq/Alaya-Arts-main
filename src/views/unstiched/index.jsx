@@ -68,7 +68,6 @@ const UnstichedProducts = () => {
       <main className="content">
         <div className="featured">
           <div className="display">
-<<<<<<< HEAD
             <h1 className='fw-bold fs-1' style={{padding:"0px 10px"}}>Products:</h1>
             <div className="product-display-grid">
               {error && !isLoading ? (
@@ -83,75 +82,6 @@ const UnstichedProducts = () => {
                   skeletonCount={6}
                 />
               )}
-=======
-            <h1 className='fw-bold fs-1'>Products:</h1>
-            <div className="container">
-              <div className="filter row w-100 my-5">
-                <div className='price col-md-6 d-flex'>
-                  <label>Price:</label>
-                  <input
-                    type="number"
-                    name="priceFrom"
-                    value={filters.priceFrom || ''}
-                    onChange={handleFilterChange}
-                    placeholder="Min Price"
-                  />
-                  <input
-                    type="number"
-                    name="priceTo"
-                    value={filters.priceTo || ''}
-                    onChange={handleFilterChange}
-                    placeholder="Max Price"
-                  />
-                </div>
-                <div className="col-md-6 d-flex justify-content-end gap-5">
-                  <div className='size'>
-                    <label className='py-3'>Size:</label>
-                    <select className='py-3' name="size" value={filters.size || ''} onChange={handleFilterChange}>
-                      <option value="">All</option>
-                      <option value="stitched">Stitched</option>
-                      <option value="unstitched">Unstitched</option>
-                      <option value="sm">Small</option>
-                      <option value="md">Medium</option>
-                      <option value="lg">Large</option>
-                      <option value="xl">XL</option>
-                      <option value="1xl">1XL</option>
-                      <option value="2xl">2XL</option>
-                    </select>
-                  </div>
-                  <div className='keyword'>
-                    <label className='py-3'>Style:</label>
-                    <select className='py-3' name="keyword" value={filters.keyword || ''} onChange={handleFilterChange}>
-                      <option value="">All</option>
-                      <option value="lawn">Lawn</option>
-                      <option value="kids">Kids</option>
-                      <option value="bottle">Bottle</option>
-                    </select>
-                  </div>
-                </div>
-              </div>
-              <ActiveFilters filters={filters} removeFilter={removeFilter} />
-              <div className="product-display-grid">
-                {error && !isLoading ? (
-                  <MessageDisplay
-                    message={error}
-                    action={fetchUnstichedProducts}
-                    buttonLabel="Try Again"
-                  />
-                ) : (
-                  filteredProducts.length === 0 ? (
-                    <MessageDisplay
-                      message="No products found for the selected filters."
-                    />
-                  ) : (
-                    <ProductShowcaseGrid
-                      products={filteredProducts}
-                      skeletonCount={6}
-                    />
-                  )
-                )}
-              </div>
->>>>>>> 44b298b82fc8ccada1f6ae8815a46947cb78aa9b
             </div>
           </div>
           <ImageWithText
