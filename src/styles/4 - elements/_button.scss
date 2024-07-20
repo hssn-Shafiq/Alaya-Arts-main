@@ -100,3 +100,8 @@
     font-size: inherit;
   }
 }
+@include mobile{
+  .button{
+    padding: 0.6rem;
+  }
+}

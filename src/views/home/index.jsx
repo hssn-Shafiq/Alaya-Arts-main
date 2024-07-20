@@ -90,14 +90,12 @@ const Home = () => {
         <div className="banner mb-5">
           <div className="banner-desc">
             <h1 className="text-thin">
-              <strong>Discover</strong>
-              &nbsp;style with&nbsp;
-              <strong>eligence</strong>
+              <strong>Embrace</strong>
+              &nbsp;elegance&nbsp;
+              <strong>effortlessly</strong>
             </h1>
             <p>
-              Shopping for clothes should make you feel great and look fabulous,
-              all while saving you money. From chic dresses to cozy sweaters,
-              our collection has something for every wardrobe.
+              Unveil a world where shopping for clothes is not just a task, but a journey of self-expression. Whether it's the allure of a chic dress or the comfort of a cozy sweater, our collection is designed to elevate your wardrobe without breaking the bank. Discover your signature style and embrace every moment feeling fabulous.
             </p>
             <br />
             <Link to={SHOP} className="button">
@@ -134,14 +132,12 @@ const Home = () => {
         <div className="banner mb-5">
           <div className="banner-desc">
             <h1 className="text-thin">
-              <strong>Discover</strong>
-              &nbsp;style with&nbsp;
-              <strong>eligence</strong>
+              <strong>Sophisticated</strong>
+              &nbsp;Style&nbsp;
+              <strong>Redefined</strong>
             </h1>
             <p>
-              Shopping for clothes should make you feel great and look fabulous,
-              all while saving you money. From chic dresses to cozy sweaters,
-              our collection has something for every wardrobe.
+              Experience the joy of discovering clothes that perfectly complement your unique style. Our curated collection, featuring elegant dresses and snug sweaters, ensures there's something to elevate every wardrobe. Feel empowered, look exceptional, and enjoy the luxury of saving with every choice you make.
             </p>
             <br />
             <Link to={SHOP} className="button">
@@ -161,14 +157,12 @@ const Home = () => {
 
           <div className="banner-desc">
             <h1 className="text-thin">
-              <strong>Discover</strong>
-              &nbsp;style with&nbsp;
-              <strong>eligence</strong>
+              <strong>Affordable</strong>
+              &nbsp;Elegance&nbsp;
+              <strong></strong>
             </h1>
             <p>
-              Shopping for clothes should make you feel great and look fabulous,
-              all while saving you money. From chic dresses to cozy sweaters,
-              our collection has something for every wardrobe.
+              Discover stunning dresses and luxurious sweaters that redefine your style without breaking your budget.
             </p>
             <br />
             <Link to={SHOP} className="button">

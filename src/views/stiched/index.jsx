@@ -78,10 +78,10 @@ const RecommendedProducts = () => {
             place={2}
           />
           <div className="display">
-            <h1>Pret Collection</h1>
+            <h1 className='px-3'>Pret Collection</h1>
             <div className="container">
               <div className="filter row w-100 my-5">
-                <div className='price col-md-6 d-flex'>
+                <div className='price col-md-6 col-md-12 col-sm-10 d-flex' style={{marginTop:"15px"}}>
                   <label>Price:</label>
                   <input
                     type="number"
@@ -98,7 +98,7 @@ const RecommendedProducts = () => {
                     placeholder="Max Price"
                   />
                 </div>
-                <div className="col-md-6 d-flex justify-content-end gap-5">
+                <div className="col-md-6 col-md-12 d-flex justify-content-end gap-5" style={{marginTop:"15px"}}>
                   <div className='size'>
                     <label className='py-3'>Size:</label>
                     <select className='py-3' name="size" value={filters.size} onChange={handleFilterChange}>

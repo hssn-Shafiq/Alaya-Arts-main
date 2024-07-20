@@ -90,9 +90,6 @@ const RecommendedProducts = () => {
               )}
             </div>
           </div>
-
-
-
         </div>
       </main>
     </>

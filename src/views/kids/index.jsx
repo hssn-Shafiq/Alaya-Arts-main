@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { MessageDisplay, MultiCarousel, ImageWithText } from '@/components/common';
 import { ProductShowcaseGrid } from '@/components/product';
 import { useDocumentTitle, useKidsProducts, useScrollTop } from '@/hooks';
+
 import unstitchimg2 from '@/images/Unstitch Img2.jpg';
 import kids01 from '@/images/Kids01.png';
 import kids02 from '@/images/Kids02.png';
@@ -74,12 +75,12 @@ const KidsProducts = () => {
               {error && !isLoading ? (
                 <MessageDisplay
                   message={error}
-                  action={fetchUnstichedProducts}
+                  action={fetchKidsProducts}
                   buttonLabel="Try Again"
                 />
               ) : (
                 <ProductShowcaseGrid
-                  products={unstichedProducts}
+                  products={kidsProducts}
                   skeletonCount={6}
                 />
               )}
