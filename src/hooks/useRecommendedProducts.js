@@ -14,11 +14,11 @@ const useRecommendedProducts = () => {
       setLoading(true);
       setError('');
 
-      const docs = await firebase.getRecommendedProducts();
+      const docs = await firebase.getAccessoriesProducts();
 
       if (docs.empty) {
         if (didMount) {
-          setError('No recommended products found.');
+          setError('No Accessories found.');
           setLoading(false);
         }
       } else {
@@ -36,7 +36,7 @@ const useRecommendedProducts = () => {
       }
     } catch (e) {
       if (didMount) {
-        setError('Failed to fetch recommended products');
+        setError('Failed to fetch accessories');
         setLoading(false);
       }
     }

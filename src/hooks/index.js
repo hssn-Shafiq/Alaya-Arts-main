@@ -6,6 +6,7 @@ export { default as useFileHandler } from './useFileHandler';
 export { default as useModal } from './useModal';
 export { default as useProduct } from './useProduct';
 export { default as useRecommendedProducts } from './useRecommendedProducts';
+export { default as useAccessoriesProducts } from './useAccessoriesProducts';
 export { default as useScrollTop } from './useScrollTop';
 export { default as useKidsProducts } from './useKidsProducts';
 export { default as useStichedProducts } from './useStichedProducts';

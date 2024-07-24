@@ -258,12 +258,77 @@ class Firebase {
       .limit(itemsCount)
       .get();
 
+  getAccessoriesProducts = (itemsCount = 12) =>
+    this.db
+      .collection("products")
+      .where("isAccessories", "==", true)
+      .limit(itemsCount)
+      .get();
+
   getUnstichedProducts = (itemsCount = 12) =>
     this.db
       .collection("products")
       .where("isUnStiched", "==", true)
       .limit(itemsCount)
       .get();
+
+  getProductsWithAccessoryDetails = async () => {
+    try {
+      // Query products collection where accessoryDetails field exists
+      const querySnapshot = await this.db
+        .collection("products")
+        .where("accessoryDetail", "!=", null)
+        .get();
+
+      const products = [];
+      querySnapshot.forEach((doc) => {
+        products.push({ id: doc.id, ...doc.data() });
+      });
+
+      return products;
+    } catch (error) {
+      console.error("Error fetching products with accessoryDetails: ", error);
+      throw new Error("Error fetching products.");
+    }
+  };
+
+  getUniqueSizes = async () => {
+    try {
+      const querySnapshot = await this.db.collection("products").get(); // Use await to get QuerySnapshot
+      const sizesSet = new Set();
+
+      querySnapshot.forEach((doc) => {
+        const product = doc.data();
+        if (product.sizes) {
+          product.sizes.forEach((size) => sizesSet.add(size));
+        }
+      });
+
+      return Array.from(sizesSet);
+    } catch (error) {
+      console.error("Error fetching unique sizes: ", error);
+      throw error;
+    }
+  };
+
+  getUniqueKeywords = async () => {
+    try {
+      const querySnapshot = await this.db.collection("products").get(); // Use await to get QuerySnapshot
+      const keywordsSet = new Set();
+
+      querySnapshot.forEach((doc) => {
+        const product = doc.data();
+        if (product.keywords) {
+          product.keywords.forEach((keyword) => keywordsSet.add(keyword));
+        }
+      });
+
+      return Array.from(keywordsSet);
+    } catch (error) {
+      console.error("Error fetching unique keywords: ", error);
+      throw error;
+    }
+  };
 
   addProduct = (id, product) =>
     this.db.collection("products").doc(id).set(product);
@@ -283,7 +348,7 @@ class Firebase {
     const downloadURL = await snapshot.ref.getDownloadURL();
     return downloadURL;
   }
-  
+
   deleteImage = (id) => this.storage.ref("products").child(id).delete();
 
   editProduct = (id, updates) =>
@@ -348,8 +413,114 @@ class Firebase {
 
   deleteContactDetails(id) {
     return this.db.collection("contact_details").doc(id).delete();
-
   }
+  // Add or update images for a specific collection within the BannerImages document
+  addOrUpdateCollectionImages = async (collectionName, images) => {
+    const collectionRef = this.db.collection("BannerImages").doc("Images");
+    const imageUrls = await this.uploadMultipleImages(images);
+
+    const updateData = {
+      [collectionName]: imageUrls,
+    };
+
+    await collectionRef.set(updateData, { merge: true });
+  };
+
+  // Update a specific image in a collection
+  updateCollectionImage = async (collectionName, index, newImage) => {
+    const imageUrl = await this.uploadSingleImage(newImage);
+    const collectionRef = this.db.collection("BannerImages").doc("Images");
+    const collectionDoc = await collectionRef.get();
+
+    if (collectionDoc.exists) {
+      const images = collectionDoc.data()[collectionName] || [];
+      images[index] = imageUrl;
+      const updateData = {
+        [collectionName]: images,
+      };
+      await collectionRef.set(updateData, { merge: true });
+    }
+  };
+
+  // Delete a specific image from a collection
+  deleteCollectionImage = async (collectionName, index) => {
+    const collectionRef = this.db.collection("BannerImages").doc("Images");
+    const collectionDoc = await collectionRef.get();
+
+    if (collectionDoc.exists) {
+      const images = collectionDoc.data()[collectionName] || [];
+      images.splice(index, 1);
+      const updateData = {
+        [collectionName]: images,
+      };
+      await collectionRef.set(updateData, { merge: true });
+    }
+  };
+
+  // Upload images to Firebase Storage and get URLs
+  uploadMultipleImages = async (images) => {
+    const uploadPromises = images.map(async (image) => {
+      const imageRef = this.storage.ref(`collections/${image.name}`);
+      await imageRef.put(image);
+      const imageUrl = await imageRef.getDownloadURL();
+      return imageUrl;
+    });
+
+    const imageUrls = await Promise.all(uploadPromises);
+    return imageUrls.filter((url) => url !== undefined);
+  };
+
+  // Upload a single image to Firebase Storage and get the URL
+  uploadSingleImage = async (image) => {
+    const imageRef = this.storage.ref(`collections/${image.name}`);
+    await imageRef.put(image);
+    const imageUrl = await imageRef.getDownloadURL();
+    return imageUrl;
+  };
+  // Fetch images for a specific collection from the BannerImages document
+  getCollectionImages = async (collectionName) => {
+    const collectionRef = this.db.collection("BannerImages").doc("Images");
+    const collectionDoc = await collectionRef.get();
+
+    if (collectionDoc.exists) {
+      return collectionDoc.data()[collectionName] || [];
+    }
+    return [];
+  };
+
+  // Store banner images in Firestore
+  storeBannerImages = async (homeImageUrl, shopImageUrl) => {
+    try {
+      await this.db.collection("BannerHomeImages").doc("Images").set(
+        {
+          homeImageUrl: homeImageUrl,
+          shopImageUrl: shopImageUrl,
+        },
+        { merge: true }
+      );
+    } catch (error) {
+      console.error("Error storing banner images:", error);
+      throw error;
+    }
+  };
+
+  // Get banner images from Firestore
+  getBannerImages = async () => {
+    try {
+      const doc = await this.db
+        .collection("BannerHomeImages")
+        .doc("Images")
+        .get();
+      if (doc.exists) {
+        return doc.data();
+      } else {
+        return { homeImageUrl: "", shopImageUrl: "" };
+      }
+    } catch (error) {
+      console.error("Error fetching banner images:", error);
+      throw error;
+    }
+  };
 }
 
 const firebaseInstance = new Firebase();

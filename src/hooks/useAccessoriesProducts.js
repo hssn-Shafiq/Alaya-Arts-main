@@ -1,24 +1,24 @@
+// src/hooks/useAccessoriesProducts.js
 import { useDidMount } from '@/hooks';
 import { useEffect, useState } from 'react';
 import firebase from '@/services/firebase';
 
-const useStichedProducts = (itemsCount) => {
-  const [stichedProducts, setStichedProducts] = useState([]);
+const useAccessoriesProducts = () => {
+  const [accessoriesProducts, setAccessoriesProducts] = useState([]);
   const [isLoading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const didMount = useDidMount(true);
 
-  const fetchStichedProducts = async () => {
+  const fetchAccessoriesProducts = async () => {
     try {
       setLoading(true);
       setError('');
 
-      const docs = await firebase.getStichedProducts(itemsCount);
+      const docs = await firebase.getAccessoriesProducts();
 
       if (docs.empty) {
         if (didMount) {
-          setError('No Pret products found.');
-          console.log('No Pret products found');
+          setError('No Accessories found.');
           setLoading(false);
         }
       } else {
@@ -30,28 +30,27 @@ const useStichedProducts = (itemsCount) => {
         });
 
         if (didMount) {
-          setStichedProducts(items);
+          setAccessoriesProducts(items);
           setLoading(false);
         }
       }
     } catch (e) {
       if (didMount) {
-        setError('Failed to fetch Pret products');
-        console.log("failed to fetch Pret products");
+        setError('Failed to fetch accessories');
         setLoading(false);
       }
     }
   };
 
   useEffect(() => {
-    if (stichedProducts.length === 0 && didMount) {
-      fetchStichedProducts();
+    if (didMount) {
+      fetchAccessoriesProducts();
     }
-  }, []);
+  }, [didMount]);
 
   return {
-    stichedProducts, fetchStichedProducts, isLoading, error
+    accessoriesProducts, fetchAccessoriesProducts, isLoading, error
   };
 };
 
-export default useStichedProducts;
+export default useAccessoriesProducts;

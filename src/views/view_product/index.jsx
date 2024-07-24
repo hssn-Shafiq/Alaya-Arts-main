@@ -107,29 +107,25 @@ const ViewProduct = () => {
               <br />
               <div className="divider" />
               <br />
-              <div>
-                <span className="text-subtle">Select size</span>
-                <br />
-                <br />
-                <Select
-                  placeholder="--Select Size--"
-                  onChange={onSelectedSizeChange}
-                  options={product.sizes.sort((a, b) => (a < b ? -1 : 1)).map((size) => ({ label: `${size}`, value: size }))}
-                  styles={{ menu: (provided) => ({ ...provided, zIndex: 10 }) }}
-                />
-              </div>
-              <br />
-              {product.availableColors.length >= 1 && (
-                <div>
-                  <span className="text-subtle">Choose Color</span>
-                  <br />
-                  <br />
-                  <ColorChooser
-                    availableColors={product.availableColors}
-                    onSelectedColorChange={onSelectedColorChange}
-                  />
+              {product.sizes.length > 0 ? (
+                    <div>
+                    <span className="text-subtle">Select size</span>
+                    <br />
+                    <br />
+                    <Select
+                      placeholder="--Select Size--"
+                      onChange={onSelectedSizeChange ? onSelectedSizeChange : null}
+                      options={product.sizes.sort((a, b) => (a < b ? -1 : 1)).map((size) => ({ label: `${size}`, value: size }))}
+                      styles={{ menu: (provided) => ({ ...provided, zIndex: 10 }) }}
+                    />
+                  </div>
+                ) : (
+                  <div>
+                 <h4>Accessory Type <span>{product.accessoryDetail}</span></h4>
                 </div>
-              )}
+                )}
+            
+              <br />
               <div className="price d-flex">
               <h1>{displayMoney(product.price)}</h1>
               <h3 className='compare_price'><strike>{product.comparePrice ? `PKR: ${product.comparePrice }`: null}</strike></h3>

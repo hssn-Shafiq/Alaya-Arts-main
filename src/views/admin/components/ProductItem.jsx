@@ -9,6 +9,7 @@ import { useHistory, withRouter } from 'react-router-dom';
 import { removeProduct } from '@/redux/actions/productActions';
 
 const ProductItem = ({ product, searchTerm }) => {
+  
   const dispatch = useDispatch();
   const history = useHistory();
   const productRef = useRef(null);
@@ -32,12 +33,16 @@ const ProductItem = ({ product, searchTerm }) => {
   };
 
   const getCollection = () => {
-    if (product.isStitched) return 'Stitched';
+    if (product.isStiched) return 'Stitched';
+    if (product.isUnStiched) return 'UnStitched';
     if (product.isFeatured) return 'Featured';
     if (product.isKids) return 'Kids';
     if (product.isRecommended) return 'Recommended';
+    if (product.isAccessories) return 'Accessories';
     return 'Not added';
   };
+
+  
   const formattedDate = product.dateAdded ? displayDate(product.dateAdded) : '';
 
   // Function to check if a field matches the search term
@@ -72,7 +77,7 @@ const ProductItem = ({ product, searchTerm }) => {
           </div>
           <div className="grid-col">
             <span>
-              {matchesSearchTerm(keywordsArray.join(', ')) ? keywordsArray.join(', ') || 'Nothing Found' : <Skeleton width={50} />}
+              {matchesSearchTerm(keywordsArray.join(', ')) ? keywordsArray.join(', ') || 'Not added' : <Skeleton width={50} />}
             </span>
           </div>
           <div className="grid-col">
@@ -92,7 +97,7 @@ const ProductItem = ({ product, searchTerm }) => {
           </div>
           <div className="grid-col">
             <span>
-              {matchesSearchTerm(product.maxQuantity) ? product.maxQuantity || '-' : <Skeleton width={20} />}
+              {matchesSearchTerm(product.accessoryDetail) ? product.accessoryDetail : <Skeleton width={20} />}
             </span>
           </div>
         </div>
@@ -126,17 +131,23 @@ ProductItem.propTypes = {
   product: PropTypes.shape({
     id: PropTypes.string,
     name: PropTypes.string,
+    accessoryDetail: PropTypes.string,
     brand: PropTypes.string,
     price: PropTypes.number,
     maxQuantity: PropTypes.number,
     description: PropTypes.string,
     keywords: PropTypes.arrayOf(PropTypes.string),
+    style: PropTypes.arrayOf(PropTypes.string),
     imageCollection: PropTypes.arrayOf(PropTypes.object),
     sizes: PropTypes.arrayOf(PropTypes.string),
     image: PropTypes.string,
     imageUrl: PropTypes.string,
     isFeatured: PropTypes.bool,
     isRecommended: PropTypes.bool,
+    isAccessories: PropTypes.bool,
+    isStiched: PropTypes.bool,
+    isUnStiched: PropTypes.bool,
+    isKids: PropTypes.bool,
     dateAdded: PropTypes.number,
     availableColors: PropTypes.arrayOf(PropTypes.string),
   }).isRequired,

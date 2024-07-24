@@ -5,7 +5,7 @@ import { Slider } from "@/components/common";
 
 import {
   FEATURED_PRODUCTS,
-  RECOMMENDED_PRODUCTS,
+  ACCESSORIES_PRODUCTS,
   KIDS_PRODUCTS,
   STICHED_PRODUCTS,
   SHOP,
@@ -13,15 +13,15 @@ import {
 import {
   useDocumentTitle,
   useFeaturedProducts,
-  useRecommendedProducts,
+  useAccessoriesProducts,
   useKidsProducts,
   useStichedProducts,
   useScrollTop,
 } from "@/hooks";
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { ImageWithText, BannerImage, ImageGallery } from "@/components/common";
-
+import firebaseInstance from '@/services/firebase';
 import bannerImg from "@/images/banner-shop.jpg";
 import bannerImg2 from "@/images/luxury_lawn.jpg";
 import bannerImg3 from "@/images/lawn.jpg";
@@ -31,8 +31,23 @@ import bg2 from "@/images/bannerimg2.png";
 import bg3 from "@/images/bannerimg3.jpg";
 
 const Home = () => {
+  const [homeImage, setHomeImage] = useState("");
   useDocumentTitle("ALAYA ARTS | Feel The Stuff");
   useScrollTop();
+
+  useEffect(() => {
+    // Fetch existing images on component mount
+    const fetchBannerImages = async () => {
+      try {
+        const data = await firebaseInstance.getBannerImages();
+        setHomeImage(data.homeImageUrl)
+      } catch (error) {
+        console.error("Error fetching existing images:", error);
+      }
+    };
+
+    fetchBannerImages();
+  }, []);
 
   const {
     featuredProducts,
@@ -40,12 +55,14 @@ const Home = () => {
     isLoading: isLoadingFeatured,
     error: errorFeatured,
   } = useFeaturedProducts(4);
+
   const {
-    recommendedProducts,
-    fetchRecommendedProducts,
-    isLoading: isLoadingRecommended,
-    error: errorRecommended,
-  } = useRecommendedProducts(6);
+    accessoriesProducts,
+    fetchAccessoriesProducts,
+    isLoading: isLoadingAccessories,
+    error: errorAccessories,
+  } = useAccessoriesProducts(6);
+
   const {
     kidsProducts,
     fetchKidsProducts,
@@ -59,28 +76,29 @@ const Home = () => {
     isLoading: isLoadingStiched,
     error: errorStiched,
   } = useStichedProducts(6);
+
   return (
     <main className="content">
       <div className="home">
-        <BannerImage backgroundImage={bg1} />
+        <BannerImage backgroundImage={homeImage || bg2} />
         {/* <BannerImage backgroundImage={bg2}  display_content="banner_display_none" /> */}
         <ImageGallery />
 
         {/* recommended products */}
         <div className="display">
           <div className="display-header">
-            <h1>Recommended Products</h1>
-            <Link to={RECOMMENDED_PRODUCTS}>See All</Link>
+            <h1>Accessories Products</h1>
+            <Link to={ACCESSORIES_PRODUCTS}>See All</Link>
           </div>
-          {errorRecommended && !isLoadingRecommended ? (
+          {errorAccessories && !isLoadingAccessories ? (
             <MessageDisplay
-              message={errorRecommended}
-              action={fetchRecommendedProducts}
+              message={errorAccessories}
+              action={fetchAccessoriesProducts}
               buttonLabel="Try Again"
             />
           ) : (
             <ProductShowcaseGrid
-              products={recommendedProducts}
+              products={accessoriesProducts}
               skeletonCount={6}
             />
           )}

@@ -1,21 +1,18 @@
-/* eslint-disable jsx-a11y/label-has-associated-control */
-import { CheckOutlined, LoadingOutlined } from '@ant-design/icons';
-import { ImageLoader } from '@/components/common';
+import { CheckOutlined, LoadingOutlined } from "@ant-design/icons";
+import { ImageLoader } from "@/components/common";
 import {
-  CustomColorInput, CustomCreatableSelect, CustomInput, CustomTextarea
-} from '@/components/formik';
-import {
-  Field, FieldArray, Form, Formik
-} from 'formik';
-import { useFileHandler } from '@/hooks';
-import PropType from 'prop-types';
-import React from 'react';
-import * as Yup from 'yup';
+  CustomColorInput,
+  CustomCreatableSelect,
+  CustomInput,
+  CustomTextarea,
+} from "@/components/formik";
+import { Field, Form, Formik } from "formik";
+import { useFileHandler } from "@/hooks";
+import PropType from "prop-types";
+import React from "react";
+import * as Yup from "yup";
 
-// Default brand names that I used. You can use what you want
-const brandOptions = [
-  { value: "Alaya Arts", label: "Alaya Arts" },
-];
+const brandOptions = [{ value: "Alaya Arts", label: "Alaya Arts" }];
 const Sizes = [
   { value: "sm", label: "sm" },
   { value: "md", label: "md" },
@@ -28,54 +25,51 @@ const Sizes = [
 
 const FormSchema = Yup.object().shape({
   name: Yup.string()
-    .required('Product name is required.')
-    .max(60, 'Product name must only be less than 60 characters.'),
-  brand: Yup.string()
-    .required('Brand name is required.'),
+    .required("Product name is required.")
+    .max(60, "Product name must be less than 60 characters."),
+  brand: Yup.string().required("Brand name is required."),
   price: Yup.number()
-    .positive('Price is invalid.')
-    .integer('Price should be an integer.')
-    .required('Price is required.'),
-    comparePrice: Yup.number()
-    .positive('Compare Price is invalid.')
-    .integer('Compare Price should be an integer.')
-    .required('Compare Price is required.'),
-  description: Yup.string()
-    .required('Description is required.'),
+    .positive("Price is invalid.")
+    .integer("Price should be an integer.")
+    .required("Price is required."),
+  comparePrice: Yup.number()
+    .positive("Compare Price is invalid.")
+    .integer("Compare Price should be an integer.")
+    .required("Compare Price is required."),
+  description: Yup.string().required("Description is required."),
   maxQuantity: Yup.number()
-    .positive('Max quantity is invalid.')
-    .integer('Max quantity should be an integer.')
-    .required('Max quantity is required.'),
-  style: Yup.array()
-    .of(Yup.string())
-    .min(1, 'Please enter at least 1 style for this product.'),
-    sizes: Yup.array()
-    .of(
-      Yup.mixed().test("is-valid", "Invalid size value", (value) => {
-        return typeof value === "number" || typeof value === "string";
-      })
-    )
-    .min(1, "Please enter a size for this product."),
-  isFeatured: Yup.boolean(),
-  isRecommended: Yup.boolean(),
-  isKids: Yup.boolean(),
-  isStiched: Yup.boolean(),
-  isUnStiched: Yup.boolean(),
-  isAccessories: Yup.boolean(),
-  availableColors: Yup.array()
-    .of(Yup.string().required())
-    .min(1, 'Please add a default color for this product.')
+  .positive('Max quantity is invalid.')
+  .integer('Max quantity should be an integer.')
+  .required('Max quantity is required.'),
+  keywords: Yup.array().of(Yup.string()).when("isAccessories", {
+    is: false,
+    then: Yup.array().min(1, "Please enter at least 1 style for this product."),
+  }),
+  sizes: Yup.array()
+    .of(Yup.mixed().test("is-valid", "Invalid size value", (value) => typeof value === "number" || typeof value === "string"))
+    .when("isAccessories", {
+      is: false,
+      then: Yup.array().when("isUnStiched", {
+        is: false,
+        then: Yup.array().min(1, "Please enter a size for this product."),
+      }),
+    }),
+  accessoryDetail: Yup.string().when("isAccessories", {
+    is: true,
+    then: Yup.string().required("Accessory detail is required when adding to accessories."),
+  }),
 });
+
 
 const ProductForm = ({ product, onSubmit, isLoading }) => {
   const initFormikValues = {
-    name: product?.name || '',
-    brand: product?.brand || '',
+    name: product?.name || "",
+    brand: product?.brand || "",
     price: product?.price || 0,
     comparePrice: product?.comparePrice || 0,
+    description: product?.description || "",
     maxQuantity: product?.maxQuantity || 0,
-    description: product?.description || '',
-    style: product?.style || [],
+    keywords: product?.keywords || [],
     sizes: product?.sizes || [],
     isFeatured: product?.isFeatured || false,
     isRecommended: product?.isRecommended || false,
@@ -83,15 +77,13 @@ const ProductForm = ({ product, onSubmit, isLoading }) => {
     isKids: product?.isKids || false,
     isUnStiched: product?.isUnStiched || false,
     isAccessories: product?.isAccessories || false,
-    availableColors: product?.availableColors || []
+    accessoryDetail: product?.accessoryDetail || "",
   };
 
-  const {
-    imageFile,
-    isFileLoading,
-    onFileChange,
-    removeImage
-  } = useFileHandler({ image: {}, imageCollection: product?.imageCollection || [] });
+  const { imageFile, isFileLoading, onFileChange, removeImage } = useFileHandler({
+    image: {},
+    imageCollection: product?.imageCollection || [],
+  });
 
   const onSubmitForm = (form) => {
     if (imageFile.image.file || product.imageUrl) {
@@ -101,10 +93,10 @@ const ProductForm = ({ product, onSubmit, isLoading }) => {
         name_lower: form.name.toLowerCase(),
         dateAdded: new Date().getTime(),
         image: imageFile?.image?.file || product.imageUrl,
-        imageCollection: imageFile.imageCollection
+        imageCollection: imageFile.imageCollection,
       });
     } else {
-      alert('Product thumbnail image is required.');
+      alert("Product thumbnail image is required.");
     }
   };
 
@@ -116,7 +108,7 @@ const ProductForm = ({ product, onSubmit, isLoading }) => {
         validationSchema={FormSchema}
         onSubmit={onSubmitForm}
       >
-        {({ values, setValues }) => (
+        {({ values, setFieldValue }) => (
           <Form className="product-form">
             <div className="product-form-inputs">
               <div className="d-flex">
@@ -127,7 +119,7 @@ const ProductForm = ({ product, onSubmit, isLoading }) => {
                     type="text"
                     label="* Product Name"
                     placeholder="Gago"
-                    style={{ textTransform: 'capitalize' }}
+                    style={{ textTransform: "capitalize" }}
                     component={CustomInput}
                   />
                 </div>
@@ -154,7 +146,7 @@ const ProductForm = ({ product, onSubmit, isLoading }) => {
                   component={CustomTextarea}
                 />
               </div>
-              <div className="d-flex">
+              <div className="d-flex align-items-center ">
                 <div className="product-form-field">
                   <Field
                     disabled={isLoading}
@@ -175,20 +167,6 @@ const ProductForm = ({ product, onSubmit, isLoading }) => {
                     component={CustomInput}
                   />
                 </div>
-                &nbsp;
-              </div>
-              <div className="d-flex">
-                <div className="product-form-field">
-                  <CustomCreatableSelect
-                    defaultValue={values.style.map((key) => ({ value: key, label: key }))}
-                    name="style"
-                    iid="style"
-                    isMulti
-                    disabled={isLoading}
-                    placeholder="Enter Style e.g lawn.."
-                    label="* Style"
-                  />
-                </div>
                 <div className="product-form-field">
                   <Field
                     disabled={isLoading}
@@ -200,29 +178,55 @@ const ProductForm = ({ product, onSubmit, isLoading }) => {
                   />
                 </div>
                 &nbsp;
+              </div>
+              <div className="d-flex">
+                {!values.isAccessories && (
+                  <div className="product-form-field">
+                    <CustomCreatableSelect
+                      defaultValue={values.keywords.map((key) => ({
+                        value: key,
+                        label: key,
+                      }))}
+                      name="keywords"
+                      iid="keywords"
+                      isMulti
+                      disabled={isLoading}
+                      placeholder="Enter Style e.g lawn.."
+                      label="* Style"
+                    />
+                  </div>
+                )}
+                &nbsp;
+                {!values.isAccessories && !values.isUnStiched && (
+                  <div className="product-form-field">
+                    <CustomCreatableSelect
+                      defaultValue={values.sizes.map((size) => ({
+                        value: size,
+                        label: size,
+                      }))}
+                      name="sizes"
+                      iid="sizes"
+                      options={Sizes}
+                      isMulti
+                      disabled={isLoading}
+                      placeholder="Create/Select Sizes"
+                      label="* Sizes"
+                    />
+                  </div>
+                )}
+              </div>
+              {values.isAccessories && (
                 <div className="product-form-field">
-                <CustomCreatableSelect
-                    defaultValue={values.sizes.map((size) => ({
-                      value: size,
-                      label: size,
-                    }))}
-                    name="sizes"
-                    iid="sizes"
-                    options={Sizes}
-                    isMulti
+                  <Field
                     disabled={isLoading}
-                    placeholder="Create/Select Sizes"
-                    label="* Sizes"
+                    name="accessoryDetail"
+                    id="accessoryDetail"
+                    type="text"
+                    label="* Accessory Detail"
+                    component={CustomInput}
                   />
                 </div>
-              </div>
-              <div className="product-form-field">
-                <FieldArray
-                  name="availableColors"
-                  disabled={isLoading}
-                  component={CustomColorInput}
-                />
-              </div>
+              )}
               <div className="product-form-field">
                 <span className="d-block padding-s">Image Collection</span>
                 {!isFileLoading && (
@@ -232,7 +236,12 @@ const ProductForm = ({ product, onSubmit, isLoading }) => {
                       hidden
                       id="product-input-file-collection"
                       multiple
-                      onChange={(e) => onFileChange(e, { name: 'imageCollection', type: 'multiple' })}
+                      onChange={(e) =>
+                        onFileChange(e, {
+                          name: "imageCollection",
+                          type: "multiple",
+                        })
+                      }
                       readOnly={isLoading}
                       type="file"
                     />
@@ -241,143 +250,169 @@ const ProductForm = ({ product, onSubmit, isLoading }) => {
                 )}
               </div>
               <div className="product-form-collection">
-                <>
-                  {imageFile.imageCollection.length >= 1 && (
-                    imageFile.imageCollection.map((image) => (
-                      <div
-                        className="product-form-collection-image"
-                        key={image.id}
+                {imageFile.imageCollection.length >= 1 &&
+                  imageFile.imageCollection.map((image) => (
+                    <div
+                      className="product-form-collection-image"
+                      key={image.id}
+                    >
+                      <ImageLoader alt="" src={image.url} />
+                      <button
+                        className="product-form-delete-image"
+                        onClick={() =>
+                          removeImage({
+                            id: image.id,
+                            name: "imageCollection",
+                          })
+                        }
+                        title="Delete Image"
+                        type="button"
                       >
-                        <ImageLoader
-                          alt=""
-                          src={image.url}
-                        />
-                        <button
-                          className="product-form-delete-image"
-                          onClick={() => removeImage({ id: image.id, name: 'imageCollection' })}
-                          title="Delete Image"
-                          type="button"
-                        >
-                          <i className="fa fa-times-circle" />
-                        </button>
-                      </div>
-                    ))
-                  )}
-                </>
+                        <i className="fa fa-times-circle" />
+                      </button>
+                    </div>
+                  ))}
               </div>
               <br />
               <div className="d-flex">
                 <div className="product-form-field">
                   <input
                     checked={values.isFeatured}
-                    className=""
                     id="featured"
-                    onChange={(e) => setValues({ ...values, isFeatured: e.target.checked })}
+                    onChange={(e) => {
+                      setFieldValue("isFeatured", e.target.checked);
+                      if (e.target.checked) {
+                        setFieldValue("isRecommended", false);
+                        setFieldValue("isKids", false);
+                        setFieldValue("isStiched", false);
+                        setFieldValue("isUnStiched", false);
+                        setFieldValue("isAccessories", false);
+                      }
+                    }}
                     type="checkbox"
                   />
-                  <label htmlFor="featured">
-                    <h5 className="d-flex-grow-1 margin-0">
-                      &nbsp; Add to Featured &nbsp;
-                    </h5>
+                  &nbsp;
+                  <label className="label" htmlFor="featured">
+                  Add to  Featured
                   </label>
                 </div>
                 <div className="product-form-field">
                   <input
                     checked={values.isRecommended}
-                    className=""
                     id="recommended"
-                    onChange={(e) => setValues({ ...values, isRecommended: e.target.checked })}
+                    onChange={(e) => {
+                      setFieldValue("isRecommended", e.target.checked);
+                      if (e.target.checked) {
+                        setFieldValue("isFeatured", false);
+                        setFieldValue("isKids", false);
+                        setFieldValue("isStiched", false);
+                        setFieldValue("isUnStiched", false);
+                        setFieldValue("isAccessories", false);
+                      }
+                    }}
                     type="checkbox"
                   />
-                  <label htmlFor="recommended">
-                    <h5 className="d-flex-grow-1 margin-0">
-                      &nbsp; Add to Recommended &nbsp;
-                    </h5>
+                  &nbsp;
+                  <label className="label" htmlFor="recommended">
+                  Add to  Recommended
                   </label>
                 </div>
                 <div className="product-form-field">
                   <input
                     checked={values.isKids}
-                    className=""
-                    id="kids"
-                    onChange={(e) =>
-                      setValues({ ...values, isKids: e.target.checked })
-                    }
+                    id="isKids"
+                    onChange={(e) => {
+                      setFieldValue("isKids", e.target.checked);
+                      if (e.target.checked) {
+                        setFieldValue("isFeatured", false);
+                        setFieldValue("isRecommended", false);
+                        setFieldValue("isStiched", false);
+                        setFieldValue("isUnStiched", false);
+                        setFieldValue("isAccessories", false);
+                      }
+                    }}
                     type="checkbox"
                   />
-                  <label htmlFor="kids">
-                    <h5 className="d-flex-grow-1 margin-0">
-                      &nbsp; Add to Kids Collection &nbsp;
-                    </h5>
+                  &nbsp;
+                  <label className="label" htmlFor="isKids">
+                   Add to Kids
                   </label>
                 </div>
               </div>
               <div className="d-flex">
-                <div className="product-form-field">
+              <div className="product-form-field">
                   <input
                     checked={values.isStiched}
-                    className=""
-                    id="stiched"
-                    onChange={(e) =>
-                      setValues({ ...values, isStiched: e.target.checked })
-                    }
+                    id="isStiched"
+                    onChange={(e) => {
+                      setFieldValue("isStiched", e.target.checked);
+                      if (e.target.checked) {
+                        setFieldValue("isFeatured", false);
+                        setFieldValue("isRecommended", false);
+                        setFieldValue("isKids", false);
+                        setFieldValue("isUnStiched", false);
+                        setFieldValue("isAccessories", false);
+                      }
+                    }}
                     type="checkbox"
                   />
-                  <label htmlFor="unstiched">
-                    <h5 className="d-flex-grow-1 margin-0">
-                      &nbsp; Add to Stiched Collection &nbsp;
-                    </h5>
+                  &nbsp;
+                  <label className="label" htmlFor="isStiched">
+                  Add to  Stitched
                   </label>
                 </div>
                 <div className="product-form-field">
                   <input
                     checked={values.isUnStiched}
-                    className=""
-                    id="unstiched"
-                    onChange={(e) =>
-                      setValues({ ...values, isUnStiched: e.target.checked })
-                    }
+                    id="isUnStiched"
+                    onChange={(e) => {
+                      setFieldValue("isUnStiched", e.target.checked);
+                      if (e.target.checked) {
+                        setFieldValue("isFeatured", false);
+                        setFieldValue("isRecommended", false);
+                        setFieldValue("isKids", false);
+                        setFieldValue("isStiched", false);
+                        setFieldValue("isAccessories", false);
+                      }
+                    }}
                     type="checkbox"
                   />
-                  <label htmlFor="unstiched">
-                    <h5 className="d-flex-grow-1 margin-0">
-                      &nbsp; Add to Unstiched Collection &nbsp;
-                    </h5>
+                  &nbsp;
+                  <label className="label" htmlFor="isUnStiched">
+                   Add to  UnStitched
                   </label>
                 </div>
                 <div className="product-form-field">
                   <input
                     checked={values.isAccessories}
-                    className=""
-                    id="accessories"
-                    onChange={(e) =>
-                      setValues({ ...values, isAccessories: e.target.checked })
-                    }
+                    id="isAccessories"
+                    onChange={(e) => {
+                      setFieldValue("isAccessories", e.target.checked);
+                      if (e.target.checked) {
+                        setFieldValue("isFeatured", false);
+                        setFieldValue("isRecommended", false);
+                        setFieldValue("isKids", false);
+                        setFieldValue("isStiched", false);
+                        setFieldValue("isUnStiched", false);
+                      }
+                    }}
                     type="checkbox"
                   />
-                  <label htmlFor="accessories">
-                    <h5 className="d-flex-grow-1 margin-0">
-                      &nbsp; Add to Accessories Collection &nbsp;
-                    </h5>
+                  &nbsp;
+                  <label className="label" htmlFor="isAccessories">
+                    Add to Accessories
                   </label>
                 </div>
               </div>
               <br />
-              <br />
-              <br />
               <div className="product-form-field product-form-submit">
-                <button
-                  className="button"
-                  disabled={isLoading}
-                  type="submit"
-                >
+                <button className="button" disabled={isLoading} type="submit">
                   {isLoading ? <LoadingOutlined /> : <CheckOutlined />}
                   &nbsp;
-                  {isLoading ? 'Saving Product' : 'Save Product'}
+                  {isLoading ? "Saving Product" : "Save Product"}
                 </button>
               </div>
             </div>
-            {/* ----THUBMNAIL ---- */}
             <div className="product-form-file">
               <div className="product-form-field">
                 <span className="d-block padding-s">* Thumbnail</span>
@@ -387,7 +422,9 @@ const ProductForm = ({ product, onSubmit, isLoading }) => {
                       disabled={isLoading}
                       hidden
                       id="product-input-file"
-                      onChange={(e) => onFileChange(e, { name: 'image', type: 'single' })}
+                      onChange={(e) =>
+                        onFileChange(e, { name: "image", type: "single" })
+                      }
                       readOnly={isLoading}
                       type="file"
                     />
@@ -418,11 +455,11 @@ ProductForm.propTypes = {
     brand: PropType.string,
     price: PropType.number,
     comparePrice: PropType.number,
-    maxQuantity: PropType.number,
     description: PropType.string,
+    maxQuantity: PropType.number,
     style: PropType.arrayOf(PropType.string),
     imageCollection: PropType.arrayOf(PropType.object),
-    sizes: PropType.arrayOf(PropType.string),
+    keywords: PropType.arrayOf(PropType.string),
     image: PropType.string,
     imageUrl: PropType.string,
     isFeatured: PropType.bool,
@@ -431,10 +468,10 @@ ProductForm.propTypes = {
     isStiched: PropType.bool,
     isUnStiched: PropType.bool,
     isAccessories: PropType.bool,
-    availableColors: PropType.arrayOf(PropType.string)
+    accessoryDetail: PropType.string
   }).isRequired,
   onSubmit: PropType.func.isRequired,
-  isLoading: PropType.bool.isRequired
+  isLoading: PropType.bool.isRequired,
 };
 
 export default ProductForm;

@@ -40,21 +40,30 @@ const Products = () => {
       : "";
     return (
       product.name?.toLowerCase().includes(searchTerm.toLowerCase()) || // Check for name
+      product.accessoryDetail?.toLowerCase().includes(searchTerm.toLowerCase()) || // Check for name
       (product.isStiched &&
-        "Stiched".toLowerCase().includes(searchTerm.toLowerCase())) || // Check for stitched
+        "Stiched".toLowerCase().includes(searchTerm.toLowerCase())) || 
+        (product.isUnStiched &&
+          "UnStiched".toLowerCase().includes(searchTerm.toLowerCase())) ||
       (product.isFeatured &&
         "Featured".toLowerCase().includes(searchTerm.toLowerCase())) || // Check for featured
       (product.isKids &&
         "Kids".toLowerCase().includes(searchTerm.toLowerCase())) || // Check for kids
       (product.isRecommended &&
         "Recommended".toLowerCase().includes(searchTerm.toLowerCase())) || // Check for recommended
+        (product.isAccessories &&
+          "Accessories".toLowerCase().includes(searchTerm.toLowerCase())) || // Check for accessories
       (product.price && product.price.toString().includes(searchTerm)) || // Check for price
       formattedDate.toLowerCase().includes(searchTerm.toLowerCase()) || // Check for dateAdded
       (product.maxQuantity &&
         product.maxQuantity.toString().includes(searchTerm)) || // Check for maxQuantity
       keywordsArray.some((keyword) =>
         keyword.toLowerCase().includes(searchTerm.toLowerCase())
+      ) || 
+      keywordsArray.some((style) =>
+        style.toLowerCase().includes(searchTerm.toLowerCase())
       ) // Check for keywords
+
     );
   });
 
