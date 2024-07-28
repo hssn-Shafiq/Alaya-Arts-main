@@ -164,6 +164,7 @@ const AccessoriesProducts = () => {
             </div>
           </div>
         </div>
+        
       </main>
     </>
   );
