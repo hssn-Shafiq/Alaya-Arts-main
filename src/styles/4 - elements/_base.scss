@@ -80,8 +80,13 @@ h6 {
   animation: fadeIn .5s ease;
 
   @media (max-width: $mobile) {
-    padding: 9.5rem 0px;
+    // padding: 9.5rem 0px;
     flex-direction: column;
+  }
+}
+@include tablet{
+  .content{
+    margin-top: 103px;
   }
 }
 
