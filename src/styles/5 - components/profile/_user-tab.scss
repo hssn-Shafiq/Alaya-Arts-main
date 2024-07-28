@@ -81,7 +81,7 @@
   min-height: 80px;
   margin: 24px 12px 24px 36px;
   padding-right: 12px;
-  width: 916px;
+  // width: 916px;
 }
 p.text.info.desc{
   line-height: 0px;
@@ -124,3 +124,41 @@ p.text.info.desc{
   text-align: left;
 }
 
+@include mobile{
+  .order-item {
+    min-height: 80px;
+    padding-right: 12px;
+    border-top: none;
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    line-height: 1.12;
+    align-items: start;
+  }
+  p.text.info.desc{
+    line-height: 0px;
+    font-size: 12px;
+    line-height: 1.12;
+  }
+  .text.title.item-title{
+    font-size: 14px;
+    margin-top: 10px;
+  }
+}
+
+@include tablet{
+  .order-item {
+    min-height: 80px;
+    padding-right: 12px;
+    border-top: none;
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    line-height: 1.12;
+    align-items: start;
+  }
+  .text.title.item-title{
+    font-size: 14px;
+    margin-top: 10px;
+  }
+}
