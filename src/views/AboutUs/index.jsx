@@ -8,9 +8,10 @@ import img4 from "@/images/ready to wear.jpg";
 const AboutUs = () => {
   return (
     <>
-      <div
+    <main className='content'>
+    <div
         className="main"
-        style={{ margin: "10px auto", padding: "4rem", width: "70%" }}
+        style={{ margin: "10px auto", padding: "4rem", width: "80%" }}
       >
         <h1 className="text-center fw-bold">ABOUT US</h1>
         <img src={img1} alt="Alaya Arts" style={{ width: "100%", height: "auto", marginTop:"10px", marginBottom:"20px"}} />
@@ -117,6 +118,8 @@ const AboutUs = () => {
           your best style!
         </p>
       </div>
+    </main>
+     
     </>
   );
 };

@@ -9,7 +9,7 @@ import { SHOP } from '@/constants/routes';
 import bg6 from "@/images/bannerimg6.jpg";
 import bg7 from "@/images/bannerimg7.jpg";
 import firebaseInstance from '@/services/firebase';
-import ActiveFilters from '@/components/common/ActiveFilters'; 
+import ActiveFilters from '@/components/common/ActiveFilters';
 
 const AccessoriesProducts = () => {
   useDocumentTitle('Accessories Collection - Alaya Arts');
@@ -67,7 +67,7 @@ const AccessoriesProducts = () => {
 
   const filteredProducts = accessoriesProducts.filter(product => {
     const matchesPrice = (filters.priceFrom === '' || product.price >= Number(filters.priceFrom)) &&
-                         (filters.priceTo === '' || product.price <= Number(filters.priceTo));
+      (filters.priceTo === '' || product.price <= Number(filters.priceTo));
     const matchesAccessoryDetail = filters.accessoryDetail === '' || (product.accessoryDetail && product.accessoryDetail === filters.accessoryDetail);
 
     return matchesPrice && matchesAccessoryDetail;
@@ -75,7 +75,9 @@ const AccessoriesProducts = () => {
 
   return (
     <>
-      <MultiCarousel images={carouselImages} />
+      <main className='content'>
+        <MultiCarousel images={carouselImages} />
+      </main>
       <main className="content">
         <div className="featured">
           <ImageWithText
@@ -162,6 +164,7 @@ const AccessoriesProducts = () => {
             </div>
           </div>
         </div>
+        
       </main>
     </>
   );

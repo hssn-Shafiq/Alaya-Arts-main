@@ -53,15 +53,17 @@ const UnstichedProducts = () => {
 
   const filteredProducts = unstichedProducts.filter(product => {
     const matchesPrice = (filters.priceFrom === '' || product.price >= Number(filters.priceFrom)) &&
-                         (filters.priceTo === '' || product.price <= Number(filters.priceTo));
+      (filters.priceTo === '' || product.price <= Number(filters.priceTo));
     const matchesKeyword = filters.keyword === '' || (product.keywords && product.keywords.includes(filters.keyword));
 
-    return matchesPrice && matchesKeyword ;
+    return matchesPrice && matchesKeyword;
   });
 
   return (
     <>
-      <MultiCarousel images={carouselImages} />
+    <main className='content'>
+        <MultiCarousel images={carouselImages} />
+    </main>
       <main className="content">
         <div className="featured">
           <div className="display">
@@ -71,7 +73,7 @@ const UnstichedProducts = () => {
                 filters={filters}
                 handleFilterChange={handleFilterChange}
                 removeFilter={removeFilter}
-                showSizeDiv = "d-none"
+                showSizeDiv="d-none"
               />
               <ActiveFilters filters={filters} removeFilter={removeFilter} />
               <div className="product-display-grid">

@@ -15,7 +15,9 @@ const Footer = () => {
     Route.UNSTICHED_PRODUCTS,
     Route.KIDS_PRODUCTS,
     Route.RECOMMENDED_PRODUCTS,
+    Route.ACCESSORIES_PRODUCTS,
     Route.CONTACT_US,
+    // Route.,
     Route.ABOUT_US,
     Route.FAQ,
     Route.TERM_CONDITION,
@@ -96,22 +98,22 @@ const Footer = () => {
               <a href="https://www.facebook.com/profile.php?id=61562088893728&mibextid=JRoKGi" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Follow Alaya Arts on Facebook" target="_blank" rel="noopener noreferrer">
                 <i className="fab fa-facebook-f" />
               </a>
-              <a href="https://twitter.com" data-bs-toggle="tooltip" data-bs-placement="top" title="Follow Alaya Arts on Twitter" target="_blank" rel="noopener noreferrer">
+              {/* <a href="https://twitter.com" data-bs-toggle="tooltip" data-bs-placement="top" title="Follow Alaya Arts on Twitter" target="_blank" rel="noopener noreferrer">
                 <i className="fab fa-twitter" />
-              </a>
+              </a> */}
               <a href="https://www.instagram.com/alaya.arts?igsh=NTZ3YW04NWF2M3Bp" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Follow Alaya Arts on Instagram" target="_blank" rel="noopener noreferrer">
                 <i className="fab fa-instagram" />
               </a>
-              <a href="https://www.linkedin.com" data-bs-toggle="tooltip" data-bs-placement="left" title="Follow Alaya Arts on LinkedIn" target="_blank" rel="noopener noreferrer">
+              {/* <a href="https://www.linkedin.com" data-bs-toggle="tooltip" data-bs-placement="left" title="Follow Alaya Arts on LinkedIn" target="_blank" rel="noopener noreferrer">
                 <i className="fab fa-linkedin-in" />
-              </a>
+              </a> */}
             </div>
           </div>
         </div>
       </div>
         <div className="row mt-3 py-5 border-top">
-          <div className="col-md-12 text-center copyrights_text ">
-            <p className='mb-0 fs-2 text-light'>copyright @ 2024 All Rights Reserved | <a href="/" className='text-light  text-decoration-underline'>Alaya Arts</a></p>
+          <div className="col-md-12 col-sm-10 text-center copyrights_text ">
+            <p className='mb-0 fs-2 px-5 text-light'>copyright @ 2024 All Rights Reserved | <a href="/" className='text-light  text-decoration-underline'>Alaya Arts</a></p>
           </div>
         </div>
     </footer>
