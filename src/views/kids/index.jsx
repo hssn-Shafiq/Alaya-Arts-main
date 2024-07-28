@@ -11,6 +11,7 @@ import kids03 from '@/images/Kids03.png';
 import kids04 from '@/images/Kids04.png';
 import kids05 from '@/images/Kids05.png';
 import kids06 from '@/images/Kids06.png';
+import multiKid from '@/images/multi-kids.jpg';
 import ActiveFilters from '@/components/common/ActiveFilters'; // Import the ActiveFilters component
 
 const KidsProducts = () => {
@@ -92,7 +93,7 @@ const KidsProducts = () => {
             t3="Collection"
             desc="Explore a curated selection of high-quality products tailored just for you."
             link="SHOP"
-            img={unstitchimg2}
+            img={multiKid}
             place={1}
           />
         </div>
