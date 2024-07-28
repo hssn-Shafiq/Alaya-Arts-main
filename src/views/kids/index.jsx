@@ -1,4 +1,4 @@
-// src/components/KidsProducts.js
+// src/components//KidsProducts.js
 import React, { useState, useEffect } from 'react';
 import { MessageDisplay, MultiCarousel, ImageWithText } from '@/components/common';
 import { ProductShowcaseGrid } from '@/components/product';
