@@ -16,7 +16,7 @@ const ForgotPassword = () => {
   const [field, setField] = useState({ email: '', error: '' });
 
   useScrollTop();
-  useDocumentTitle('Forgot Password | Salinaka');
+  useDocumentTitle('Forgot Password | Alaya Arts');
   
   useEffect(() => {
     if (didMount) {

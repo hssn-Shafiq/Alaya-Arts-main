@@ -179,6 +179,140 @@ const ProductForm = ({ product, onSubmit, isLoading }) => {
                 </div>
                 &nbsp;
               </div>
+              {/* <div className="d-flex">
+                <div className="product-form-field">
+                  <input
+                    checked={values.isFeatured}
+                    id="featured"
+                    onChange={(e) => {
+                      setFieldValue("isFeatured", e.target.checked);
+                      if (e.target.checked) {
+                        setFieldValue("isRecommended", false);
+                        setFieldValue("isKids", false);
+                        setFieldValue("isStiched", false);
+                        setFieldValue("isUnStiched", false);
+                        setFieldValue("isAccessories", false);
+                      }
+                    }}
+                    type="checkbox"
+                  />
+                  &nbsp;
+                  <label className="label" htmlFor="featured">
+                  Add to  Featured
+                  </label>
+                </div>
+                <div className="product-form-field">
+                  <input
+                    checked={values.isRecommended}
+                    id="recommended"
+                    onChange={(e) => {
+                      setFieldValue("isRecommended", e.target.checked);
+                      if (e.target.checked) {
+                        setFieldValue("isFeatured", false);
+                        setFieldValue("isKids", false);
+                        setFieldValue("isStiched", false);
+                        setFieldValue("isUnStiched", false);
+                        setFieldValue("isAccessories", false);
+                      }
+                    }}
+                    type="checkbox"
+                  />
+                  &nbsp;
+                  <label className="label" htmlFor="recommended">
+                  Add to  Recommended
+                  </label>
+                </div>
+               
+              </div> */}
+              <div className="add_collection mt-4">
+              <h2 className="fw-bold fs-4">* Select a Collection</h2>
+              <div className="d-flex border-black border p-2">
+              <div className="product-form-field">
+                  <input
+                    checked={values.isStiched}
+                    id="isStiched"
+                    onChange={(e) => {
+                      setFieldValue("isStiched", e.target.checked);
+                      if (e.target.checked) {
+                        setFieldValue("isFeatured", false);
+                        setFieldValue("isRecommended", false);
+                        setFieldValue("isKids", false);
+                        setFieldValue("isUnStiched", false);
+                        setFieldValue("isAccessories", false);
+                      }
+                    }}
+                    type="checkbox"
+                  />
+
+                  <label className="label" htmlFor="isStiched">
+                  Add to  Stitched
+                  </label>
+                </div>
+                <div className="product-form-field">
+                  <input
+                    checked={values.isUnStiched}
+                    id="isUnStiched"
+                    onChange={(e) => {
+                      setFieldValue("isUnStiched", e.target.checked);
+                      if (e.target.checked) {
+                        setFieldValue("isFeatured", false);
+                        setFieldValue("isRecommended", false);
+                        setFieldValue("isKids", false);
+                        setFieldValue("isStiched", false);
+                        setFieldValue("isAccessories", false);
+                      }
+                    }}
+                    type="checkbox"
+                  />
+
+                  <label className="label" htmlFor="isUnStiched">
+                   Add to  UnStitched
+                  </label>
+                </div>
+                <div className="product-form-field">
+                  <input
+                    checked={values.isAccessories}
+                    id="isAccessories"
+                    onChange={(e) => {
+                      setFieldValue("isAccessories", e.target.checked);
+                      if (e.target.checked) {
+                        setFieldValue("isFeatured", false);
+                        setFieldValue("isRecommended", false);
+                        setFieldValue("isKids", false);
+                        setFieldValue("isStiched", false);
+                        setFieldValue("isUnStiched", false);
+                      }
+                    }}
+                    type="checkbox"
+                  />
+                  <label className="label" htmlFor="isAccessories">
+                    Add to Accessories
+                  </label>
+                </div>
+                <div className="product-form-field">
+                  <input
+                    checked={values.isKids}
+                    id="isKids"
+                    onChange={(e) => {
+                      setFieldValue("isKids", e.target.checked);
+                      if (e.target.checked) {
+                        setFieldValue("isFeatured", false);
+                        setFieldValue("isRecommended", false);
+                        setFieldValue("isStiched", false);
+                        setFieldValue("isUnStiched", false);
+                        setFieldValue("isAccessories", false);
+                      }
+                    }}
+                    type="checkbox"
+                  />
+                  <label className="label" htmlFor="isKids">
+                   Add to Kids
+                  </label>
+                </div>
+              </div>
+              </div>
+          
+              <br />
               <div className="d-flex">
                 {!values.isAccessories && (
                   <div className="product-form-field">
@@ -274,136 +408,6 @@ const ProductForm = ({ product, onSubmit, isLoading }) => {
                   ))}
               </div>
               <br />
-              <div className="d-flex">
-                <div className="product-form-field">
-                  <input
-                    checked={values.isFeatured}
-                    id="featured"
-                    onChange={(e) => {
-                      setFieldValue("isFeatured", e.target.checked);
-                      if (e.target.checked) {
-                        setFieldValue("isRecommended", false);
-                        setFieldValue("isKids", false);
-                        setFieldValue("isStiched", false);
-                        setFieldValue("isUnStiched", false);
-                        setFieldValue("isAccessories", false);
-                      }
-                    }}
-                    type="checkbox"
-                  />
-                  &nbsp;
-                  <label className="label" htmlFor="featured">
-                  Add to  Featured
-                  </label>
-                </div>
-                <div className="product-form-field">
-                  <input
-                    checked={values.isRecommended}
-                    id="recommended"
-                    onChange={(e) => {
-                      setFieldValue("isRecommended", e.target.checked);
-                      if (e.target.checked) {
-                        setFieldValue("isFeatured", false);
-                        setFieldValue("isKids", false);
-                        setFieldValue("isStiched", false);
-                        setFieldValue("isUnStiched", false);
-                        setFieldValue("isAccessories", false);
-                      }
-                    }}
-                    type="checkbox"
-                  />
-                  &nbsp;
-                  <label className="label" htmlFor="recommended">
-                  Add to  Recommended
-                  </label>
-                </div>
-                <div className="product-form-field">
-                  <input
-                    checked={values.isKids}
-                    id="isKids"
-                    onChange={(e) => {
-                      setFieldValue("isKids", e.target.checked);
-                      if (e.target.checked) {
-                        setFieldValue("isFeatured", false);
-                        setFieldValue("isRecommended", false);
-                        setFieldValue("isStiched", false);
-                        setFieldValue("isUnStiched", false);
-                        setFieldValue("isAccessories", false);
-                      }
-                    }}
-                    type="checkbox"
-                  />
-                  &nbsp;
-                  <label className="label" htmlFor="isKids">
-                   Add to Kids
-                  </label>
-                </div>
-              </div>
-              <div className="d-flex">
-              <div className="product-form-field">
-                  <input
-                    checked={values.isStiched}
-                    id="isStiched"
-                    onChange={(e) => {
-                      setFieldValue("isStiched", e.target.checked);
-                      if (e.target.checked) {
-                        setFieldValue("isFeatured", false);
-                        setFieldValue("isRecommended", false);
-                        setFieldValue("isKids", false);
-                        setFieldValue("isUnStiched", false);
-                        setFieldValue("isAccessories", false);
-                      }
-                    }}
-                    type="checkbox"
-                  />
-                  &nbsp;
-                  <label className="label" htmlFor="isStiched">
-                  Add to  Stitched
-                  </label>
-                </div>
-                <div className="product-form-field">
-                  <input
-                    checked={values.isUnStiched}
-                    id="isUnStiched"
-                    onChange={(e) => {
-                      setFieldValue("isUnStiched", e.target.checked);
-                      if (e.target.checked) {
-                        setFieldValue("isFeatured", false);
-                        setFieldValue("isRecommended", false);
-                        setFieldValue("isKids", false);
-                        setFieldValue("isStiched", false);
-                        setFieldValue("isAccessories", false);
-                      }
-                    }}
-                    type="checkbox"
-                  />
-                  &nbsp;
-                  <label className="label" htmlFor="isUnStiched">
-                   Add to  UnStitched
-                  </label>
-                </div>
-                <div className="product-form-field">
-                  <input
-                    checked={values.isAccessories}
-                    id="isAccessories"
-                    onChange={(e) => {
-                      setFieldValue("isAccessories", e.target.checked);
-                      if (e.target.checked) {
-                        setFieldValue("isFeatured", false);
-                        setFieldValue("isRecommended", false);
-                        setFieldValue("isKids", false);
-                        setFieldValue("isStiched", false);
-                        setFieldValue("isUnStiched", false);
-                      }
-                    }}
-                    type="checkbox"
-                  />
-                  &nbsp;
-                  <label className="label" htmlFor="isAccessories">
-                    Add to Accessories
-                  </label>
-                </div>
-              </div>
               <br />
               <div className="product-form-field product-form-submit">
                 <button className="button" disabled={isLoading} type="submit">

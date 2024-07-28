@@ -11,6 +11,7 @@ export { default as ContactDetails } from './admin/contactDetails';
 export { default as EditProduct } from './admin/edit_product';
 export { default as UploadBannerImage } from './admin/UploadBannerImage';
 export { default as UploadHomeImages } from './admin/UploadHomeImages';
+export { default as BankDetails } from './admin/BankDetails';
 
 export { default as Products } from './admin/products';
 export { default as ForgotPassword } from './auth/forgot_password';
