@@ -87,3 +87,11 @@
   .demo:hover {
     opacity: 1;
   }
+
+  @include mobile{
+    .multicarousel p{
+      font-size: 12px;
+      padding: 0;
+      height: 12px;
+    }
+  }

@@ -1,4 +1,4 @@
-// src/components//KidsProducts.js
+// src/components/KidsProducts.js
 import React, { useState, useEffect } from 'react';
 import { MessageDisplay, MultiCarousel, ImageWithText } from '@/components/common';
 import { ProductShowcaseGrid } from '@/components/product';
@@ -61,12 +61,16 @@ const KidsProducts = () => {
     return matchesPrice && matchesKeyword && matchesSize;
   });
 
+  console.log('KidsProducts Component Mounted');
+  console.log('Carousel Images:', carouselImages);
+  console.log('Filtered Products:', filteredProducts);
+
   return (
     <>
       <MultiCarousel images={carouselImages} />
       <main className="content">
         <div className="featured">
-        <div className="display">
+          <div className="display">
             <h1 className='px-3'>Kids Collection</h1>
             <div className="container">
               <FilterCollection
@@ -86,8 +90,8 @@ const KidsProducts = () => {
                   filteredProducts.length === 0 ? (
                     <MessageDisplay
                       message="No products found for the selected filters."
-                        action={fetchKidsProducts}
-                    buttonLabel="Apply other filter"
+                      action={fetchKidsProducts}
+                      buttonLabel="Apply other filter"
                     />
                   ) : (
                     <ProductShowcaseGrid
@@ -105,9 +109,7 @@ const KidsProducts = () => {
             t3="Collection"
             desc="Explore a curated selection of high-quality products tailored just for you."
             link="SHOP"
-            img={multiKid
-
-            }
+            img={unstitchimg2}
             place={1}
           />
         </div>
