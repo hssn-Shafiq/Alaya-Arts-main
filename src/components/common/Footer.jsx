@@ -98,15 +98,15 @@ const Footer = () => {
               <a href="https://www.facebook.com/profile.php?id=61562088893728&mibextid=JRoKGi" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Follow Alaya Arts on Facebook" target="_blank" rel="noopener noreferrer">
                 <i className="fab fa-facebook-f" />
               </a>
-              <a href="https://twitter.com" data-bs-toggle="tooltip" data-bs-placement="top" title="Follow Alaya Arts on Twitter" target="_blank" rel="noopener noreferrer">
+              {/* <a href="https://twitter.com" data-bs-toggle="tooltip" data-bs-placement="top" title="Follow Alaya Arts on Twitter" target="_blank" rel="noopener noreferrer">
                 <i className="fab fa-twitter" />
-              </a>
+              </a> */}
               <a href="https://www.instagram.com/alaya.arts?igsh=NTZ3YW04NWF2M3Bp" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Follow Alaya Arts on Instagram" target="_blank" rel="noopener noreferrer">
                 <i className="fab fa-instagram" />
               </a>
-              <a href="https://www.linkedin.com" data-bs-toggle="tooltip" data-bs-placement="left" title="Follow Alaya Arts on LinkedIn" target="_blank" rel="noopener noreferrer">
+              {/* <a href="https://www.linkedin.com" data-bs-toggle="tooltip" data-bs-placement="left" title="Follow Alaya Arts on LinkedIn" target="_blank" rel="noopener noreferrer">
                 <i className="fab fa-linkedin-in" />
-              </a>
+              </a> */}
             </div>
           </div>
         </div>
