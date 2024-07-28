@@ -66,7 +66,7 @@ const UnstichedProducts = () => {
         <div className="featured">
           <div className="display">
             <h1 className='px-3'>Unstiched Collection</h1>
-            <div className="container">
+            <div className="container-">
               <FilterCollection
                 filters={filters}
                 handleFilterChange={handleFilterChange}
