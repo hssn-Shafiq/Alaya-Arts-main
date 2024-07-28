@@ -10,9 +10,9 @@ export default defineConfig({
       registerType: 'autoUpdate', // Automatically updates service worker
       includeAssets: ['favicon.ico', 'apple-touch-icon.png', 'masked-icon.svg'],
       manifest: {
-        name: 'Alaya Arts - React Ecommerce Store',
+        name: 'Alaya Arts - Feel the Stuff',
         short_name: 'Alaya Arts',
-        description: 'Alaya Arts - React Ecommerce Store',
+        description: 'Alaya Arts - Feel the Stuff',
         theme_color: '#ffffff',
         icons: [
           {

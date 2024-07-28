@@ -1,5 +1,5 @@
-import { ADMIN_PRODUCTS, ADMIN_ORDERS, ADMIN_DASHBOARD, ADMIN_USERS, ADMIN_DELIVERED_ORDERS, ADMIN_REJECTED_ORDERS, ADMIN_CONTACT_DETAILS, ADMIN_UPLOAD_BANNER, ADMIN_UPLOAD_HOME_BANNER } from '@/constants/routes';
-import { CloseCircleFilled, ContactsFilled, DashboardOutlined, DeliveredProcedureOutlined, OrderedListOutlined, StopFilled, UserOutlined, TagsFilled, BarsOutlined, MenuFoldOutlined, MenuUnfoldOutlined, UploadOutlined, CloudUploadOutlined } from '@ant-design/icons';
+import { ADMIN_PRODUCTS, ADMIN_ORDERS, ADMIN_DASHBOARD,ADMIN_BANK_DETAILS, ADMIN_USERS, ADMIN_DELIVERED_ORDERS, ADMIN_REJECTED_ORDERS, ADMIN_CONTACT_DETAILS, ADMIN_UPLOAD_BANNER, ADMIN_UPLOAD_HOME_BANNER } from '@/constants/routes';
+import { CloseCircleFilled, ContactsFilled, DashboardOutlined, DeliveredProcedureOutlined, OrderedListOutlined, StopFilled, UserOutlined, TagsFilled, BarsOutlined, MenuFoldOutlined, MenuUnfoldOutlined, UploadOutlined, CloudUploadOutlined, BankFilled } from '@ant-design/icons';
 import Upload from 'antd/es/upload/Upload';
 import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
@@ -108,6 +108,16 @@ const SideNavigation = () => {
               onClick={handleNavLinkClick}
             >
               <CloudUploadOutlined/> Banner Images
+            </NavLink>
+          </div>
+          <div className="sidenavigation-item">
+            <NavLink
+              activeClassName="sidenavigation-menu-active"
+              className="sidenavigation-menu"
+              to={ADMIN_BANK_DETAILS}
+              onClick={handleNavLinkClick}
+            >
+              <BankFilled/> Add Bank Details
             </NavLink>
           </div>
         </div>

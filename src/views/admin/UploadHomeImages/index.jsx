@@ -13,7 +13,6 @@ const UploadHomeImages = () => {
   const [updatingLoading, setUpdatingLoading] = useState(false);
 
   useEffect(() => {
-    // Fetch existing images on component mount
     fetchImages();
   }, []);
 

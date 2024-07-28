@@ -420,9 +420,8 @@ class Firebase {
   };
 
   getBankDetails = () => {
-    const snapshot = this.db.collection("bankDetails").get();
-    const details = snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
-    return details;
+    return this.db.collection("banksDetails").get();
+    // const details = snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
   };
   
   deleteBankDetails = (id) => {

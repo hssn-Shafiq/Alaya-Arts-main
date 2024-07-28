@@ -37,85 +37,87 @@ const Total = ({ isInternational, subtotal }) => {
       displayActionMessage('plzz add the payment details to place an order');
       console.log('plzz add the payment details to place an order');
     }
-
-    const orderDetails = {
-      userId: user.uid,
-      orderStatus: 'Processing',
-      products: basket.map((product) => ({
-        id: product.id,
-        name: product.name,
-        price: product.price,
-        quantity: product.quantity,
-        imageUrl: product.image,
-        color: product.selectedColor || 'N/A',
-        size: product.selectedSize || 'N/A',
-      })),
-      shippingDetails: {
-        fullname: shippingDetails.fullname,
-        email: shippingDetails.email,
-        address: shippingDetails.address,
-        mobile: shippingDetails.mobile,
-        isInternational: shippingDetails.isInternational,
-        isDone: true,
-      },
-      paymentDetails: {
-        bank: values.bank,
-        senderBankAccountName: values.senderBankAccountName,
-        senderBankAccountNumber: values.senderBankAccountNumber,
-        trxOrTid: values.trxOrTid,
-        type: values.paymentMethod,
-      },
-      subtotal,
-      total: subtotal + (isInternational ? 350 : 0),
-      paymentStatus: 'Pending',
-      createdAt: new Date().toISOString(),
-    };
-
-    try {
-      setUploading(true);
-
-      // Upload product images to Firestore storage
-      for (const product of basket) {
-        const imageUrl = await firebase.storeImage(product.id, 'orderProducts', product.imageFile);
-        product.imageUrl = imageUrl; // Add imageUrl to the product
+      else{
+        const orderDetails = {
+          userId: user.uid,
+          orderStatus: 'Processing',
+          products: basket.map((product) => ({
+            id: product.id,
+            name: product.name,
+            price: product.price,
+            quantity: product.quantity,
+            imageUrl: product.image,
+            color: product.selectedColor || 'N/A',
+            size: product.selectedSize || 'N/A',
+          })),
+          shippingDetails: {
+            fullname: shippingDetails.fullname,
+            email: shippingDetails.email,
+            address: shippingDetails.address,
+            mobile: shippingDetails.mobile,
+            isInternational: shippingDetails.isInternational,
+            isDone: true,
+          },
+          paymentDetails: {
+            bank: values.bank,
+            senderBankAccountName: values.senderBankAccountName,
+            senderBankAccountNumber: values.senderBankAccountNumber,
+            trxOrTid: values.trxOrTid,
+            type: values.paymentMethod,
+          },
+          subtotal,
+          total: subtotal + (isInternational ? 350 : 0),
+          paymentStatus: 'Pending',
+          createdAt: new Date().toISOString(),
+        };
+    
+        try {
+          setUploading(true);
+    
+          // Upload product images to Firestore storage
+          for (const product of basket) {
+            const imageUrl = await firebase.storeImage(product.id, 'orderProducts', product.imageFile);
+            product.imageUrl = imageUrl; // Add imageUrl to the product
+          }
+    
+          // Update order details with image URLs
+          orderDetails.products = basket.map((product) => ({
+            id: product.id,
+            name: product.name,
+            price: product.price,
+            quantity: product.quantity,
+            imageUrl: product.image,
+            color: product.selectedColor || 'N/A',
+            size: product.selectedSize || 'N/A'
+          }));
+    
+          // Place order in Firestore
+          await dispatch(placeOrder(orderDetails));
+    
+          // Clear the basket
+          dispatch(clearBasket());
+    
+          // Clear payment details
+          setFieldValue('bank', '');
+          setFieldValue('senderBankAccountName', '');
+          setFieldValue('senderBankAccountNumber', '');
+          setFieldValue('trxOrTid', '');
+          setFieldValue('paymentMethod', '');
+    
+          // Display success message
+          console.log('Order placed successfully!', orderDetails);
+          displayActionMessage('Order placed successfully!', 'success');
+    
+          // Redirect to account page
+          history.push('/all_orders');
+        } catch (error) {
+          console.log('Error placing order:', error);
+          displayActionMessage(`Failed to place order: ${error.message}`, 'error');
+        } finally {
+          setUploading(false);
+        }
       }
 
-      // Update order details with image URLs
-      orderDetails.products = basket.map((product) => ({
-        id: product.id,
-        name: product.name,
-        price: product.price,
-        quantity: product.quantity,
-        imageUrl: product.image,
-        color: product.selectedColor || 'N/A',
-        size: product.selectedSize || 'N/A'
-      }));
-
-      // Place order in Firestore
-      await dispatch(placeOrder(orderDetails));
-
-      // Clear the basket
-      dispatch(clearBasket());
-
-      // Clear payment details
-      setFieldValue('bank', '');
-      setFieldValue('senderBankAccountName', '');
-      setFieldValue('senderBankAccountNumber', '');
-      setFieldValue('trxOrTid', '');
-      setFieldValue('paymentMethod', '');
-
-      // Display success message
-      console.log('Order placed successfully!', orderDetails);
-      displayActionMessage('Order placed successfully!', 'success');
-
-      // Redirect to account page
-      history.push('/all_orders');
-    } catch (error) {
-      console.log('Error placing order:', error);
-      displayActionMessage(`Failed to place order: ${error.message}`, 'error');
-    } finally {
-      setUploading(false);
-    }
   };
 
   return (
