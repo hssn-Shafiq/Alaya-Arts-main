@@ -152,5 +152,10 @@
   &:hover svg{
     color: black;
   }
+
+  @include mobile{
+  padding: $xs-size 4px;
+
+  } 
 }
 

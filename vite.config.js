@@ -8,6 +8,7 @@ export default defineConfig({
     react(),
     VitePWA({
       registerType: 'autoUpdate', // Automatically updates service worker
+      includeAssets: ['favicon.ico', 'apple-touch-icon.png', 'masked-icon.svg'],
       manifest: {
         name: 'Alaya Arts - React Ecommerce Store',
         short_name: 'Alaya Arts',
@@ -15,12 +16,12 @@ export default defineConfig({
         theme_color: '#ffffff',
         icons: [
           {
-            src: '/static/favicon.png',
+            src: '/favicon.png',
             sizes: '192x192',
             type: 'image/png'
           },
           {
-            src: '/static/favicon.png',
+            src: '/favicon.png',
             sizes: '512x512',
             type: 'image/png'
           }

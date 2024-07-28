@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { clearRecentSearch, removeSelectedRecent } from '@/redux/actions/filterActions';
 
-const SearchBar = () => {
+const SearchBar = ({padding}) => {
   const [searchInput, setSearchInput] = useState('');
   const { filter, isLoading } = useSelector((state) => ({
     filter: state.filter,
@@ -69,7 +69,7 @@ const SearchBar = () => {
       <div className="searchbar" ref={searchbarRef}>
         <SearchOutlined className="searchbar-icon" />
         <input
-          className="search-input searchbar-input"
+          className={`search-input searchbar-input py-${padding}`}
           onChange={onSearchChange}
           onKeyUp={onKeyUp}
           onFocus={onFocusInput}

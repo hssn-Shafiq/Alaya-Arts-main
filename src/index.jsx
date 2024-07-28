@@ -42,7 +42,7 @@ firebase.auth.onAuthStateChanged((user) => {
 if (process.env.NODE_ENV === "production" && "serviceWorker" in navigator) {
   window.addEventListener("load", () => {
     navigator.serviceWorker
-      .register("./sw-src.js", { type: 'module' })
+      .register("./sw.js", { type: 'module' })
       .then((registration) => {
         console.log("SW registered: ", registration);
       })
