@@ -1,5 +1,6 @@
-import { ADMIN_PRODUCTS, ADMIN_ORDERS, ADMIN_DASHBOARD, ADMIN_USERS, ADMIN_DELIVERED_ORDERS, ADMIN_REJECTED_ORDERS, ADMIN_CONTACT_DETAILS } from '@/constants/routes';
-import { CloseCircleFilled, ContactsFilled, DashboardOutlined, DeliveredProcedureOutlined, OrderedListOutlined, StopFilled, UserOutlined, TagsFilled, BarsOutlined, MenuFoldOutlined, MenuUnfoldOutlined } from '@ant-design/icons';
+import { ADMIN_PRODUCTS, ADMIN_ORDERS, ADMIN_DASHBOARD, ADMIN_USERS, ADMIN_DELIVERED_ORDERS, ADMIN_REJECTED_ORDERS, ADMIN_CONTACT_DETAILS, ADMIN_UPLOAD_BANNER, ADMIN_UPLOAD_HOME_BANNER } from '@/constants/routes';
+import { CloseCircleFilled, ContactsFilled, DashboardOutlined, DeliveredProcedureOutlined, OrderedListOutlined, StopFilled, UserOutlined, TagsFilled, BarsOutlined, MenuFoldOutlined, MenuUnfoldOutlined, UploadOutlined } from '@ant-design/icons';
+import Upload from 'antd/es/upload/Upload';
 import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 
@@ -87,6 +88,26 @@ const SideNavigation = () => {
               onClick={handleNavLinkClick}
             >
               <ContactsFilled /> Contact Details
+            </NavLink>
+          </div>
+          <div className="sidenavigation-item">
+            <NavLink
+              activeClassName="sidenavigation-menu-active"
+              className="sidenavigation-menu"
+              to={ADMIN_UPLOAD_BANNER}
+              onClick={handleNavLinkClick}
+            >
+              <UploadOutlined /> Upload Carousel
+            </NavLink>
+          </div>
+          <div className="sidenavigation-item">
+            <NavLink
+              activeClassName="sidenavigation-menu-active"
+              className="sidenavigation-menu"
+              to={ADMIN_UPLOAD_HOME_BANNER}
+              onClick={handleNavLinkClick}
+            >
+              <Upload /> Banner Images
             </NavLink>
           </div>
         </div>

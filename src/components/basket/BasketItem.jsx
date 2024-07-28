@@ -35,14 +35,13 @@ const BasketItem = ({ product }) => {
               <h5 className="my-0">{product.quantity}</h5>
             </div>
             <div>
-              <span className="spec-title">Size</span>
+              <span className="spec-title">{product.selectedSize ? "Size" : "Accessory Type"}</span>
               <h5 className="my-0">
-                {product.selectedSize}
+                {product.selectedSize ? product.selectedSize : product.accessoryDetail}
                 {' '}
-                mm
               </h5>
             </div>
-            <div>
+            {/* <div>
               <span className="spec-title">Color</span>
               <div style={{
                 backgroundColor: product.selectedColor || product.availableColors[0],
@@ -51,7 +50,7 @@ const BasketItem = ({ product }) => {
                 borderRadius: '50%'
               }}
               />
-            </div>
+            </div> */}
           </div>
         </div>
         <div className="basket-item-price">
@@ -76,11 +75,9 @@ BasketItem.propTypes = {
     brand: PropTypes.string,
     price: PropTypes.number.isRequired,
     quantity: PropTypes.number.isRequired,
-    maxQuantity: PropTypes.number.isRequired,
     description: PropTypes.string,
     keywords: PropTypes.arrayOf(PropTypes.string),
     selectedSize: PropTypes.string,
-    selectedColor: PropTypes.string,
     imageCollection: PropTypes.arrayOf(
       PropTypes.shape({
         url: PropTypes.string.isRequired

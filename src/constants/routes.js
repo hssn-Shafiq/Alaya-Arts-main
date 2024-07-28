@@ -6,6 +6,7 @@ export const RECOMMENDED_PRODUCTS = '/collection/recommended';
 export const KIDS_PRODUCTS = '/collection/kids';
 export const STICHED_PRODUCTS = '/collection/stiched';
 export const UNSTICHED_PRODUCTS = '/collection/unstiched';
+export const ACCESSORIES_PRODUCTS = '/collection/accessories';
 export const ACCOUNT = '/account';
 export const ACCOUNT_EDIT = '/account/edit';
 export const ADMIN_DASHBOARD = '/admin/dashboard';
@@ -15,6 +16,10 @@ export const ADMIN_PRODUCTS = '/admin/products';
 export const ADMIN_DELIVERED_ORDERS = '/admin/delivered_orders';
 export const ADMIN_REJECTED_ORDERS = '/admin/rejected_orders';
 export const ADMIN_CONTACT_DETAILS = '/admin/contact_details';
+export const ADMIN_UPLOAD_BANNER = '/admin/UploadBannerImage';
+export const ADMIN_UPLOAD_HOME_BANNER = '/admin/UploadHomeImages';
+
+
 export const ADMIN_USERS = '/admin/users';
 export const ADD_PRODUCT = '/admin/add';
 export const EDIT_PRODUCT = '/admin/edit';

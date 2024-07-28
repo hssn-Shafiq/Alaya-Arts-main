@@ -48,6 +48,11 @@ const AppRouter = () => (
           exact
           path={ROUTES.RECOMMENDED_PRODUCTS}
         />
+        <Route
+          component={view.AccessoriesProducts}
+          exact
+          path={ROUTES.ACCESSORIES_PRODUCTS}
+        />
         <PublicRoute component={view.SignUp} path={ROUTES.SIGNUP} />
         <PublicRoute component={view.SignIn} exact path={ROUTES.SIGNIN} />
 
@@ -95,6 +100,9 @@ const AppRouter = () => (
         <AdminRoute component={view.OrderDetails} exact path={ROUTES.ORDER_DETAILS} />
 
         <AdminRoute component={view.Products} path={ROUTES.ADMIN_PRODUCTS} />
+        <AdminRoute component={view.UploadBannerImage} path={ROUTES.ADMIN_UPLOAD_BANNER} />
+        <AdminRoute component={view.UploadHomeImages} path={ROUTES.ADMIN_UPLOAD_HOME_BANNER} />
+
         <AdminRoute 
         component={view.DeliveredOrders}
         exact

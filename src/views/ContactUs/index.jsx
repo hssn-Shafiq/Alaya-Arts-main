@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import firebaseInstance from '@/services/firebase';
+import { useDocumentTitle, useScrollTop } from '@/hooks';
 import { displayActionMessage } from '@/helpers/utils';
 import { useSelector } from 'react-redux';
 
 const ContactUs = () => {
+  useDocumentTitle('Contact | Alaya Arts');
+  useScrollTop();
+  
   const profile = useSelector((state) => state.profile);
-
   const [formData, setFormData] = useState({
     name: profile.fullname ? profile.fullname.split(' ')[0] : '',
     email: profile.email || '',

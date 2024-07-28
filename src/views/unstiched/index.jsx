@@ -1,29 +1,18 @@
 // src/components/UnstichedProducts.js
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { MessageDisplay, MultiCarousel, ImageWithText, Footer } from '@/components/common';
 import { ProductShowcaseGrid } from '@/components/product';
 import { useDocumentTitle, useUnstichedProducts, useScrollTop } from '@/hooks';
+import firebaseInstance from '@/services/firebase';
 import unstitchimg2 from '@/images/Unstitch Img2.jpg';
-import img1 from '@/images/image1.jpg';
-import img2 from '@/images/image2.jpg';
-import img3 from '@/images/image3.jpg';
-import img4 from '@/images/image4.jpg';
-import img5 from '@/images/Unstitch Img.jpg';
-import ActiveFilters from '@/components/common/ActiveFilters'; // Import the ActiveFilters component
+import ActiveFilters from '@/components/common/ActiveFilters';
+import FilterCollection from '@/components/common/FilterCollection';
 
 const UnstichedProducts = () => {
-  useDocumentTitle('UnStiched Products | Alaya Arts');
+  useDocumentTitle('UnStiched Collection | Alaya Arts');
   useScrollTop();
 
-  const images = [
-    { src: img1, alt: 'The Best' },
-    { src: img2, alt: 'Choose Best' },
-    { src: img3, alt: 'According to Your taste' },
-    { src: img4, alt: 'Discount' },
-    { src: img1, alt: 'Demanding Sell Items' },
-    { src: img3, alt: 'Choose Your Best Ideas' }
-  ];
-
+  const [carouselImages, setCarouselImages] = useState([]);
   const [filters, setFilters] = useState({
     priceFrom: '',
     priceTo: '',
@@ -37,6 +26,15 @@ const UnstichedProducts = () => {
     isLoading,
     error
   } = useUnstichedProducts();
+
+  useEffect(() => {
+    const fetchCarouselImages = async () => {
+      const images = await firebaseInstance.getCollectionImages('UnStiched Collection');
+      setCarouselImages(images.map(url => ({ src: url, alt: 'UnStiched Collection Image' })));
+    };
+
+    fetchCarouselImages();
+  }, []);
 
   const handleFilterChange = (e) => {
     const { name, value } = e.target;
@@ -57,31 +55,47 @@ const UnstichedProducts = () => {
     const matchesPrice = (filters.priceFrom === '' || product.price >= Number(filters.priceFrom)) &&
                          (filters.priceTo === '' || product.price <= Number(filters.priceTo));
     const matchesKeyword = filters.keyword === '' || (product.keywords && product.keywords.includes(filters.keyword));
-    const matchesSize = filters.size === '' || (product.sizes && product.sizes.includes(filters.size));
 
-    return matchesPrice && matchesKeyword && matchesSize;
+    return matchesPrice && matchesKeyword ;
   });
 
   return (
     <>
-      <MultiCarousel images={images} />
+      <MultiCarousel images={carouselImages} />
       <main className="content">
         <div className="featured">
           <div className="display">
-            <h1 className='fw-bold fs-1' style={{padding:"0px 10px"}}>Products:</h1>
-            <div className="product-display-grid">
-              {error && !isLoading ? (
-                <MessageDisplay
-                  message={error}
-                  action={fetchUnstichedProducts}
-                  buttonLabel="Try Again"
-                />
-              ) : (
-                <ProductShowcaseGrid
-                  products={unstichedProducts}
-                  skeletonCount={6}
-                />
-              )}
+            <h1 className='px-3'>Unstiched Collection</h1>
+            <div className="container">
+              <FilterCollection
+                filters={filters}
+                handleFilterChange={handleFilterChange}
+                removeFilter={removeFilter}
+                showSizeDiv = "d-none"
+              />
+              <ActiveFilters filters={filters} removeFilter={removeFilter} />
+              <div className="product-display-grid">
+                {error && !isLoading ? (
+                  <MessageDisplay
+                    message={error}
+                    action={fetchUnstichedProducts}
+                    buttonLabel="Try Again"
+                  />
+                ) : (
+                  filteredProducts.length === 0 ? (
+                    <MessageDisplay
+                      message="No products found for the selected filters."
+                      action={fetchUnstichedProducts}
+                      buttonLabel="Apply other filter"
+                    />
+                  ) : (
+                    <ProductShowcaseGrid
+                      products={filteredProducts}
+                      skeletonCount={5}
+                    />
+                  )
+                )}
+              </div>
             </div>
           </div>
           <ImageWithText

@@ -23,6 +23,7 @@ export { default as OrderDetailsModal } from './OrderDetailsModal';
 export { default as ImageWithText } from './ImageWithText';
 export { default as MultiCarousel } from './MultiCarousel';
 export { default as ActiveFilters } from './ActiveFilters';
+export { default as FilterCollection } from './FilterCollection';
 
 
 

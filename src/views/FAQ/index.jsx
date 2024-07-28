@@ -1,4 +1,10 @@
+import { useDocumentTitle, useScrollTop } from '@/hooks';
+
+
 const FAQ = () => {
+  useDocumentTitle('About | Alaya Arts');
+  useScrollTop();
+
   return (
     <>
       <main>

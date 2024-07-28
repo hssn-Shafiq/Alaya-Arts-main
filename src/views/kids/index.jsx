@@ -1,38 +1,34 @@
 // src/components/KidsProducts.js
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { MessageDisplay, MultiCarousel, ImageWithText } from '@/components/common';
 import { ProductShowcaseGrid } from '@/components/product';
 import { useDocumentTitle, useKidsProducts, useScrollTop } from '@/hooks';
+import firebaseInstance from '@/services/firebase';
 
 import unstitchimg2 from '@/images/Unstitch Img2.jpg';
-import kids01 from '@/images/Kids01.png';
-import kids02 from '@/images/Kids02.png';
-import kids03 from '@/images/Kids03.png';
-import kids04 from '@/images/Kids04.png';
-import kids05 from '@/images/Kids05.png';
-import kids06 from '@/images/Kids06.png';
-import multiKid from '@/images/multi-kids.jpg';
-import ActiveFilters from '@/components/common/ActiveFilters'; // Import the ActiveFilters component
+import ActiveFilters from '@/components/common/ActiveFilters'; 
+import FilterCollection from '@/components/common/FilterCollection';
 
 const KidsProducts = () => {
-  useDocumentTitle('Kids Products | Alaya Arts');
+  useDocumentTitle('Kids Collection | Alaya Arts');
   useScrollTop();
 
-  const images = [
-    { src: kids01, alt: 'The Best' },
-    { src: kids02, alt: 'Choose Best' },
-    { src: kids03, alt: 'According to Your taste' },
-    { src: kids04, alt: 'Discount' },
-    { src: kids05, alt: 'Demanding Sell Items' },
-    { src: kids06, alt: 'Choose Your Best Ideas' }
-  ];
-
+  const [carouselImages, setCarouselImages] = useState([]);
   const [filters, setFilters] = useState({
     priceFrom: '',
     priceTo: '',
     keyword: '',
     size: ''
   });
+
+  useEffect(() => {
+    const fetchCarouselImages = async () => {
+      const images = await firebaseInstance.getCollectionImages('Kids Collection');
+      setCarouselImages(images.map((url, index) => ({ src: url, alt: `Kids Collection ${index + 1}` })));
+    };
+
+    fetchCarouselImages();
+  }, []);
 
   const {
     kidsProducts,
@@ -67,24 +63,40 @@ const KidsProducts = () => {
 
   return (
     <>
-      <MultiCarousel images={images} />
+      <MultiCarousel images={carouselImages} />
       <main className="content">
         <div className="featured">
-          <div className="display">
-            <h1 className='fw-bold fs-1' style={{padding:"0px 10px"}}>Products:</h1>
-            <div className="product-display-grid">
-              {error && !isLoading ? (
-                <MessageDisplay
-                  message={error}
-                  action={fetchKidsProducts}
-                  buttonLabel="Try Again"
-                />
-              ) : (
-                <ProductShowcaseGrid
-                  products={kidsProducts}
-                  skeletonCount={6}
-                />
-              )}
+        <div className="display">
+            <h1 className='px-3'>Kids Collection</h1>
+            <div className="container">
+              <FilterCollection
+                filters={filters}
+                handleFilterChange={handleFilterChange}
+                removeFilter={removeFilter}
+              />
+              <ActiveFilters filters={filters} removeFilter={removeFilter} />
+              <div className="product-display-grid">
+                {error && !isLoading ? (
+                  <MessageDisplay
+                    message={error}
+                    action={fetchKidsProducts}
+                    buttonLabel="Try Again"
+                  />
+                ) : (
+                  filteredProducts.length === 0 ? (
+                    <MessageDisplay
+                      message="No products found for the selected filters."
+                        action={fetchKidsProducts}
+                    buttonLabel="Apply other filter"
+                    />
+                  ) : (
+                    <ProductShowcaseGrid
+                      products={filteredProducts}
+                      skeletonCount={5}
+                    />
+                  )
+                )}
+              </div>
             </div>
           </div>
           <ImageWithText
@@ -93,7 +105,9 @@ const KidsProducts = () => {
             t3="Collection"
             desc="Explore a curated selection of high-quality products tailored just for you."
             link="SHOP"
-            img={multiKid}
+            img={multiKid
+
+            }
             place={1}
           />
         </div>

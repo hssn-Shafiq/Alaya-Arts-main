@@ -9,6 +9,9 @@ export { default as Users } from './admin/users';
 export { default as OrderDetails } from './admin/orderDetails';
 export { default as ContactDetails } from './admin/contactDetails';
 export { default as EditProduct } from './admin/edit_product';
+export { default as UploadBannerImage } from './admin/UploadBannerImage';
+export { default as UploadHomeImages } from './admin/UploadHomeImages';
+
 export { default as Products } from './admin/products';
 export { default as ForgotPassword } from './auth/forgot_password';
 export { default as SignIn } from './auth/signin';
@@ -20,6 +23,8 @@ export { default as PageNotFound } from './error/PageNotFound';
 export { default as FeaturedProducts } from './featured';
 export { default as Home } from './home';
 export { default as RecommendedProducts } from './recommended';
+export { default as AccessoriesProducts } from './accessories';
+
 export { default as KidsProducts } from './kids';
 export { default as StichedProducts } from './stiched';
 export { default as UnstichedProducts } from './unstiched';

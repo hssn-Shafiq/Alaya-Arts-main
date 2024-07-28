@@ -1,7 +1,7 @@
 import React from 'react';
 import { MessageDisplay, MultiCarousel } from '@/components/common';
 import { ProductShowcaseGrid } from '@/components/product';
-import { useDocumentTitle, useRecommendedProducts, useScrollTop } from '@/hooks';
+import { useDocumentTitle, useAccessoriesProducts, useScrollTop } from '@/hooks';
 import bannerImg from '@/images/img1.jpg';
 import ImageWithText from '@/components/common/ImageWithText'; // Correct import path
 
@@ -31,11 +31,11 @@ const RecommendedProducts = () => {
   ];
 
   const {
-    recommendedProducts,
-    fetchRecommendedProducts,
+    accessoriesProducts,
+    fetchAccessoriesProducts,
     isLoading,
     error
-  } = useRecommendedProducts();
+  } = useAccessoriesProducts();
 
   return (
     <>
@@ -74,17 +74,17 @@ const RecommendedProducts = () => {
 
 
           <div className="display">
-            <h1 className='fw-bold' style={{padding:"0px 10px"}}>Recommended Products</h1>
+            <h1 className='fw-bold' style={{padding:"0px 10px"}}>Accessories Products</h1>
             <div className="product-display-grid">
               {error && !isLoading ? (
                 <MessageDisplay
                   message={error}
-                  action={fetchRecommendedProducts}
+                  action={fetchAccessoriesProducts}
                   buttonLabel="Try Again"
                 />
               ) : (
                 <ProductShowcaseGrid
-                  products={recommendedProducts}
+                  products={accessoriesProducts}
                   skeletonCount={6}
                 />
               )}

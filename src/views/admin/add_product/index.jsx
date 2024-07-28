@@ -36,9 +36,9 @@ const AddProduct = () => {
             brand: '',
             price: 0,
             comparePrice: 0,
-            maxQuantity: 0,
+            maxQuantity: 1,
             description: '',
-            style: [],
+            keywords: [],
             sizes: [],
             image: '',
             isFeatured: false,
@@ -47,7 +47,7 @@ const AddProduct = () => {
             isUnStiched: false,
             isKids: false,
             isAccessories: false,
-            availableColors: [],
+            accessoriesDetails: '',
             imageCollection: []
           }}
         />
