@@ -32,3 +32,13 @@
     @content;
   }
 }
+@mixin M-mobile {
+  @media (max-width: $mobile) {
+    @content;
+  }
+}
+@mixin L-mobile {
+  @media (max-width: $mobile) {
+    @content;
+  }
+}

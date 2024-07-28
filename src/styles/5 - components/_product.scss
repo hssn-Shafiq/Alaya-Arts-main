@@ -3,7 +3,7 @@
   grid-template-columns: repeat(5, minmax(160px, 1fr));
   grid-gap: 1.5rem;
   justify-content: center;
-  padding: 1rem;
+  padding: 3rem;
 
   @include mobile {
     grid-template-columns: repeat(2, 1fr) !important;

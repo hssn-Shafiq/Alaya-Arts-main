@@ -73,6 +73,9 @@ const Footer = () => {
           <div className="footer-col col-md-3">
             <h4>online shop</h4>
             <ul>
+            <li>
+                <Link to="/collection/shop">Shop All</Link>
+              </li>
               <li>
                 <Link to="/collection/stiched">Pret Collection</Link>
               </li>
