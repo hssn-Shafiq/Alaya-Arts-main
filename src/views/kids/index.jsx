@@ -6,7 +6,7 @@ import { useDocumentTitle, useKidsProducts, useScrollTop } from '@/hooks';
 import firebaseInstance from '@/services/firebase';
 
 import unstitchimg2 from '@/images/Unstitch Img2.jpg';
-import ActiveFilters from '@/components/common/ActiveFilters'; 
+import ActiveFilters from '@/components/common/ActiveFilters';
 import FilterCollection from '@/components/common/FilterCollection';
 
 const KidsProducts = () => {
@@ -54,7 +54,7 @@ const KidsProducts = () => {
 
   const filteredProducts = kidsProducts.filter(product => {
     const matchesPrice = (filters.priceFrom === '' || product.price >= Number(filters.priceFrom)) &&
-                         (filters.priceTo === '' || product.price <= Number(filters.priceTo));
+      (filters.priceTo === '' || product.price <= Number(filters.priceTo));
     const matchesKeyword = filters.keyword === '' || (product.keywords && product.keywords.includes(filters.keyword));
     const matchesSize = filters.size === '' || (product.sizes && product.sizes.includes(filters.size));
 
@@ -67,7 +67,9 @@ const KidsProducts = () => {
 
   return (
     <>
-      <MultiCarousel images={carouselImages} />
+      <main className='content'>
+        <MultiCarousel images={carouselImages} />
+      </main>
       <main className="content">
         <div className="featured">
           <div className="display">

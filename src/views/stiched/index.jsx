@@ -9,7 +9,7 @@ import { SHOP } from '@/constants/routes';
 import bg5 from "@/images/bannerimg5.png";
 import bg6 from "@/images/bannerimg6.jpg";
 import bg7 from "@/images/bannerimg7.jpg";
-import ActiveFilters from '@/components/common/ActiveFilters'; 
+import ActiveFilters from '@/components/common/ActiveFilters';
 import FilterCollection from '@/components/common/FilterCollection';
 
 const RecommendedProducts = () => {
@@ -47,7 +47,7 @@ const RecommendedProducts = () => {
 
   const filteredProducts = stichedProducts.filter(product => {
     const matchesPrice = (filters.priceFrom === '' || product.price >= Number(filters.priceFrom)) &&
-                         (filters.priceTo === '' || product.price <= Number(filters.priceTo));
+      (filters.priceTo === '' || product.price <= Number(filters.priceTo));
     const matchesKeyword = filters.keyword === '' || product.keywords.includes(filters.keyword);
     const matchesSize = filters.size === '' || product.sizes.includes(filters.size);
 
@@ -56,7 +56,9 @@ const RecommendedProducts = () => {
 
   return (
     <>
-      <BannerImage backgroundImage={bg5} />
+      <main className='content'>
+        <BannerImage backgroundImage={bg5} />
+      </main>
 
       <main className="content">
         <div className="featured">
@@ -98,8 +100,8 @@ const RecommendedProducts = () => {
                   filteredProducts.length === 0 ? (
                     <MessageDisplay
                       message="No products found for the selected filters."
-                        action={fetchStichedProducts}
-                    buttonLabel="Apply other filter"
+                      action={fetchStichedProducts}
+                      buttonLabel="Apply other filter"
                     />
                   ) : (
                     <ProductShowcaseGrid

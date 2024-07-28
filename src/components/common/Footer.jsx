@@ -110,8 +110,8 @@ const Footer = () => {
         </div>
       </div>
         <div className="row mt-3 py-5 border-top">
-          <div className="col-md-12 text-center copyrights_text ">
-            <p className='mb-0 fs-2 text-light'>copyright @ 2024 All Rights Reserved | <a href="/" className='text-light  text-decoration-underline'>Alaya Arts</a></p>
+          <div className="col-md-12 col-sm-10 text-center copyrights_text ">
+            <p className='mb-0 fs-2 px-5 text-light'>copyright @ 2024 All Rights Reserved | <a href="/" className='text-light  text-decoration-underline'>Alaya Arts</a></p>
           </div>
         </div>
     </footer>
