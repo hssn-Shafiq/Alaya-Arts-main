@@ -1,7 +1,12 @@
-.container {
+.all_orders_main {
   width: 80%;
   margin: 10px auto;
   margin-top: 6rem;
+
+  @include mobile{
+    width: 100%;
+    margin-top: 12rem;
+  }
 }
 
 .text-center {

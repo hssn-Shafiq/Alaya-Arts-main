@@ -9,6 +9,10 @@
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
 
+  @include mobile{
+    margin-bottom: 3rem;
+  }
+
 }
 @media (max-width: 767px) {
   .image_gallery_section {

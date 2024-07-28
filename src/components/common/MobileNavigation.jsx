@@ -86,7 +86,7 @@ const Navigation = (props) => {
           <SearchBar padding="2" />
           <FiltersToggle>
             <button className="button-link button-small" type="button">
-              <i className="fa fa-filter" />
+              <i className="fa fa-filter text-info" />
             </button>
           </FiltersToggle>
         </div>
