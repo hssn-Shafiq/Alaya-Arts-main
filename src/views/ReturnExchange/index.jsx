@@ -36,7 +36,7 @@ const ReturnExchange = () => {
     </ul>
 
     <h2 className="fw-bold">Help</h2>
-    <p>Phone: <strong>03111-555-725</strong></p>
+    <p>Phone: <strong>+92 331 6033150</strong></p>
     <p>WhatsApp: <strong>+92 348 8831990</strong></p>
     <p>Email: <strong>alayaarts2021@gmail.com</strong></p>
     <p>We appreciate your understanding and cooperation. Our goal is to ensure your satisfaction with every purchase. If you have any questions or concerns, please don't hesitate to contact us.</p>

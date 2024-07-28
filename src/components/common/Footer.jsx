@@ -15,7 +15,7 @@ const Footer = () => {
     Route.UNSTICHED_PRODUCTS,
     Route.KIDS_PRODUCTS,
     Route.RECOMMENDED_PRODUCTS,
-    Route.ACCESSORIES,
+    Route.ACCESSORIES_PRODUCTS,
     Route.CONTACT_US,
     // Route.,
     Route.ABOUT_US,
