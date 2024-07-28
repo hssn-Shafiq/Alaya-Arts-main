@@ -6,7 +6,7 @@ import { CHECKOUT_STEP_1, CHECKOUT_STEP_3 } from '@/constants/routes';
 import { Form, Formik } from 'formik';
 import { useDocumentTitle, useScrollTop } from '@/hooks';
 import PropType from 'prop-types';
-import React from 'react';
+import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { setShippingDetails } from '@/redux/actions/checkoutActions';
@@ -15,6 +15,7 @@ import { StepTracker } from '../components';
 import withCheckout from '../hoc/withCheckout';
 import ShippingForm from './ShippingForm';
 import ShippingTotal from './ShippingTotal';
+import { displayActionMessage } from '@/helpers/utils';
 
 const FormSchema = Yup.object().shape({
   fullname: Yup.string()
@@ -26,23 +27,20 @@ const FormSchema = Yup.object().shape({
     .required('Email is required.'),
   address: Yup.string()
     .required('Shipping address is required.'),
-  mobile: Yup.object()
-    .shape({
-      country: Yup.string(),
-      countryCode: Yup.string(),
-      dialCode: Yup.string().required('Mobile number is required'),
-      value: Yup.string().required('Mobile number is required')
-    })
-    .required('Mobile number is required.'),
-  isInternational: Yup.boolean(),
+  mobile: Yup.object(),
+  isInternational: Yup.boolean()
+  .required("shipping cost will be included in your order"),
   isDone: Yup.boolean()
+  .required("shipping cost will be included in your order"),
+
 });
 
 const ShippingDetails = ({ profile, shipping, subtotal }) => {
-  useDocumentTitle('Check Out Step 2 | Salinaka');
+  useDocumentTitle('Check Out Step 2 | Alaya Arts');
   useScrollTop();
   const dispatch = useDispatch();
   const history = useHistory();
+  const [message, setMessage] = useState("");
 
   const initFormikValues = {
     fullname: shipping.fullname || profile.fullname || '',
@@ -54,20 +52,28 @@ const ShippingDetails = ({ profile, shipping, subtotal }) => {
   };
 
   const onSubmitForm = (form) => {
-    dispatch(setShippingDetails({
-      fullname: form.fullname,
-      email: form.email,
-      address: form.address,
-      mobile: form.mobile,
-      isInternational: form.isInternational,
-      isDone: true
-    }));
-    history.push(CHECKOUT_STEP_3);
+      if(form.isInternational == false) {
+        displayActionMessage("shipping cost will be included in your order");
+        console.log("shipping cost will be included in your order");
+        setMessage("shipping cost will be included in your order");
+      }
+      else{
+        dispatch(setShippingDetails({
+          fullname: form.fullname,
+          email: form.email,
+          address: form.address,
+          mobile: form.mobile,
+          isInternational: form.isInternational,
+          isDone: true
+        }));
+        history.push(CHECKOUT_STEP_3);
+      }
+    
   };
 
   return (
     <Boundary>
-      <div className="checkout">
+      <div className="checkout mb-5">
         <StepTracker current={2} />
         <div className="checkout-step-2">
           <h3 className="text-center">Shipping Details</h3>
@@ -82,6 +88,7 @@ const ShippingDetails = ({ profile, shipping, subtotal }) => {
                 <ShippingForm />
                 <br />
                 {/*  ---- TOTAL --------- */}
+              {message ? <div className='alert alert-warning'>{message}</div> : "" }  
                 <ShippingTotal subtotal={subtotal} />
                 <br />
                 {/*  ----- NEXT/PREV BUTTONS --------- */}

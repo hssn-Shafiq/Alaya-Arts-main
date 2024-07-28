@@ -2,7 +2,7 @@
   "name": "ecommerce-react",
   "version": "1.2.0",
   "main": "index.js",
-  "author": "Julius Guevarra",
+  "author": "Alaya Arts",
   "keywords": [
     "react-webpack",
     "boilerplate",
@@ -45,7 +45,7 @@
     "sass-loader": "^11.0.1",
     "uglifyjs-webpack-plugin": "^2.2.0",
     "url-loader": "^4.1.1",
-    "vite": "^3.0.2",
+    "vite": "^5.3.5",
     "webpack": "^5.36.2",
     "webpack-cli": "^4.6.0",
     "webpack-dev-server": "^3.11.2",
@@ -88,7 +88,9 @@
     "redux-persist": "^6.0.0",
     "redux-saga": "^1.1.3",
     "redux-thunk": "^2.3.0",
+    "rollup": "^4.19.1",
     "uuid": "^8.3.2",
+    "vite-plugin-pwa": "^0.20.1",
     "webfontloader": "^1.6.28",
     "yup": "^0.32.9"
   }

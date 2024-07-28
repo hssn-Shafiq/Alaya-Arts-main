@@ -33,6 +33,11 @@ const Total = ({ isInternational, subtotal }) => {
       return;
     }
 
+    if(!values.senderBankAccountName || !values.senderBankAccountNumber || !values.trxOrTid || !values.paymentMethod){
+      displayActionMessage('plzz add the payment details to place an order');
+      console.log('plzz add the payment details to place an order');
+    }
+
     const orderDetails = {
       userId: user.uid,
       orderStatus: 'Processing',
@@ -61,7 +66,7 @@ const Total = ({ isInternational, subtotal }) => {
         type: values.paymentMethod,
       },
       subtotal,
-      total: subtotal + (isInternational ? 50 : 0),
+      total: subtotal + (isInternational ? 350 : 0),
       paymentStatus: 'Pending',
       createdAt: new Date().toISOString(),
     };
@@ -118,7 +123,7 @@ const Total = ({ isInternational, subtotal }) => {
       <div className="basket-total text-right">
         <p className="basket-total-title">Total:</p>
         <h2 className="basket-total-amount">
-          ${(subtotal + (isInternational ? 50 : 0)).toFixed(2)}
+          ${(subtotal + (isInternational ? isInternational : 0)).toFixed(2)}
         </h2>
       </div>
       <br />

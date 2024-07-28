@@ -97,7 +97,7 @@ const ProductItem = ({ product, searchTerm }) => {
           </div>
           <div className="grid-col">
             <span>
-              {matchesSearchTerm(product.accessoryDetail) ? product.accessoryDetail : <Skeleton width={20} />}
+              {matchesSearchTerm(product.maxQuantity) ? product.maxQuantity : <Skeleton width={20} />}
             </span>
           </div>
         </div>

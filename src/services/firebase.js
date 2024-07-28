@@ -414,6 +414,25 @@ class Firebase {
   deleteContactDetails(id) {
     return this.db.collection("contact_details").doc(id).delete();
   }
+  // for adding bank details
+  addBankDetails = (bankDetails) => {
+    return this.db.collection("banksDetails").add(bankDetails);
+  };
+
+  getBankDetails = () => {
+    const snapshot = this.db.collection("bankDetails").get();
+    const details = snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
+    return details;
+  };
+  
+  deleteBankDetails = (id) => {
+      return this.db.collection('bankDetails').doc(id).delete();
+  };
+  
+   updateBankDetails =  (id, updatedDetail) => {
+    return this.db.collection('bankDetails').doc(id).update(updatedDetail);
+  };
+
   // Add or update images for a specific collection within the BannerImages document
   addOrUpdateCollectionImages = async (collectionName, images) => {
     const collectionRef = this.db.collection("BannerImages").doc("Images");

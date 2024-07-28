@@ -134,7 +134,7 @@ const Dashboard = () => {
         setPieData(pieChartData);
 
         const pendingOrders = allOrders.filter(
-          (order) => order.orderStatus === "Processing"
+          (order) => order.orderStatus === "Processing" 
         );
         setPendingOrders(pendingOrders);
 
@@ -382,7 +382,7 @@ const Dashboard = () => {
           <div className="row mt-5">
             <div className="col-md-12">
               <h1 className="text-center">
-                <b>Pending orders</b>
+                <b>New orders</b>
               </h1>
             </div>
             <div className="col-md-12">
@@ -399,7 +399,7 @@ const Dashboard = () => {
                 <tbody>
                   {pendingOrders.map((order, index) => (
                     <tr key={order.id}>
-                      <td>
+                      <td className="d-flex">
                         {order.products.map((product, index) => (
                           <div
                             key={`${order.id}-${index}`}

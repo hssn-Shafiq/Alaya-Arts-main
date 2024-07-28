@@ -131,9 +131,7 @@ const Navigation = () => {
         <li ><NavLink activeClassName="navigation-menu-item navigation-bottom-menu-item" to={ROUTE.ABOUT_US}>About Us</NavLink></li>
       </ul>
     </div>
-    
     </>
-   
   );
 };
 

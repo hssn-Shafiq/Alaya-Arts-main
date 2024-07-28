@@ -9,8 +9,6 @@ import AdminRoute from "./AdminRoute";
 import ClientRoute from "./ClientRoute";
 import PublicRoute from "./PublicRoute";
 
-// Revert back to history v4.10.0 because
-// v5.0 breaks navigation
 export const history = createBrowserHistory();
 
 const AppRouter = () => (
@@ -98,7 +96,7 @@ const AppRouter = () => (
         />
         
         <AdminRoute component={view.OrderDetails} exact path={ROUTES.ORDER_DETAILS} />
-
+        <AdminRoute component={view.BankDetails} exact path={ROUTES.ADMIN_BANK_DETAILS} />
         <AdminRoute component={view.Products} path={ROUTES.ADMIN_PRODUCTS} />
         <AdminRoute component={view.UploadBannerImage} path={ROUTES.ADMIN_UPLOAD_BANNER} />
         <AdminRoute component={view.UploadHomeImages} path={ROUTES.ADMIN_UPLOAD_HOME_BANNER} />

@@ -18,11 +18,11 @@ export const ADMIN_REJECTED_ORDERS = '/admin/rejected_orders';
 export const ADMIN_CONTACT_DETAILS = '/admin/contact_details';
 export const ADMIN_UPLOAD_BANNER = '/admin/UploadBannerImage';
 export const ADMIN_UPLOAD_HOME_BANNER = '/admin/UploadHomeImages';
-
-
+export const ADMIN_BANK_DETAILS = '/admin/BankDetails';
 export const ADMIN_USERS = '/admin/users';
 export const ADD_PRODUCT = '/admin/add';
 export const EDIT_PRODUCT = '/admin/edit';
+
 export const SEARCH = '/search/:searchKey';
 export const SIGNIN = '/signin';
 export const SIGNOUT = '/signout';
