@@ -105,7 +105,9 @@ const KidsProducts = () => {
             t3="Collection"
             desc="Explore a curated selection of high-quality products tailored just for you."
             link="SHOP"
-            img={unstitchimg2}
+            img={multiKid
+
+            }
             place={1}
           />
         </div>
