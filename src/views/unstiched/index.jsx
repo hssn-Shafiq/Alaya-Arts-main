@@ -61,11 +61,9 @@ const UnstichedProducts = () => {
 
   return (
     <>
-    <main className='content'>
-        <MultiCarousel images={carouselImages} />
-    </main>
       <main className="content">
-        <div className="featured">
+        <MultiCarousel images={carouselImages} />
+        <div className="featured mt-5">
           <div className="display">
             <h1 className='px-3'>Unstiched Collection</h1>
             <div className="container-">

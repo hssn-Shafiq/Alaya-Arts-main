@@ -10,8 +10,8 @@ const AboutUs = () => {
     <>
     <main className='content'>
     <div
-        className="main"
-        style={{ margin: "10px auto", padding: "4rem", width: "80%" }}
+        className="main p-2 p-md-5"
+        style={{ margin: "10px auto", width: "80%" }}
       >
         <h1 className="text-center fw-bold">ABOUT US</h1>
         <img src={img1} alt="Alaya Arts" style={{ width: "100%", height: "auto", marginTop:"10px", marginBottom:"20px"}} />

@@ -56,11 +56,8 @@ const RecommendedProducts = () => {
 
   return (
     <>
-      <main className='content'>
-        <BannerImage backgroundImage={bg5} />
-      </main>
-
       <main className="content">
+        <BannerImage backgroundImage={bg5} />
         <div className="featured">
           <ImageWithText
             t1="Discover"
