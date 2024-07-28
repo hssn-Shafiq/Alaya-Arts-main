@@ -45,7 +45,7 @@ const Shop = () => {
         <BannerImage backgroundImage={shopImage || bg3} position="center" />
       </main>
       <main className="content mb-5">
-        <section className="product-list-wrapper" style={{ marginTop: "10rem" }}>
+        <section className="product-list-wrapper" style={{ marginTop: "2rem" }}>
           <AppliedFilters filteredProductsCount={store.filteredProducts.length} />
           <ProductList {...store}>
             <ProductGrid products={store.filteredProducts} />
