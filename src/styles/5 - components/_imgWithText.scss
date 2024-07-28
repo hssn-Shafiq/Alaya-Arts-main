@@ -1,0 +1,17 @@
+@include mobile {
+  .banner-desc{
+    padding: 1rem 1rem;
+  }
+  .banner-desc h1 {
+    font-size: 15px;
+  }
+
+  .banner-desc p {
+    font-size: 12px;
+    line-height: 1.12;
+  }
+
+  .banner-desc .button {
+    font-size: 10px;
+  }
+}
