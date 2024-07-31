@@ -37,6 +37,36 @@ const AppRouter = () => (
           exact
           path={ROUTES.STICHED_PRODUCTS}
         />
+         <Route
+          component={view.WinterStichedProducts}
+          exact
+          path={ROUTES.WINTER_STICHED_PRODUCTS}
+        />
+        <Route
+          component={view.SummerStichedProducts}
+          exact
+          path={ROUTES.SUMMER_STICHED_PRODUCTS}
+        />
+         <Route
+          component={view.SummerUnStichedProducts}
+          exact
+          path={ROUTES.SUMMER_UNSTICHED_PRODUCTS}
+        />
+        <Route
+          component={view.WinterUnStichedProducts}
+          exact
+          path={ROUTES.WINTER_UNSTICHED_PRODUCTS}
+        />
+         <Route
+          component={view.WinterKidsProducts}
+          exact
+          path={ROUTES.WINTER_KIDS_PRODUCTS}
+        />
+         <Route
+          component={view.SummerKidsProducts}
+          exact
+          path={ROUTES.SUMMER_KIDS_PRODUCTS}
+        />
         <Route
           component={view.UnstichedProducts}
           exact

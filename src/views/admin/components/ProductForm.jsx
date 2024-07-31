@@ -12,7 +12,9 @@ import PropType from "prop-types";
 import React from "react";
 import * as Yup from "yup";
 
-const brandOptions = [{ value: "Alaya Arts", label: "Alaya Arts" }];
+const brandOptions = [{ value: "summer", label: "summer" },
+  { value: "winter", label: "winter" }
+];
 const Sizes = [
   { value: "sm", label: "sm" },
   { value: "md", label: "md" },
@@ -132,7 +134,8 @@ const ProductForm = ({ product, onSubmit, isLoading }) => {
                     options={brandOptions}
                     disabled={isLoading}
                     placeholder="Select/Create Brand"
-                    label="* Brand"
+                    label="* Season winter/summer"
+                    style={{textTransform:"lowercase"}}
                   />
                 </div>
               </div>

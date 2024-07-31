@@ -234,43 +234,80 @@ class Firebase {
     this.db
       .collection("products")
       .where("isFeatured", "==", true)
-      .limit(itemsCount)
       .get();
 
   getRecommendedProducts = (itemsCount = 12) =>
     this.db
       .collection("products")
       .where("isRecommended", "==", true)
-      .limit(itemsCount)
       .get();
 
   getKidsProducts = (itemsCount = 12) =>
     this.db
       .collection("products")
       .where("isKids", "==", true)
-      .limit(itemsCount)
       .get();
 
   getStichedProducts = (itemsCount = 12) =>
     this.db
       .collection("products")
       .where("isStiched", "==", true)
-      .limit(itemsCount)
       .get();
 
   getAccessoriesProducts = (itemsCount = 12) =>
     this.db
       .collection("products")
       .where("isAccessories", "==", true)
-      .limit(itemsCount)
       .get();
 
-  getUnstichedProducts = (itemsCount = 12) =>
+  getUnstichedProducts = (itemsCount = 2) =>
     this.db
       .collection("products")
       .where("isUnStiched", "==", true)
-      .limit(itemsCount)
       .get();
+
+            // get sub collection
+    getStichedWinterProducts = (itemsCount = 12) =>
+      this.db
+    .collection("products")
+    .where("isStiched", "==", true)
+    .where("brand", "==", "winter")
+    .get();
+
+    getStichedSummerProducts = (itemsCount = 12) =>
+      this.db
+    .collection("products")
+    .where("isStiched", "==", true)
+    .where("brand", "==", "summer")
+    .get();
+
+    getUnStichedWinterProducts = (itemsCount = 12) =>
+      this.db
+    .collection("products")
+    .where("isUnStiched", "==", true)
+    .where("brand", "==", "winter")
+    .get();
+
+    getUnStichedSummerProducts = (itemsCount = 12) =>
+      this.db
+    .collection("products")
+    .where("isUnStiched", "==", true)
+    .where("brand", "==", "summer")
+    .get();
+
+    getKidsWinterProducts = (itemsCount = 12) =>
+      this.db
+    .collection("products")
+    .where("isKids", "==", true)
+    .where("brand", "==", "winter")
+    .get();
+
+    getKidsSummerProducts = (itemsCount = 12) =>
+      this.db
+    .collection("products")
+    .where("isKids", "==", true)
+    .where("brand", "==", "summer")
+    .get();
 
   getProductsWithAccessoryDetails = async () => {
     try {

@@ -1,8 +1,8 @@
-// src/components/RecommendedProducts.js
+// src/components/SummerKidsProducts.js
 import React, { useState } from 'react';
 import { MessageDisplay } from '@/components/common';
 import { ProductShowcaseGrid } from '@/components/product';
-import { useDocumentTitle, useStichedProducts, useScrollTop } from '@/hooks';
+import { useDocumentTitle, useSummerKidsProducts, useScrollTop } from '@/hooks';
 import ImageWithText from '@/components/common/ImageWithText';
 import BannerImage from '@/components/common/BannerImage';
 import { SHOP } from '@/constants/routes';
@@ -12,8 +12,8 @@ import bg7 from "@/images/bannerimg7.jpg";
 import ActiveFilters from '@/components/common/ActiveFilters';
 import FilterCollection from '@/components/common/FilterCollection';
 
-const RecommendedProducts = () => {
-  useDocumentTitle('Pret Collection - Alaya Arts');
+const SummerKidsProducts = () => {
+  useDocumentTitle('Summer UnStiched Collection - Alaya Arts');
   useScrollTop();
 
   const [filters, setFilters] = useState({
@@ -24,11 +24,11 @@ const RecommendedProducts = () => {
   });
 
   const {
-    stichedProducts,
-    fetchStichedProducts,
+    summerKidsProducts,
+    fetchSummerKidsProducts,
     isLoading,
     error
-  } = useStichedProducts();
+  } = useSummerKidsProducts();
 
   const handleFilterChange = (e) => {
     const { name, value } = e.target;
@@ -45,7 +45,7 @@ const RecommendedProducts = () => {
     });
   };
 
-  const filteredProducts = stichedProducts.filter(product => {
+  const filteredProducts = summerKidsProducts.filter(product => {
     const matchesPrice = (filters.priceFrom === '' || product.price >= Number(filters.priceFrom)) &&
       (filters.priceTo === '' || product.price <= Number(filters.priceTo));
     const matchesKeyword = filters.keyword === '' || product.keywords.includes(filters.keyword);
@@ -58,8 +58,8 @@ const RecommendedProducts = () => {
     <>
       <main className="content">
         <BannerImage backgroundImage={bg5} />
-        </main>
-        <main className="content">
+      </main>
+      
         <div className="featured">
           <ImageWithText
             t1="Discover"
@@ -80,7 +80,7 @@ const RecommendedProducts = () => {
             place={2}
           />
           <div className="display">
-            <h1 className='px-3'>Pret Collection</h1>
+            <h1 className='px-3'>Summer Pret Collection</h1>
             <div className="container">
               <FilterCollection
                 filters={filters}
@@ -92,14 +92,14 @@ const RecommendedProducts = () => {
                 {error && !isLoading ? (
                   <MessageDisplay
                     message={error}
-                    action={fetchStichedProducts}
+                    action={fetchSummerKidsProducts}
                     buttonLabel="Try Again"
                   />
                 ) : (
                   filteredProducts.length === 0 ? (
                     <MessageDisplay
                       message="No products found for the selected filters."
-                      action={fetchStichedProducts}
+                      action={fetchSummerKidsProducts}
                       buttonLabel="Apply other filter"
                     />
                   ) : (
@@ -113,10 +113,8 @@ const RecommendedProducts = () => {
             </div>
           </div>
         </div>
-          </main>
-       
     </>
   );
 };
 
-export default RecommendedProducts;
+export default SummerKidsProducts;

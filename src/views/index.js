@@ -28,7 +28,13 @@ export { default as AccessoriesProducts } from './accessories';
 
 export { default as KidsProducts } from './kids';
 export { default as StichedProducts } from './stiched';
+export { default as WinterStichedProducts } from './WinterStiched';
+export { default as SummerStichedProducts } from './SummerStiched';
 export { default as UnstichedProducts } from './unstiched';
+export { default as SummerUnStichedProducts } from './SummerUnStiched';
+export { default as WinterUnStichedProducts } from './WinterUnStiched';
+export { default as WinterKidsProducts } from './WinterKids';
+export { default as SummerKidsProducts } from './SummerKids';
 export { default as Search } from './search';
 export { default as Shop } from './shop';
 export { default as ViewProduct } from './view_product';
