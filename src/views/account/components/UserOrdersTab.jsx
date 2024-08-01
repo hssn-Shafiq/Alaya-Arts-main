@@ -49,47 +49,47 @@ const UserOrdersTab = () => {
                 <div className="order-items">
                   {order.products.map((product, index) => (
                     <>
-                     <div className="order-item" key={index}>
-                      <div className="item-pic" data-spm="detail_image">
-                        <img src={product.imageUrl} alt={product.name} width={100} />
-                      </div>
-                      <div className="item-main item-main-mini">
-                        <div>
-                          <div className="text title item-title" data-spm="details_title">
-                            {product.name}
+                      <div className="order-item" key={index}>
+                        <div className="item-pic" data-spm="detail_image">
+                          <img src={product.imageUrl} alt={product.name} width={100} />
+                        </div>
+                        <div className="item-main item-main-mini">
+                          <div>
+                            <div className="text title item-title" data-spm="details_title">
+                              {product.name}
+                            </div>
+                            <p className="text desc" />
+                            <p className="shipping_detail">{product.description}</p>
+                            <p >size: {product.size}m</p>
+                            <p className='d-flex'>
+                              color: <span
+                                style={{
+                                  backgroundColor: product.color,
+                                  width: '15px',
+                                  height: '15px',
+                                  borderRadius: '50%',
+                                  marginLeft: '5px'
+                                }}
+                              ></span>
+                            </p>
                           </div>
-                          <p className="text desc" />
-                          <p className="shipping_detail">{product.description}</p>
-                          <p >size: {product.size}m</p>
-                          <p className='d-flex'>
-                          color: <span 
-                          style={{
-                            backgroundColor: product.color,
-                            width: '15px',
-                            height: '15px',
-                            borderRadius: '50%',
-                            marginLeft:'5px'
-                          }}
-                          ></span> 
-                          </p>    
+                        </div>
+                        <div className="item-quantity">
+                          <span>
+                            <span className="text desc info multiply">Qty:</span>
+                            <span className="text">&nbsp;{product.quantity}</span>
+                          </span>
+                        </div>
+                        <div className="item-status item-capsule">
+                          <p className="capsule">{order.orderStatus}</p>
+                          <p className="capsule">price: {product.price}</p>
+                        </div>
+                        <div className="item-info" />
+                        <div className="clear" />
+                        <div className="details">
                         </div>
                       </div>
-                      <div className="item-quantity">
-                        <span>
-                          <span className="text desc info multiply">Qty:</span>
-                          <span className="text">&nbsp;{product.quantity}</span>
-                        </span>
-                      </div>
-                      <div className="item-status item-capsule">
-                        <p className="capsule">{order.orderStatus}</p>
-                        <p className="capsule">price: {product.price}</p>
-                      </div>
-                      <div className="item-info" />
-                      <div className="clear" />
-                      <div className="details">
-                      </div>
-                    </div>
-                   <br />
+                      <br />
 
                     </>
                   ))}
@@ -107,7 +107,7 @@ const UserOrdersTab = () => {
                   </div>
                   <div className="clear" />
                   <div className="pull-right">
-                   total amount: {order.total}
+                    total amount: {order.total}
                   </div>
                 </div>
               </div>

@@ -84,7 +84,7 @@ const Orders = () => {
   return (
     <>
       <div className="loader">
-        <h1 className=' order_page_title'>My Orders</h1>
+        {/* <h1 className=' order_page_title'>My Orders</h1> */}
       </div>
       <div className="filters row align-items-center my-4">
         <div className="col-md-6">
