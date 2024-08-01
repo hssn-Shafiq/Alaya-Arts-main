@@ -462,11 +462,11 @@ class Firebase {
   };
   
   deleteBankDetails = (id) => {
-      return this.db.collection('bankDetails').doc(id).delete();
+      return this.db.collection('banksDetails').doc(id).delete();
   };
   
    updateBankDetails =  (id, updatedDetail) => {
-    return this.db.collection('bankDetails').doc(id).update(updatedDetail);
+    return this.db.collection('banksDetails').doc(id).update(updatedDetail);
   };
 
   // Add or update images for a specific collection within the BannerImages document

@@ -18,6 +18,7 @@ const Total = ({ isInternational, subtotal }) => {
   const basket = useSelector((state) => state.basket);
   const shippingDetails = useSelector((state) => state.checkout.shipping);
   const [uploading, setUploading] = useState(false);
+  const [message, setMessage] = useState("");
 
   const onClickBack = () => {
     const { bank, senderBankAccountName, senderBankAccountNumber, trxOrTid, ...rest } = values;
@@ -35,6 +36,7 @@ const Total = ({ isInternational, subtotal }) => {
 
     if(!values.senderBankAccountName || !values.senderBankAccountNumber || !values.trxOrTid || !values.paymentMethod){
       displayActionMessage('plzz add the payment details to place an order');
+      setMessage("plzz verify your payment details to place an order")
       console.log('plzz add the payment details to place an order');
     }
       else{
@@ -123,13 +125,17 @@ const Total = ({ isInternational, subtotal }) => {
   return (
     <>
       <div className="basket-total text-right">
-        <p className="basket-total-title">Total:</p>
-        <h2 className="basket-total-amount">
-          ${(subtotal + (isInternational ? isInternational : 0)).toFixed(2)}
+      {message && (
+          <div className="alert-dismissible alert-danger text-center fs-3 fw-bold mt-2 py-2">
+            {message}
+          </div>
+        )}
+        <h2 className="basket-total-amount fw-bold">
+        Total:  {(subtotal + (isInternational ? isInternational : 0)).toFixed(0)}/pkr
         </h2>
       </div>
       <br />
-      <div className="checkout-shipping-action">
+      <div className="checkout-shipping-action mb-5">
         <button
           className="button button-muted"
           onClick={() => onClickBack(values)}

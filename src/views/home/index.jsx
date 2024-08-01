@@ -80,7 +80,7 @@ const Home = () => {
   return (
     <main className="content">
       <div className="home">
-        <BannerImage backgroundImage={homeImage || bg2} />
+        <BannerImage backgroundImage={homeImage ? homeImage : bg1} />
         {/* <BannerImage backgroundImage={bg2}  display_content="banner_display_none" /> */}
         <ImageGallery />
 

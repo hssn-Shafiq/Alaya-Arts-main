@@ -47,11 +47,10 @@ const WinterUnStichedProducts = () => {
 
   const filteredProducts = winterUnStichedProducts.filter(product => {
     const matchesPrice = (filters.priceFrom === '' || product.price >= Number(filters.priceFrom)) &&
-      (filters.priceTo === '' || product.price <= Number(filters.priceTo));
-    const matchesKeyword = filters.keyword === '' || product.keywords.includes(filters.keyword);
-    const matchesSize = filters.size === '' || product.sizes.includes(filters.size);
+    (filters.priceTo === '' || product.price <= Number(filters.priceTo));
+  const matchesKeyword = filters.keyword === '' || (product.keywords && product.keywords.includes(filters.keyword));
 
-    return matchesPrice && matchesKeyword && matchesSize;
+  return matchesPrice && matchesKeyword;
   });
 
   return (
@@ -86,6 +85,8 @@ const WinterUnStichedProducts = () => {
                 filters={filters}
                 handleFilterChange={handleFilterChange}
                 removeFilter={removeFilter}
+                showSizeDiv="d-none"
+
               />
               <ActiveFilters filters={filters} removeFilter={removeFilter} />
               <div className="product-display-grid">

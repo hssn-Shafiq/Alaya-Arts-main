@@ -40,7 +40,7 @@ const Shop = () => {
   return (
     <>
       <main className="content mb-5">
-        <BannerImage backgroundImage={shopImage || bg3} position="center" />
+        <BannerImage backgroundImage={shopImage ? shopImage : bg3} position="center" />
       </main>
 
         <section className="product-list-wrapper" style={{ marginTop: "2rem" }}>

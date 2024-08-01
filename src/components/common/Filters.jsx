@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useHistory, withRouter } from 'react-router-dom';
 import { applyFilter, resetFilter } from '@/redux/actions/filterActions';
 import { selectMax, selectMin } from '@/selectors/selector';
+import firebaseInstance from '@/services/firebase';
 import PriceRange from './PriceRange';
 
 const Filters = ({ closeModal }) => {
@@ -14,14 +15,15 @@ const Filters = ({ closeModal }) => {
     isLoading: state.app.loading,
     products: state.products.items
   }));
+
+  const [brands, setBrands] = useState([]);
+  const [brandProduct, setBrandsProducts]= useState([]);
+
   const [field, setFilter] = useState({
     brand: filter.brand,
     minPrice: filter.minPrice,
     maxPrice: filter.maxPrice,
-    sortBy: filter.sortBy,
-    isStiched: filter.isStiched,
-    style: filter.style, // Added for style filter
-    collection: filter.collection // Added for collection filter
+    sortBy: filter.sortBy
   });
   const dispatch = useDispatch();
   const history = useHistory();
@@ -41,7 +43,22 @@ const Filters = ({ closeModal }) => {
     window.scrollTo(0, 0);
   }, [filter]);
 
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const productCollection = await firebaseInstance.getProducts(); // Adjust according to your firebase service method
+        setBrandsProducts(productCollection);
 
+        // Extract unique brands from the products
+        const uniqueBrands = [...new Set(products.map((product) => product.brand))];
+        setBrands(uniqueBrands);
+      } catch (error) {
+        console.error("Error fetching products:", error);
+      }
+    };
+
+    fetchProducts();
+  }, []);
   const onPriceChange = (minVal, maxVal) => {
     setFilter({ ...field, minPrice: minVal, maxPrice: maxVal });
   };
@@ -56,18 +73,6 @@ const Filters = ({ closeModal }) => {
     setFilter({ ...field, sortBy: e.target.value });
   };
 
-  const onIsStichedFilterChange = (e) => {
-    setFilter({ ...field, isStiched: e.target.value });
-  };
-  const onStyleFilterChange = (e) => {
-    const val = e.target.value;
-    setFilter({ ...field, style: val });
-  };
-
-  const onCollectionFilterChange = (e) => {
-    const val = e.target.value;
-    setFilter({ ...field, collection: val });
-  };
   const onApplyFilter = () => {
     const isChanged = Object.keys(field).some((key) => field[key] !== filter[key]);
 
@@ -83,7 +88,7 @@ const Filters = ({ closeModal }) => {
   };
 
   const onResetFilter = () => {
-    const filterFields = ['style', 'minPrice', 'maxPrice', 'sortBy', 'isStiched', 'collection'];
+    const filterFields = ['brand', 'minPrice', 'maxPrice', 'sortBy'];
 
     if (filterFields.some((key) => !!filter[key])) {
       dispatch(resetFilter());
@@ -92,13 +97,15 @@ const Filters = ({ closeModal }) => {
     }
   };
 
+  console.log('onApplyFilter', brands);
+
   return (
     <div className="filters">
       <div className="filters-field">
         <span>Style</span>
         <br />
         <br />
-        {products.length === 0 && isLoading ? (
+        {brandProduct.length === 0 && isLoading ? (
           <h5 className="text-subtle">Loading Filter</h5>
         ) : (
           <select
@@ -108,30 +115,14 @@ const Filters = ({ closeModal }) => {
             onChange={onBrandFilterChange}
           >
             <option value="">All Styles</option>
-            <option value="lawn">lawn</option>
-            <option value="stiched">washingweaar</option>
-            <option value="unstiched">cotton</option>
-            <option value="accessories">nashat</option>
+            {brands.map((brand) => (
+              <option key={brand} value={brand}>
+                {brand}
+              </option>
+            ))}
           </select>
         )}
       </div>
-        {/* <div className="filters-field">
-        <span>Collection</span>
-        <br />
-        <br />
-        <select
-          className="filters-collection"
-          value={field.collection}
-          disabled={isLoading || products.length === 0}
-          onChange={onCollectionFilterChange}
-        >
-          <option value="">All Collections</option>
-          <option value="isstiched">isStiched</option>
-          <option value="summer">Summer Collection</option>
-          <option value="fall">Fall Collection</option>
-          <option value="winter">Winter Collection</option>
-        </select>
-      </div> */}
       <div className="filters-field">
         <span>Sort By</span>
         <br />

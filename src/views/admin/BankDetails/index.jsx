@@ -65,7 +65,8 @@ const BankDetails = () => {
         setMessage("Bank details updated successfully");
       } else {
         const existingBank = bankDetails.find(
-          (detail) => detail.bankName === bankName
+          (detail) =>   detail.bankIBAN === bankIBAN ||
+          detail.bankAccountNumber === bankAccountNumber
         );
         if (existingBank) {
           setErrorMessage("This bank is already added.");
@@ -148,7 +149,7 @@ const BankDetails = () => {
   return (
     <div>
       <div className="loader">
-        <h2 className=" order_page_title">All Bank Details</h2>
+        <h2 className="order_page_title">All Bank Details</h2>
       </div>
       <form onSubmit={handleSubmit}>
         <div className="inputs_bank gap-3 gap-md-0 text-center w-100 d-flex justify-content-between flex-wrap">
@@ -183,7 +184,11 @@ const BankDetails = () => {
             required
           />
         </div>
-        {message && <div className="alert-dismissible alert-success text-center fs-3 fw-bold mt-2 py-2">{message}</div>}
+        {message && (
+          <div className="alert-dismissible alert-success text-center fs-3 fw-bold mt-2 py-2">
+            {message}
+          </div>
+        )}
         <button
           type="submit"
           className="btn btn-info fw-bold text-light mt-3"
@@ -192,7 +197,9 @@ const BankDetails = () => {
           {selectedBank ? "Update Bank Details" : "Add Bank Details"}
         </button>
       </form>
-      {errorMessage && <p className="text-center fs-3 fw-bold text-danger">{errorMessage}</p>}
+      {errorMessage && (
+        <p className="text-center fs-3 fw-bold text-danger">{errorMessage}</p>
+      )}
       <div className="all_orders mt-5">
         <h2 className="fw-bold">Select Bank to View Details</h2>
         <div className="select_bank my-3 w-100">
@@ -217,34 +224,28 @@ const BankDetails = () => {
             </tr>
           </thead>
           <tbody>
-            {selectedBank ? (
-              <tr>
-                <td>{selectedBank.bankName}</td>
-                <td>{selectedBank.bankHolderName}</td>
-                <td>{selectedBank.bankIBAN}</td>
-                <td>{selectedBank.bankAccountNumber}</td>
+            {bankDetails.map((bank) => (
+              <tr key={bank.id}>
+                <td>{bank.bankName}</td>
+                <td>{bank.bankHolderName}</td>
+                <td>{bank.bankIBAN}</td>
+                <td>{bank.bankAccountNumber}</td>
                 <td>
                   <button
                     className="btn btn-secondary me-2"
-                    onClick={() => handleEdit(selectedBank)}
+                    onClick={() => handleEdit(bank)}
                   >
                     <EditFilled />
                   </button>
                   <button
                     className="btn btn-danger"
-                    onClick={() => handleDelete(selectedBank.id)}
+                    onClick={() => handleDelete(bank.id)}
                   >
                     <DeleteFilled />
                   </button>
                 </td>
               </tr>
-            ) : (
-              <tr>
-                <td colSpan={6} className="fs-3 fw-bold text-warning">
-                  Please select a bank to check details
-                </td>
-              </tr>
-            )}
+            ))}
           </tbody>
         </table>
       </div>
