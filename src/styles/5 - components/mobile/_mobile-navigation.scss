@@ -141,3 +141,31 @@
 }
 
 
+/* Add this CSS to your stylesheet */
+
+.side-navigation-menu .dropdown-menu {
+  display: none;
+  position: relative;
+  // padding-left: 20px;
+  padding: 1rem;
+}
+
+.side-navigation-menu .dropdown-item {
+  margin-left: 10px;
+  font-size: 15px;
+}
+
+.side-navigation-menu .dropdown-menu.show {
+  display: block;
+}
+
+.side-navigation-menu .dropdown-toggle:after {
+  content: ' ';
+  float: right;
+  margin-top: 5px;
+  transition: transform 0.3s ease-in;
+}
+
+.side-navigation-menu .dropdown-toggle.open:after {
+  transform: rotate(180deg);
+}

@@ -1,4 +1,6 @@
-/* eslint-disable indent */
+import React, { useEffect, useRef, useState } from "react";
+import { useSelector } from "react-redux";
+import { Link, NavLink, useLocation } from "react-router-dom";
 import {
   FilterOutlined,
   ShoppingOutlined,
@@ -6,9 +8,6 @@ import {
 } from "@ant-design/icons";
 import * as ROUTE from "@/constants/routes";
 import logo from "@/images/alaya-arts-removebg.png";
-import React, { useEffect, useRef } from "react";
-import { useSelector } from "react-redux";
-import { Link, NavLink, useLocation } from "react-router-dom";
 import UserAvatar from "@/views/account/components/UserAvatar";
 import BasketToggle from "../basket/BasketToggle";
 import Badge from "./Badge";
@@ -17,6 +16,7 @@ import MobileNavigation from "./MobileNavigation";
 import SearchBar from "./SearchBar";
 
 const Navigation = () => {
+  const [dropdownOpen, setDropdownOpen] = useState(null);
   const navbar = useRef(null);
   const { pathname } = useLocation();
   const store = useSelector((state) => ({
@@ -45,7 +45,6 @@ const Navigation = () => {
     if (store.isAuthenticating) e.preventDefault();
   };
 
-  // disable the basket toggle to these pathnames
   const basketDisabledpathnames = [
     ROUTE.CHECKOUT_STEP_1,
     ROUTE.CHECKOUT_STEP_2,
@@ -55,22 +54,35 @@ const Navigation = () => {
     ROUTE.FORGOT_PASSWORD,
   ];
 
+  const handleMouseEnter = (dropdown) => {
+    setDropdownOpen(dropdown);
+  };
+
+  const handleMouseLeave = () => {
+    setDropdownOpen(null);
+  };
+
+  const handleClick = (dropdown) => {
+    setDropdownOpen(dropdownOpen === dropdown ? null : dropdown);
+  };
+
   if (store.user && store.user.role === "ADMIN") {
     return null;
   }
+
   if (window.screen.width <= 800) {
     return (
       <MobileNavigation
-        // eslint-disable-next-line react/jsx-props-no-spreading
         {...store}
         disabledPaths={basketDisabledpathnames}
         pathname={pathname}
       />
     );
   }
+
   return (
     <>
-      <nav className="navigation  justify-content-between" ref={navbar}>
+      <nav className="navigation justify-content-between" ref={navbar}>
         <div className="logo">
           <Link onClick={onClickLink} to="/">
             <img alt="Logo" src={logo} />
@@ -128,7 +140,7 @@ const Navigation = () => {
         </div>
       </nav>
       <div className="header-bottom">
-        <ul className="navbar-nav d-flex w-100 justify-content-evenly ">
+        <ul className="navbar-nav d-flex w-100 justify-content-evenly">
           <li>
             <NavLink
               activeClassName="navigation-menu-item navigation-bottom-menu-item"
@@ -146,7 +158,11 @@ const Navigation = () => {
               Shop All
             </NavLink>
           </li>
-          <li className="nav-item dropdown navigation-bottom-menu-item">
+          <li
+            className="nav-item dropdown navigation-bottom-menu-item"
+            onMouseEnter={() => handleMouseEnter("pret")}
+            onMouseLeave={handleMouseLeave}
+          >
             <NavLink
               className="nav-link dropdown-toggle"
               to={ROUTE.STICHED_PRODUCTS}
@@ -154,11 +170,17 @@ const Navigation = () => {
               role="button"
               data-bs-toggle="dropdown"
               aria-expanded="false"
+              onClick={() => handleClick("pret")}
             >
               Pret
             </NavLink>
-            <ul className="dropdown-menu" aria-labelledby="pretDropdown">
-            <li>
+            <ul
+              className={`dropdown-menu ${
+                dropdownOpen === "pret" ? "show" : ""
+              }`}
+              aria-labelledby="pretDropdown"
+            >
+              <li>
                 <NavLink className="dropdown-item mb-4" to={ROUTE.STICHED_PRODUCTS}>
                   All Pret Collection
                 </NavLink>
@@ -169,27 +191,37 @@ const Navigation = () => {
                 </NavLink>
               </li>
               <li>
-              <NavLink className="dropdown-item mb-4" to={ROUTE.SUMMER_STICHED_PRODUCTS}>
+                <NavLink className="dropdown-item mb-4" to={ROUTE.SUMMER_STICHED_PRODUCTS}>
                   Summer Collection
                 </NavLink>
               </li>
             </ul>
           </li>
-          <li className="nav-item dropdown navigation-bottom-menu-item">
+          <li
+            className="nav-item dropdown navigation-bottom-menu-item"
+            onMouseEnter={() => handleMouseEnter("unstitched")}
+            onMouseLeave={handleMouseLeave}
+          >
             <NavLink
               className="nav-link dropdown-toggle"
               to={ROUTE.UNSTICHED_PRODUCTS}
-              id="unstichedDropdown"
+              id="unsDropdown"
               role="button"
               data-bs-toggle="dropdown"
               aria-expanded="false"
+              onClick={() => handleClick("unstitched")}
             >
-              Unstiched
+              Un Stitched
             </NavLink>
-            <ul className="dropdown-menu" aria-labelledby="unstichedDropdown">
-            <li>
+            <ul
+              className={`dropdown-menu ${
+                dropdownOpen === "unstitched" ? "show" : ""
+              }`}
+              aria-labelledby="unsDropdown"
+            >
+              <li>
                 <NavLink className="dropdown-item mb-4" to={ROUTE.UNSTICHED_PRODUCTS}>
-                  All UnStiched Collection
+                  All Un Stitched Collection
                 </NavLink>
               </li>
               <li>
@@ -198,25 +230,35 @@ const Navigation = () => {
                 </NavLink>
               </li>
               <li>
-              <NavLink className="dropdown-item mb-4" to={ROUTE.SUMMER_UNSTICHED_PRODUCTS}>
+                <NavLink className="dropdown-item mb-4" to={ROUTE.SUMMER_UNSTICHED_PRODUCTS}>
                   Summer Collection
                 </NavLink>
               </li>
             </ul>
           </li>
-          <li className="nav-item dropdown navigation-bottom-menu-item">
+          <li
+            className="nav-item dropdown navigation-bottom-menu-item"
+            onMouseEnter={() => handleMouseEnter("kids")}
+            onMouseLeave={handleMouseLeave}
+          >
             <NavLink
               className="nav-link dropdown-toggle"
               to={ROUTE.KIDS_PRODUCTS}
-              id="unstichedDropdown"
+              id="kidsDropdown"
               role="button"
               data-bs-toggle="dropdown"
               aria-expanded="false"
+              onClick={() => handleClick("kids")}
             >
               Kids
             </NavLink>
-            <ul className="dropdown-menu" aria-labelledby="unstichedDropdown">
-            <li>
+            <ul
+              className={`dropdown-menu ${
+                dropdownOpen === "kids" ? "show" : ""
+              }`}
+              aria-labelledby="kidsDropdown"
+            >
+              <li>
                 <NavLink className="dropdown-item mb-4" to={ROUTE.KIDS_PRODUCTS}>
                   All Kids Collection
                 </NavLink>
@@ -227,7 +269,7 @@ const Navigation = () => {
                 </NavLink>
               </li>
               <li>
-              <NavLink className="dropdown-item mb-4" to={ROUTE.WINTER_KIDS_PRODUCTS}>
+                <NavLink className="dropdown-item mb-4" to={ROUTE.SUMMER_KIDS_PRODUCTS}>
                   Summer Collection
                 </NavLink>
               </li>

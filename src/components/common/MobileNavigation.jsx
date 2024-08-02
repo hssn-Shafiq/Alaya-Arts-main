@@ -1,10 +1,8 @@
-// File: Navigation.js
-
-import { BasketToggle } from '@/components/basket';
-import { HOME, SIGNIN } from '@/constants/routes';
-import PropType from 'prop-types';
 import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
+import PropTypes from 'prop-types';
+import { BasketToggle } from '@/components/basket';
+import { HOME, SIGNIN } from '@/constants/routes';
 import UserNav from '@/views/account/components/UserAvatar';
 import Badge from './Badge';
 import FiltersToggle from './FiltersToggle';
@@ -20,6 +18,7 @@ const Navigation = (props) => {
   } = props;
   const { pathname } = useLocation();
   const [isSideNavOpen, setIsSideNavOpen] = useState(false);
+  const [dropdownOpen, setDropdownOpen] = useState(null);
 
   const onClickLink = (e) => {
     if (isAuthenticating) e.preventDefault();
@@ -27,6 +26,10 @@ const Navigation = (props) => {
 
   const toggleSideNav = () => {
     setIsSideNavOpen(!isSideNavOpen);
+  };
+
+  const handleDropdownToggle = (dropdown) => {
+    setDropdownOpen(dropdownOpen === dropdown ? null : dropdown);
   };
 
   return (
@@ -38,7 +41,6 @@ const Navigation = (props) => {
               <Link onClick={onClickLink} to="/"><img alt="Logo" src={logo} style={{ height: '45px' }} /></Link>
             </div>
           </div>
-
           <BasketToggle>
             {({ onClickToggle }) => (
               <button
@@ -53,13 +55,9 @@ const Navigation = (props) => {
               </button>
             )}
           </BasketToggle>
-            
-             <button
-                className="button-link navigation-menu-link" onClick={toggleSideNav} >
-          <MenuOutlined className='text-light fs-1'  />
-
-                </button>
-
+          <button className="button-link navigation-menu-link" onClick={toggleSideNav}>
+            <MenuOutlined className="text-light fs-1" />
+          </button>
           <ul className="mobile-navigation-menu">
             {user ? (
               <li className="mobile-navigation-item">
@@ -91,40 +89,123 @@ const Navigation = (props) => {
           </FiltersToggle>
         </div>
       </nav>
-
       <div className={`side-navigation ${isSideNavOpen ? 'open' : ''}`}>
         <div className="side-navigation-header d-flex align-items-center justify-content-between">
-          <h2 className='text-light fw-bold fs-1 mb-0'>
-          Menu
-          </h2>
-          <CloseCircleOutlined className='text-light close-icon fs-1' onClick={toggleSideNav} />
+          <h2 className="text-light fw-bold fs-1 mb-0">Menu</h2>
+          <CloseCircleOutlined className="text-light close-icon fs-1" onClick={toggleSideNav} />
         </div>
         <ul className="side-navigation-menu">
-        <li ><Link onClick={toggleSideNav} activeClassName="navigation-menu-item navigation-bottom-menu-item" exact to={ROUTE.HOME}>Home</Link></li>
-        <li ><Link onClick={toggleSideNav} activeClassName="navigation-menu-item navigation-bottom-menu-item" to={ROUTE.SHOP}>Shop All</Link></li>
-        <li ><Link onClick={toggleSideNav} activeClassName="navigation-menu-item navigation-bottom-menu-item" to={ROUTE.STICHED_PRODUCTS}>Pret</Link></li>
-        <li ><Link onClick={toggleSideNav} activeClassName="navigation-menu-item navigation-bottom-menu-item" to={ROUTE.UNSTICHED_PRODUCTS}>Unstiched</Link></li>
-        <li ><Link onClick={toggleSideNav} activeClassName="navigation-menu-item navigation-bottom-menu-item" to={ROUTE.KIDS_PRODUCTS}>Kids Collections</Link></li>
-        <li ><Link onClick={toggleSideNav} activeClassName="navigation-menu-item navigation-bottom-menu-item" to={ROUTE.ACCESSORIES_PRODUCTS}>Accessories</Link></li>
-        <li ><Link onClick={toggleSideNav} activeClassName="navigation-menu-item navigation-bottom-menu-item" to={ROUTE.CONTACT_US}>Contact Us</Link></li>
-        <li ><Link onClick={toggleSideNav} activeClassName="navigation-menu-item navigation-bottom-menu-item" to={ROUTE.ABOUT_US}>About Us</Link></li>
-          
-          {/* Add more links as needed */}
+          <li>
+            <Link onClick={toggleSideNav} to={ROUTE.HOME}>
+              Home
+            </Link>
+          </li>
+          <li>
+            <Link onClick={toggleSideNav} to={ROUTE.SHOP}>
+              Shop All
+            </Link>
+          </li>
+          <li>
+            <div className="nav-item dropdown">
+              <button className="nav-link dropdown-toggle w-100 d-flex justify-content-between  p-3 " onClick={() => handleDropdownToggle('pret')}>
+                Pret
+              </button>
+              <ul className={`dropdown-menu ${dropdownOpen === 'pret' ? 'show' : ''}`}>
+                <li>
+                  <Link className="dropdown-item" onClick={toggleSideNav} to={ROUTE.STICHED_PRODUCTS}>
+                    All Pret Collection
+                  </Link>
+                </li>
+                <li>
+                  <Link className="dropdown-item" onClick={toggleSideNav} to={ROUTE.WINTER_STICHED_PRODUCTS}>
+                    Winter Collection
+                  </Link>
+                </li>
+                <li>
+                  <Link className="dropdown-item" onClick={toggleSideNav} to={ROUTE.SUMMER_STICHED_PRODUCTS}>
+                    Summer Collection
+                  </Link>
+                </li>
+              </ul>
+            </div>
+          </li>
+          <li>
+            <div className="nav-item dropdown">
+              <button className="nav-link dropdown-toggle w-100 d-flex justify-content-between p-3 " onClick={() => handleDropdownToggle('unstitched')}>
+                Unstitched
+              </button>
+              <ul className={`dropdown-menu ${dropdownOpen === 'unstitched' ? 'show' : ''}`}>
+                <li>
+                  <Link className="dropdown-item" onClick={toggleSideNav} to={ROUTE.UNSTICHED_PRODUCTS}>
+                    All Unstitched Collection
+                  </Link>
+                </li>
+                <li>
+                  <Link className="dropdown-item" onClick={toggleSideNav} to={ROUTE.WINTER_UNSTICHED_PRODUCTS}>
+                    Winter Collection
+                  </Link>
+                </li>
+                <li>
+                  <Link className="dropdown-item" onClick={toggleSideNav} to={ROUTE.SUMMER_UNSTICHED_PRODUCTS}>
+                    Summer Collection 
+                  </Link>
+                </li>
+              </ul>
+            </div>
+          </li>
+          <li>
+            <div className="nav-item dropdown">
+              <button className="nav-link dropdown-toggle w-100 d-flex justify-content-between p-3" onClick={() => handleDropdownToggle('kids')}>
+                Kids
+              </button>
+              <ul className={`dropdown-menu ${dropdownOpen === 'kids' ? 'show' : ''}`}>
+                <li>
+                  <Link className="dropdown-item" onClick={toggleSideNav} to={ROUTE.KIDS_PRODUCTS}>
+                    All Kids Collection
+                  </Link>
+                </li>
+                <li>
+                  <Link className="dropdown-item" onClick={toggleSideNav} to={ROUTE.WINTER_KIDS_PRODUCTS}>
+                    Winter Collection
+                  </Link>
+                </li>
+                <li>
+                  <Link className="dropdown-item" onClick={toggleSideNav} to={ROUTE.SUMMER_KIDS_PRODUCTS}>
+                    Summer Collection
+                  </Link>
+                </li>
+              </ul>
+            </div>
+          </li>
+          <li>
+            <Link onClick={toggleSideNav} to={ROUTE.ACCESSORIES_PRODUCTS}>
+              Accessories
+            </Link>
+          </li>
+          <li>
+            <Link onClick={toggleSideNav} to={ROUTE.CONTACT_US}>
+              Contact Us
+            </Link>
+          </li>
+          <li>
+            <Link onClick={toggleSideNav} to={ROUTE.ABOUT_US}>
+              About Us
+            </Link>
+          </li>
         </ul>
       </div>
-
       <div className={`overlay ${isSideNavOpen ? 'show' : ''}`} onClick={toggleSideNav}></div>
     </>
   );
 };
 
 Navigation.propTypes = {
-  isAuthenticating: PropType.bool.isRequired,
-  basketLength: PropType.number.isRequired,
-  disabledPaths: PropType.arrayOf(PropType.string).isRequired,
-  user: PropType.oneOfType([
-    PropType.bool,
-    PropType.object
+  isAuthenticating: PropTypes.bool.isRequired,
+  basketLength: PropTypes.number.isRequired,
+  disabledPaths: PropTypes.arrayOf(PropTypes.string).isRequired,
+  user: PropTypes.oneOfType([
+    PropTypes.bool,
+    PropTypes.object
   ]).isRequired
 };
 

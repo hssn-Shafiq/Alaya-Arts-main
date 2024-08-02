@@ -76,12 +76,13 @@
   min-height: 50px;
   border-bottom: 1px solid #dadada;
   display: flex;
+  flex-direction: row;
 }
 .order-item {
   min-height: 80px;
   margin: 24px 12px 24px 36px;
   padding-right: 12px;
-  // width: 916px;
+  width: 916px;
 }
 p.text.info.desc{
   line-height: 0px;
@@ -144,6 +145,12 @@ p.text.info.desc{
     font-size: 14px;
     margin-top: 10px;
   }
+  .order-item {
+    min-height: 80px;
+    padding-right: 12px;
+    display: flex;
+    flex-direction: row;
+  }
   
 }
 
@@ -161,5 +168,10 @@ p.text.info.desc{
   .text.title.item-title{
     font-size: 14px;
     margin-top: 10px;
+  }
+  .order-item {
+    min-height: 80px;
+    padding-right: 12px;
+    display: flex;
   }
 }
