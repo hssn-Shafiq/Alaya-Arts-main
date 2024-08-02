@@ -11,6 +11,8 @@
 .form-select {
   padding: 10px;
   font-size: 16px; /* Ensure the select text is the same size */
+  position: relative;
+  z-index: 1; /* Ensure the dropdown is above other content */
 }
 @include mobile{
   .filter-label{
