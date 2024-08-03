@@ -227,7 +227,7 @@
 }
 
 .product-modal-image-wrapper {
-  width: 40rem;
+  width: 40%;
   // height: 40rem;
   height: inherit;
   flex-grow: 1;
@@ -251,7 +251,7 @@
 }
 
 .product-modal-image-collection {
-  width: 150px;
+  width: 15%;
   height: inherit;
   background: #fff;
   display: flex;
@@ -314,7 +314,7 @@
 }
 
 .product-modal-details {
-  width: 500px;
+  width: 40%;
   padding: $l-size;
 
   @include tablet {

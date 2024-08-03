@@ -1,13 +1,13 @@
 import { ArrowLeftOutlined, LoadingOutlined } from '@ant-design/icons';
 import { ColorChooser, ImageLoader, MessageDisplay } from '@/components/common';
 import { ProductShowcaseGrid } from '@/components/product';
-import { RECOMMENDED_PRODUCTS, SHOP } from '@/constants/routes';
+import { STICHED_PRODUCTS, SHOP } from '@/constants/routes';
 import { displayMoney, salesOff } from '@/helpers/utils';
 import {
   useBasket,
   useDocumentTitle,
   useProduct,
-  useRecommendedProducts,
+  useStichedProducts,
   useScrollTop
 } from '@/hooks';
 import React, { useEffect, useRef, useState } from 'react';
@@ -24,13 +24,13 @@ const ViewProduct = () => {
   const [selectedImage, setSelectedImage] = useState(product?.image || '');
   const [selectedSize, setSelectedSize] = useState('');
   const [selectedColor, setSelectedColor] = useState('');
-
+  const [message, setMessage] = useState("");
   const {
-    recommendedProducts,
-    fetchRecommendedProducts,
+    stichedProducts,
+    fetchStichedProducts,
     isLoading: isLoadingFeatured,
     error: errorFeatured
-  } = useRecommendedProducts(6);
+  } = useStichedProducts(6);
   const colorOverlay = useRef(null);
 
   useEffect(() => {
@@ -49,7 +49,16 @@ const ViewProduct = () => {
   };
 
   const handleAddToBasket = () => {
-    addToBasket({ ...product, selectedColor, selectedSize: selectedSize || product.sizes[0] });
+    if(product.isAccessories === true){
+      addToBasket({ ...product, selectedColor, selectedSize: selectedSize || "" });
+    }
+    else if(!selectedSize){
+      setMessage("please select a size first");
+    }
+    else{
+      setMessage("");
+      addToBasket({ ...product, selectedColor, selectedSize: selectedSize || product.sizes[0] });
+    }
   };
 
   return (
@@ -100,20 +109,19 @@ const ViewProduct = () => {
             </div>
             <div className="product-modal-details">
               <br />
-              <span className="text-subtle">{product.brand}</span>
-              <h1 className="margin-top-0">{product.name}</h1>
+              {/* <span className="text-subtle">{product.brand}</span> */}
+              <span className="text-subtle fw-bold">{product.keywords[0]}</span>
+              <h1 className="margin-top-0 fw-bolder ">{product.name}</h1>
               <span>{product.description}</span>
-              <br />
-              <br />
+
               <div className="divider" />
               <br />
               {product.sizes.length > 0 ? (
                     <div>
-                    <span className="text-subtle">Select size</span>
-                    <br />
-                    <br />
+                    <span className="text-subtle fw-bold">Select size <span className='text-danger'>*</span></span>
                     <Select
-                      placeholder="--Select Size--"
+                      placeholder="--Select Size --"
+                      className="mt-2"
                       onChange={onSelectedSizeChange ? onSelectedSizeChange : null}
                       options={product.sizes.sort((a, b) => (a < b ? -1 : 1)).map((size) => ({ label: `${size}`, value: size }))}
                       styles={{ menu: (provided) => ({ ...provided, zIndex: 10 }) }}
@@ -124,21 +132,25 @@ const ViewProduct = () => {
                  <h4>Accessory Type <span>{product.accessoryDetail}</span></h4>
                 </div>
                 )}
-            
-              <br />
-              <div className="price d-flex">
+                <div className="mt-md-5"></div>
+                <span className='discount_percentage alert alert-info fw-bold p-2 rounded-2'>
+                {salesOff(product.comparePrice, product.price)}</span>
+              <div className="price d-flex mt-3">
               <h1>{displayMoney(product.price)}</h1>
               <h3 className='compare_price'><strike>{product.comparePrice ? `PKR: ${product.comparePrice }`: null}</strike></h3>
-              <span className='discount_percentage'>-{salesOff(product.comparePrice, product.price)}</span>
               </div>
-              
+              {message && <div className='discount_percentage alert alert-danger alert-dismissible fade show fw-bold p-2 rounded-2'>
+                      {message}
+                      </div>
+                      
+                      }
               <div className="product-modal-action">
                 <button
                   className={`button button-small ${isItemOnBasket(product.id) ? 'button-border button-border-gray' : ''}`}
                   onClick={handleAddToBasket}
                   type="button"
                 >
-                  {isItemOnBasket(product.id) ? 'Remove From Basket' : 'Add To Basket'}
+                 <i class="fa-solid fa-cart-shopping me-2"></i> {isItemOnBasket(product.id) ? 'Remove From Basket' : 'Add To Basket'}
                 </button>
               </div>
             </div>
@@ -146,16 +158,16 @@ const ViewProduct = () => {
           <div style={{ marginTop: '10rem' }}>
             <div className="display-header">
               <h1>Recommended</h1>
-              <Link to={RECOMMENDED_PRODUCTS}>See All</Link>
+              <Link to={STICHED_PRODUCTS}>See All</Link>
             </div>
             {errorFeatured && !isLoadingFeatured ? (
               <MessageDisplay
                 message={error}
-                action={fetchRecommendedProducts}
+                action={fetchStichedProducts}
                 buttonLabel="Try Again"
               />
             ) : (
-              <ProductShowcaseGrid products={recommendedProducts} skeletonCount={3} />
+              <ProductShowcaseGrid products={stichedProducts} skeletonCount={3} />
             )}
           </div>
         </div>
