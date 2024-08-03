@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { CloseOutlined } from "@ant-design/icons";
 import useUserOrders from "@/hooks/useUserOrders";
+import { Link } from "react-router-dom/cjs/react-router-dom.min";
 // import './AllOrders.css'; // Import the CSS file
 
 const AllOrders = () => {
@@ -12,7 +13,30 @@ const AllOrders = () => {
   };
 
   if (isLoading) {
-    return <div className="text-center fs-1 fw-bold my-5 text-warning">Loading orders...</div>;
+    return (
+      <div className="text-center fs-1 fw-bold my-5 text-warning">
+        Loading orders...
+      </div>
+    );
+  }
+  if (orders.length == 0) {
+    return (
+      <>
+      <div className="text-center my-5">
+        <h1 className="fs-1 fw-bolder text-danger mb-2">No order found...</h1>
+      <Link to="/collection/shop">  <button
+          type="button"
+          class="btn btn-info fs-2 text-light fw-bold"
+        >
+         Shop Now
+        </button></Link>
+        
+      </div>
+
+      </>
+      
+      
+    );
   }
 
   if (error) {
@@ -30,7 +54,8 @@ const AllOrders = () => {
                 <div className="order" key={order.id}>
                   <div
                     className="order-info"
-                    data-spm-anchor-id="a2a0e.order_list.0.i3.a65d7d689cl5JA">
+                    data-spm-anchor-id="a2a0e.order_list.0.i3.a65d7d689cl5JA"
+                  >
                     <div className="pull-left">
                       <div className="info-order-left-text">
                         Order <a className="link">#{order.id}</a>
@@ -130,7 +155,6 @@ const AllOrders = () => {
               <h2 className="fs-1 fw-bolder text-danger">no orders found</h2>
             </div>
           )}
-
         </div>
       </div>
     </>

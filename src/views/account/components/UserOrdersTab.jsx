@@ -13,7 +13,16 @@ const UserOrdersTab = () => {
   if (isLoading) {
     return <div>Loading orders...</div>;
   }
-
+  if(orders.length == 0){
+    return (
+      <>
+      <div className="loader mb-5" style={{ minHeight: '80vh' }}>
+    <h3>My Orders</h3>
+    <strong><span className="text-subtle">You don&apos;t have any Order yet</span></strong>
+  </div>
+      </>
+    )
+  }
   if (error) {
     return <div>{error}</div>;
   }

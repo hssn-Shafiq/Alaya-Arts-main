@@ -21,16 +21,15 @@ const SocialLogin = ({ isLoading }) => {
 
   return (
     <div className="auth-provider">
-      <button
+      {/* <button
         className="button auth-provider-button provider-facebook"
         disabled={isLoading}
         onClick={onSignInWithFacebook}
         type="button"
       >
-        {/* <i className="fab fa-facebook" /> */}
         <FacebookOutlined />
         Continue with Facebook
-      </button>
+      </button> */}
       <button
         className="button auth-provider-button provider-google"
         disabled={isLoading}

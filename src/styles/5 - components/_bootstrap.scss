@@ -3955,7 +3955,7 @@ fieldset:disabled .btn {
 .collapsing {
     height: 0;
     overflow: hidden;
-    transition: height .35s ease
+    transition: all 1s ease;
 }
 
 @media (prefers-reduced-motion:reduce) {
@@ -3967,7 +3967,7 @@ fieldset:disabled .btn {
 .collapsing.collapse-horizontal {
     width: 0;
     height: auto;
-    transition: width .35s ease
+    transition: width .35s ease;
 }
 
 @media (prefers-reduced-motion:reduce) {
@@ -5362,7 +5362,8 @@ fieldset:disabled .btn {
 
 .accordion-item {
     background-color: #fff;
-    border: 1px solid rgba(0, 0, 0, .125)
+    border: 2px solid #0000001a;
+    
 }
 
 .accordion-item:first-of-type {
@@ -5375,9 +5376,9 @@ fieldset:disabled .btn {
     border-top-right-radius: calc(.25rem - 1px)
 }
 
-.accordion-item:not(:first-of-type) {
-    border-top: 0
-}
+// .accordion-item:not(:first-of-type) {
+//     border-top: 0
+// }
 
 .accordion-item:last-of-type {
     border-bottom-right-radius: .25rem;
