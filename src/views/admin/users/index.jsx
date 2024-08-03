@@ -7,20 +7,22 @@ import { displayActionMessage } from '@/helpers/utils';
 const Users = () => {
   const { users, isLoading, error } = useAdminUsers();
   const [editUserId, setEditUserId] = useState(null);
+  const [message, setMessage] = useState("");
   const [newRole, setNewRole] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 5;
+  const itemsPerPage = 10;
 
   const handleEditUserRole = async (userId) => {
     if (newRole) {
       try {
-        await firebaseInstance.updateUserRole(userId, newRole);
-        displayActionMessage("User role updated successfully");
+        await firebaseInstance.updateUserRole(userId, newRole.toUpperCase());
+        setMessage("User role updated successfully");
         setEditUserId(null); // Close the edit input
         setNewRole(""); // Clear the input field
+        window.location.reload();
       } catch (err) {
         console.error(err);
-        displayActionMessage("Failed to update user role");
+        setMessage("Failed to update user role");
       }
     }
   };
@@ -29,10 +31,10 @@ const Users = () => {
     if (window.confirm("Are you sure you want to delete this user?")) {
       try {
         await firebaseInstance.deleteAdminUser(userId);
-        displayActionMessage("User deleted successfully");
+        setMessage("User deleted successfully");
       } catch (err) {
         console.error(err);
-        displayActionMessage("Failed to delete user");
+        setMessage("Failed to delete user");
       }
     }
   };
@@ -59,12 +61,12 @@ const Users = () => {
     return <div>{error}</div>;
   }
 
-
   return (
     <>
       <div className="loader">
         <h2 className=' order_page_title'>Users</h2>
       </div>
+      {message && <div className="alert alert-success p-3 fs-4 fw-bold"> {message}</div>}
       <div className="all_orders">
         <table width={"100%"}>
           <thead>
@@ -81,7 +83,7 @@ const Users = () => {
             (
               <tr>
               <td colSpan="6" style={{ textAlign: 'center', padding: '20px' }}>
-              {isLoading ? <div class="order_loader"></div> :  "No Users found"}
+              {isLoading ? <div className="order_loader"></div> :  "No Users found"}
               </td>
             </tr>
             ) :
@@ -91,13 +93,15 @@ const Users = () => {
                   <td>{user.fullname}</td>
                   <td>{user.email}</td>
                   <td>{user.mobile.value ? user.mobile.value : "not added yet"}</td>
-                  <td>
+                  <td className=" text-uppercase">
                     {editUserId === user.id ? (
                       <input
                         type="text"
+                        className=" text-uppercase"
                         value={newRole}
                         placeholder={user.role}
-                        onChange={(e) => setNewRole(e.target.value)}
+                        onChange={(e) => setNewRole(e.target.value.toUpperCase())}
+                        style={{textTransform: 'uppercase'}}
                       />
                     ) : (
                       user.role

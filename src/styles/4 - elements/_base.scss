@@ -82,13 +82,10 @@ h6 {
   @media (max-width: $mobile) {
     // padding: 9.5rem 0px;
     flex-direction: column;
+    margin-top: 9.5rem;
   }
 }
-@include tablet{
-  .content{
-    margin-top: 103px;
-  }
-}
+
 
 .content-admin {
   width: 100%;
