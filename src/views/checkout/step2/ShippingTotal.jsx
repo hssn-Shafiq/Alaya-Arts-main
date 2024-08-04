@@ -14,7 +14,7 @@ const ShippingTotal = ({ subtotal }) => {
           <tr>
             <td>
               <span className="d-block margin-0 padding-right-s text-right">
-                International Shipping: &nbsp;
+                Standard Shipping: &nbsp;
               </span>
             </td>
             <td>

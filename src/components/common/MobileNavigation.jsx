@@ -68,7 +68,7 @@ const Navigation = (props) => {
                 {pathname !== SIGNIN && (
                   <li className="mobile-navigation-item">
                     <Link
-                      className="navigation-menu-link"
+                      className="navigation-menu-link text-light"
                       onClick={onClickLink}
                       to={SIGNIN}
                     >

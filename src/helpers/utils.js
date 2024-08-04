@@ -19,19 +19,26 @@ export const salesOff = (originalPrice, salePrice) => {
   let discount = originalPrice - salePrice;
   let discountPercentage = (discount / originalPrice) * 100;
 
+
   if(discountPercentage > 0) {
-    return Math.round(discountPercentage);
+    let roundPrice =  Math.round(discountPercentage);
+
+    return (`-${roundPrice}% off`)
   } 
 }
 export const displayMoney = (n) => {
+  const roundedValue = Math.round(n);
+
   const format = new Intl.NumberFormat('en-US', {
     style: 'currency',
-    currency: 'PKR'
+    currency: 'PKR',
+    minimumFractionDigits: 0, // This ensures no decimal places are shown
+    maximumFractionDigits: 0  // This ensures no decimal places are shown
   });
 
-  // or use toLocaleString()
-  return format.format(n);
+  return format.format(roundedValue);
 };
+
 
 export const calculateTotal = (arr) => {
   if (!arr || arr?.length === 0) return 0;

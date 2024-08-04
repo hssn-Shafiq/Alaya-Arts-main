@@ -544,20 +544,17 @@ class Firebase {
   };
 
   // Store banner images in Firestore
-  storeBannerImages = async (homeImageUrl, shopImageUrl) => {
-    try {
-      await this.db.collection("BannerHomeImages").doc("Images").set(
-        {
-          homeImageUrl: homeImageUrl,
-          shopImageUrl: shopImageUrl,
-        },
-        { merge: true }
-      );
-    } catch (error) {
-      console.error("Error storing banner images:", error);
-      throw error;
-    }
-  };
+// src/services/firebase.js
+
+storeBannerImages = async (images) => {
+  try {
+    await this.db.collection("BannerHomeImages").doc("Images").set(images, { merge: true });
+  } catch (error) {
+    console.error("Error storing banner images:", error);
+    throw error;
+  }
+};
+
 
   // Get banner images from Firestore
   getBannerImages = async () => {

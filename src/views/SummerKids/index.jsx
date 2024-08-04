@@ -1,5 +1,5 @@
 // src/components/SummerKidsProducts.js
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { MessageDisplay } from '@/components/common';
 import { ProductShowcaseGrid } from '@/components/product';
 import { useDocumentTitle, useSummerKidsProducts, useScrollTop } from '@/hooks';
@@ -11,10 +11,26 @@ import bg6 from "@/images/bannerimg6.jpg";
 import bg7 from "@/images/bannerimg7.jpg";
 import ActiveFilters from '@/components/common/ActiveFilters';
 import FilterCollection from '@/components/common/FilterCollection';
+import firebaseInstance from '@/services/firebase';
 
 const SummerKidsProducts = () => {
+  const [homeImage, setHomeImage] = useState("");
   useDocumentTitle('Summer UnStiched Collection - Alaya Arts');
   useScrollTop();
+
+  useEffect(() => {
+    // Fetch existing images on component mount
+    const fetchBannerImages = async () => {
+      try {
+        const data = await firebaseInstance.getBannerImages();
+        setHomeImage(data.kidsSummerImageUrl)
+      } catch (error) {
+        console.error("Error fetching existing images:", error);
+      }
+    };
+
+    fetchBannerImages();
+  }, []);
 
   const [filters, setFilters] = useState({
     priceFrom: '',
@@ -57,7 +73,7 @@ const SummerKidsProducts = () => {
   return (
     <>
       <main className="content">
-        <BannerImage backgroundImage={bg5} />
+        <BannerImage backgroundImage={homeImage ? homeImage : bg6} />
       </main>
       
         <div className="featured">

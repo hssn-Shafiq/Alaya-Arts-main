@@ -1,5 +1,5 @@
 // src/components/RecommendedProducts.js
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { MessageDisplay } from '@/components/common';
 import { ProductShowcaseGrid } from '@/components/product';
 import { useDocumentTitle, useStichedProducts, useScrollTop } from '@/hooks';
@@ -10,11 +10,28 @@ import bg5 from "@/images/bannerimg5.png";
 import bg6 from "@/images/bannerimg6.jpg";
 import bg7 from "@/images/bannerimg7.jpg";
 import ActiveFilters from '@/components/common/ActiveFilters';
+import firebaseInstance from '@/services/firebase';
 import FilterCollection from '@/components/common/FilterCollection';
 
 const RecommendedProducts = () => {
+  const [homeImage, setHomeImage] = useState("");
+
   useDocumentTitle('Pret Collection - Alaya Arts');
   useScrollTop();
+
+  useEffect(() => {
+    // Fetch existing images on component mount
+    const fetchBannerImages = async () => {
+      try {
+        const data = await firebaseInstance.getBannerImages();
+        setHomeImage(data.pretImageUrl)
+      } catch (error) {
+        console.error("Error fetching existing images:", error);
+      }
+    };
+
+    fetchBannerImages();
+  }, []);
 
   const [filters, setFilters] = useState({
     priceFrom: '',
@@ -56,10 +73,8 @@ const RecommendedProducts = () => {
 
   return (
     <>
-      <main className="content">
-        <BannerImage backgroundImage={bg5} />
-        </main>
-        <main className="content">
+      <main className="content flex-column">
+        <BannerImage backgroundImage={homeImage ? homeImage : bg5} />
         <div className="featured">
           <ImageWithText
             t1="Discover"
@@ -113,7 +128,8 @@ const RecommendedProducts = () => {
             </div>
           </div>
         </div>
-          </main>
+        </main>
+       
        
     </>
   );

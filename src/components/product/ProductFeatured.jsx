@@ -28,7 +28,7 @@ const ProductFeatured = ({ product }) => {
               style={{ left: "auto", borderRadius: "0px 0px 25px 0px" }}
               className="p-3"
             >
-              - {salesOff(product.comparePrice, product.price)}%
+              {salesOff(product.comparePrice, product.price)}%
             </span>
           </div>
         ) : (
@@ -42,20 +42,22 @@ const ProductFeatured = ({ product }) => {
           )}
         </div>
         <div className="product-display-details">
-          <h2>{product.name || <Skeleton width={80} />}</h2>
+          <h2 className="product_name">{product.name || <Skeleton width={80} />}</h2>
           <p className="text-subtle text-italic">
             {product.brand || <Skeleton width={40} />}
           </p>
-          <div className="d-flex justify-content-between" style={{marginTop: "20px"}}>
-            <p className="text-subtle text-italic">
-              {product.price || <Skeleton width={40} />}
-            </p>
-            <p className="text-subtle text-italic">
-              <strike>
+          <div className="d-flex justify-content-between">
+            <p className=" text-danger fs-2 fw-bold product_price">
+             Rs. {product.price || <Skeleton width={40} />} <sup>
+              <strike className="fw-regular">
                 {product.comparePrice
                   ? product.comparePrice
                   : "  " || <Skeleton width={40} />}
               </strike>
+                </sup> 
+            </p>
+            <p className="text-subtle text-italic product_sale_off">
+              {salesOff(product.comparePrice, product.price)}
             </p>
           </div>
         </div>

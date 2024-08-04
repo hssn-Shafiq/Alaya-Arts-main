@@ -4,6 +4,7 @@ import {
   DownCircleOutlined,
   DownOutlined,
 } from "@ant-design/icons";
+import { Link } from "react-router-dom/cjs/react-router-dom.min";
 
 const BannerImage = ({ backgroundImage, display_content, position }) => {
   return (
@@ -21,9 +22,9 @@ const BannerImage = ({ backgroundImage, display_content, position }) => {
               <DownOutlined />
             </div>
             <div className="shop_btn">
-              <a href="#">
+              <Link to="/collection/shop">
                 <button>Shop Now</button>
-              </a>
+              </Link>
             </div>
           </div>
         </div>

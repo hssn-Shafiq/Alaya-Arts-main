@@ -1,5 +1,5 @@
 .user-tab {
-  width: 700px;
+  width: 900px;
   height: 100%;
   margin: 0 auto;
   margin-top: 3rem;
@@ -73,16 +73,13 @@
 }
 .order-info {
   padding: 8px 12px;
-  min-height: 50px;
   border-bottom: 1px solid #dadada;
-  display: flex;
-  flex-direction: row;
 }
 .order-item {
   min-height: 80px;
-  margin: 24px 12px 24px 36px;
+  // margin: 24px 12px 24px 36px;
   padding-right: 12px;
-  width: 916px;
+  // width: 916px;
 }
 p.text.info.desc{
   line-height: 0px;
@@ -115,10 +112,7 @@ p.text.info.desc{
   min-height: 80px;
   text-align: left;
 }
-.order-item .item-capsule {
-  width: 204px;
-  text-align: center;
-}
+
 .order-item .item-status {
   float: left;
   min-height: 80px;
@@ -173,5 +167,10 @@ p.text.info.desc{
     min-height: 80px;
     padding-right: 12px;
     display: flex;
+    padding-top: 0px !important;
+    padding-bottom: 0px !important;
+  }
+  .order-item .item-pic{
+    padding: 0px !important;
   }
 }

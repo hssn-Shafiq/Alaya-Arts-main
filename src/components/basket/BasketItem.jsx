@@ -29,34 +29,25 @@ const BasketItem = ({ product }) => {
               {product.name}
             </h4>
           </Link>
+         
           <div className="basket-item-specs">
             <div>
-              <span className="spec-title">Quantity</span>
-              <h5 className="my-0">{product.quantity}</h5>
+              <span className="spec-title fs-4 mb-0">Quantity</span>
+              <h5 className="my-0  text-start">{product.quantity}</h5>
             </div>
             <div>
-              <span className="spec-title">{product.selectedSize ? "Size" : "Accessory Type"}</span>
+              <span className="spec-title fs-4 mb-0">{product.selectedSize ? "Size" : "Accessory Type"}</span>
               <h5 className="my-0">
                 {product.selectedSize ? product.selectedSize : product.accessoryDetail}
                 {' '}
               </h5>
             </div>
-            {/* <div>
-              <span className="spec-title">Color</span>
-              <div style={{
-                backgroundColor: product.selectedColor || product.availableColors[0],
-                width: '15px',
-                height: '15px',
-                borderRadius: '50%'
-              }}
-              />
-            </div> */}
           </div>
         </div>
         <div className="basket-item-price">
           <h4 className="my-0">{displayMoney(product.price * product.quantity)}</h4>
         </div>
-        <button
+        <button 
           className="basket-item-remove button button-border button-border-gray button-small"
           onClick={onRemoveFromBasket}
           type="button"

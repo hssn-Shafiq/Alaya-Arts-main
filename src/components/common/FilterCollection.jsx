@@ -26,8 +26,8 @@ const FilterCollection = ({ filters, handleFilterChange, removeFilter, showSizeD
   }
 
   return (
-    <div className="filter row w-100 my-5">
-      <div className='price col-md-6 col-sm-12 d-flex flex-column flex-md-row align-items-md-center' style={{ marginTop: "15px" }}>
+    <div className="filter row w-100 my-3">
+      <div className='price col-md-6  d-flex flex-column flex-md-row align-items-md-center' style={{ marginTop: "15px" }}>
         <label className="filter-label mb-2 mb-md-0 me-md-2">Price:</label>
         <input
           type="number"
@@ -46,8 +46,8 @@ const FilterCollection = ({ filters, handleFilterChange, removeFilter, showSizeD
           className="form-control filter-input"
         />
       </div>
-      <div className="col-md-6 col-sm-12 d-flex flex-column flex-md-row justify-content-end gap-3 mt-3 mt-md-0">
-        <div className={`size ${showSizeDiv}`}>
+      <div className="col-md-6  d-flex  flex-md-row justify-content-between justify-content-md-end gap-3 mt-3 mt-md-0">
+        <div className={`size ${showSizeDiv} `}>
           <label className='filter-label py-2 py-md-0 me-md-2'>Size:</label>
           <select className='form-select' name="size" value={filters.size || ''} onChange={handleFilterChange}>
             <option value="">All</option>

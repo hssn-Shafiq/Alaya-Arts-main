@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import firebase from '@/services/firebase';
 
 const useSummerKidsProducts = (itemsCount) => {
-  const [summerUnStichedProducts, setSummerKidsProducts] = useState([]);
+  const [summerKidsProducts, setSummerKidsProducts] = useState([]);
   const [isLoading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const didMount = useDidMount(true);
@@ -44,13 +44,13 @@ const useSummerKidsProducts = (itemsCount) => {
   };
 
   useEffect(() => {
-    if (summerUnStichedProducts.length === 0 && didMount) {
+    if (summerKidsProducts.length === 0 && didMount) {
       fetchSummerKidsProducts();
     }
   }, []);
 
   return {
-    summerUnStichedProducts, fetchSummerKidsProducts, isLoading, error
+    summerKidsProducts, fetchSummerKidsProducts, isLoading, error
   };
 };
 

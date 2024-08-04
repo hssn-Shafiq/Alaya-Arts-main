@@ -44,7 +44,7 @@ const ProductItem = ({ product, isItemOnBasket, addToBasket }) => {
         >
           {salesOff(product.comparePrice, product.price) ? (
             <div className="sale_off" >
-              <span style={{right:"0"}}>- {salesOff(product.comparePrice, product.price)}%</span>
+              <span style={{right:"0"}}>{salesOff(product.comparePrice, product.price)}</span>
             </div>
           ) : (
             ""
@@ -62,29 +62,25 @@ const ProductItem = ({ product, isItemOnBasket, addToBasket }) => {
             )}
           </div>
           <div className="product-details">
-            <h5 className="product-card-name text-overflow-ellipsis margin-auto">
-              {product.name || <Skeleton width={80} />}
-            </h5>
-            <p className="product-card-brand">
-              {product.brand || <Skeleton width={60} />}
-            </p>
-            <h4 className="product-card-price">
-              {product.price ? (
-                displayMoney(product.price)
-              ) : (
-                <Skeleton width={40} />
-              )}
-            </h4>
-            <h4 className="product-card-price product-card-compare-price">
-              <strike>
-                {product.price ? (
-                  displayMoney(product.price)
-                ) : (
-                  <Skeleton width={40} />
-                )}
+          <h2 className="product_name">{product.name || <Skeleton width={80} />}</h2>
+          <p className="text-subtle text-italic">
+            {product.brand || <Skeleton width={40} />}
+          </p>
+          <div className="d-flex justify-content-between">
+            <p className=" text-danger fs-2 fw-bold product_price">
+             Rs. {product.price || <Skeleton width={40} />} <sup>
+              <strike className="fw-regular">
+                {product.comparePrice
+                  ? product.comparePrice
+                  : "  " || <Skeleton width={40} />}
               </strike>
-            </h4>
+                </sup> 
+            </p>
+            <p className="text-subtle text-italic product_sale_off">
+              {salesOff(product.comparePrice, product.price)}
+            </p>
           </div>
+        </div>
         </div>
         {product.id && (
           <button
