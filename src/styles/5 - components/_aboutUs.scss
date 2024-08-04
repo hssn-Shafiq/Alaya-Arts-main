@@ -1,0 +1,25 @@
+/* AboutUs.css */
+
+.main {
+  margin: 10px auto;
+  width: 80%;
+}
+
+.main-image {
+  width: 100%;
+  height: auto;
+  margin-top: 10px;
+  margin-bottom: 20px;
+}
+
+@include mobile{
+  .main {
+    width: 90%;
+  }
+}
+
+@include tablet {
+  .main {
+    width: 100%;
+  }
+}
