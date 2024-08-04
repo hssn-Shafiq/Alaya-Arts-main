@@ -1,7 +1,10 @@
+import React from 'react';
+// import './TermCondition.css'; // Import the CSS file
+
 const TermCondition = () => {
   return (
     <>
-      <div className="privacy_policy" style={{ margin: "10px auto", padding: "4rem", width: "70%" }}>
+      <div className="privacy_policy">
 
         <>
           <h1 className="fw-bold mt-5 text-center mb-5">TERMS AND CONDITIONS</h1>

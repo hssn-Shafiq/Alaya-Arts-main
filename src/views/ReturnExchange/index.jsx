@@ -2,7 +2,7 @@
 const ReturnExchange = () => {
   return (
     <>
-      <div className="privacy_policy" style={{ margin: "10px auto", padding: "4rem", width: "70%" }}>
+      <div className="privacy_policy" >
       <body>
     <h1 className="fw-bold text-center mb-5">Return & Exchange Policy</h1>
     <p>At Alaya Arts, we strive to provide you with a seamless and enjoyable shopping experience. Please review our "Return & Exchange Policy" outlined below:</p>

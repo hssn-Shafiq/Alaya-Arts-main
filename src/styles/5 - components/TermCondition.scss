@@ -1,0 +1,21 @@
+/* TermCondition.css */
+
+.privacy_policy {
+  margin: 10px auto;
+  padding: 4rem;
+  width: 70%;
+}
+
+@include mobile {
+  .privacy_policy {
+    width: 90%;
+    padding: 2rem;
+  }
+}
+
+@include tablet {
+  .privacy_policy {
+    width: 100%;
+    padding: 1rem;
+  }
+}

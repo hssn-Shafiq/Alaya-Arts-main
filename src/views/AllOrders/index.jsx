@@ -156,7 +156,7 @@ const AllOrders = () => {
                           </span>
                         </div>
                       </div>
-                      <div className=" text-end bg-dark text-light p-3 fw-bolder">
+                      <div className=" text-end bg-dark text-center text-light p-3 fw-bolder">
                         Total amount: {Math.round(order.total)}/pkr
                       </div>
                     </div>

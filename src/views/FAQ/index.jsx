@@ -8,8 +8,8 @@ const FAQ = () => {
     <>
       <main>
         <div
-          className="faq"
-          style={{ margin: "10px auto", padding: "4rem", width: "70%" }}
+          className="privacy_policy"
+         
         >
           <h1 className="text-center fw-bold mb-4">FAQ</h1>
           <div className="accordion" id="faqAccordion">
