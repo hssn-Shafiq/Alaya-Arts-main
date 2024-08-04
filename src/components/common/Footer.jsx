@@ -114,6 +114,7 @@ const Footer = () => {
                 <i className="fab fa-linkedin-in" />
               </a> */}
             </div>
+            
             <img src={logo} alt="alaya arts" width={100} />
           </div>
         </div>

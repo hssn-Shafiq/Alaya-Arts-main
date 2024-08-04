@@ -23,7 +23,7 @@
 
 .basket-list {
   padding: $m-size;
-  padding-bottom: 100px;
+  // padding-bottom: 100px;
   overflow-y: scroll;
   height: 100%;
   display: flex;
@@ -52,6 +52,7 @@
 .basket-item-specs {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
 
   .spec-title {
     color: #8d8d8d;
@@ -183,4 +184,25 @@
 
 .basket-control-count {
   margin: 5px;
+}
+@include mobile{
+  .basket-item {
+    display: flex;
+    align-items: center;
+    border: 1px solid $border-color;
+    margin-bottom: $s-size;
+    @include bezier-transition();
+    animation: slide-up .5s ease;
+  }
+  .basket-control {
+    height: 100%;
+    font-weight: bold;
+  }
+  .basket-item-remove {
+    align-self: center;
+    padding: 4px;
+    margin-right: 17px;
+
+  }
+  
 }

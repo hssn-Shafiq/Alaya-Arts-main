@@ -126,7 +126,7 @@ const AccessoriesProducts = () => {
                       value={filters.accessoryDetail}
                       onChange={handleFilterChange}
                     >
-                      <option value="">All</option>
+                      <option value="" className='text-dark'>All</option>
                       {accessoryTypes.map(type => (
                         <option key={type.id} value={type.accessoryDetail}>
                           {type.accessoryDetail}

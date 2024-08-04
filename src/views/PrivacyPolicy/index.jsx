@@ -3,7 +3,7 @@
 const PrivacyPolicy = () => {
   return (
     <>
-      <main>
+      <main className="content mt-5">
         <div className="privacy_policy">
           <h1 className="text-center fw-bold">Privacy Policy</h1>
           <p>Last updated: June 20, 2024</p>

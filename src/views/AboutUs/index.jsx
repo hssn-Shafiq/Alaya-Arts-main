@@ -113,10 +113,10 @@ const AboutUs = () => {
           <p>
             For more from AlayaArts.pk, take a virtual tour and follow us on 
             <a href="https://www.instagram.com/alaya.arts?igsh=NTZ3YW04NWF2M3Bp">
-              <span className="fw-bold text-primary">Instagram</span>
+              <span className="fw-bold text-primary"> Instagram</span>
             </a>, 
             <a href="https://www.facebook.com/profile.php?id=61562088893728&mibextid=JRoKGi">
-              <span className="fw-bold text-primary">Facebook</span>
+              <span className="fw-bold text-primary"> Facebook</span>
             </a>. Let our products inspire
             your best style!
           </p>

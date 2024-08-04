@@ -6,7 +6,7 @@ const FAQ = () => {
 
   return (
     <>
-      <main>
+      <main className="content mt-5">
         <div
           className="privacy_policy"
          

@@ -21,7 +21,7 @@ const OrderSummary = ({ basket, subtotal }) => {
   return (
     <div className="checkout">
       <StepTracker current={1} />
-      <div className="checkout-step-1">
+      <div className="checkout-step-1 p-4">
         <h3 className="text-center">Order Summary</h3>
         <span className="d-block text-center">Review items in your basket.</span>
         <br />

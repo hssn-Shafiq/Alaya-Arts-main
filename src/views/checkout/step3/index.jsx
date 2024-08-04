@@ -1,4 +1,4 @@
-import { CHECKOUT_STEP_1 } from '@/constants/routes';
+ import { CHECKOUT_STEP_1 } from '@/constants/routes';
 import { Form, Formik } from 'formik';
 import { displayActionMessage } from '@/helpers/utils';
 import { useDocumentTitle, useScrollTop } from '@/hooks';
@@ -92,7 +92,7 @@ const Payment = ({ shipping, payment, subtotal }) => {
         onSubmit={onConfirm}
       >
         {() => (
-          <Form className="checkout-step-3">
+          <Form className="checkout-step-3 p-4">
             <BankTransferPayment />
             {/* <PayPalPayment /> */}
             <Total isInternational={shipping.isInternational} subtotal={subtotal + 350} />

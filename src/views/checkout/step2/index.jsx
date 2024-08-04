@@ -75,7 +75,7 @@ const ShippingDetails = ({ profile, shipping, subtotal }) => {
     <Boundary>
       <div className="checkout mb-5">
         <StepTracker current={2} />
-        <div className="checkout-step-2">
+        <div className="checkout-step-2 p-4">
           <h3 className="text-center">Shipping Details</h3>
           <Formik
             initialValues={initFormikValues}
