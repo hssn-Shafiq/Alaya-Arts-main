@@ -271,7 +271,7 @@ const OrderDetails = () => {
               </p>
               </div>
               <div className="col-md-8">
-              <p className="total_cost_value text-end fs-3 fw-bold">
+              <p className="total_cost_value text-center fs-3 fw-bold">
                 Amount to Recieved: <span className="cost_value">{order.total}</span>
               </p>
               </div>
