@@ -1,5 +1,5 @@
 .user-tab {
-  width: 700px;
+  width: 900px;
   height: 100%;
   margin: 0 auto;
   margin-top: 3rem;
@@ -112,10 +112,7 @@ p.text.info.desc{
   min-height: 80px;
   text-align: left;
 }
-.order-item .item-capsule {
-  width: 204px;
-  text-align: center;
-}
+
 .order-item .item-status {
   float: left;
   min-height: 80px;
@@ -170,5 +167,10 @@ p.text.info.desc{
     min-height: 80px;
     padding-right: 12px;
     display: flex;
+    padding-top: 0px !important;
+    padding-bottom: 0px !important;
+  }
+  .order-item .item-pic{
+    padding: 0px !important;
   }
 }

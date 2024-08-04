@@ -95,8 +95,8 @@ const AllOrders = () => {
                   {/* <____________________________roder-items start______________________></____________________________roder-items> */}
                   <div className="order-items row d-flex">
                     {order.products.map((product, index) => (
-                      <div className="order-item border-0 col-12 col-md-7 flex-row p-md-0" key={index}>
-                        <div className="item-pic d-flex gap-4 p-3 col-md-7" data-spm="detail_image">
+                      <div className="order-item border-0 col-12 col-md-7 flex-column flex-md-row p-md-0" key={index}>
+                        <div className="item-pic col-12 d-flex gap-4 p-3 col-md-7" data-spm="detail_image">
                           <img src={product.imageUrl} alt={product.name} />
                           <div>
                             <div
@@ -117,7 +117,7 @@ const AllOrders = () => {
                           </div>
                         </div>
                        
-                        <div className="col-md-5 item-status item-capsule d-flex flex-column justify-content-between pb-4">
+                        <div className="col-12 col-md-5 item-status item-capsule d-flex flex-row flex-md-column justify-content-between pb-4">
                           <button
                            style={{
                             background: getStatusButtonColor(order.orderStatus),
