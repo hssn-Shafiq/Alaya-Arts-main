@@ -67,10 +67,8 @@ const KidsProducts = () => {
 
   return (
     <>
-      <main className='content'>
-        <MultiCarousel images={carouselImages} />
-      </main>
       <main className="content">
+        <MultiCarousel images={carouselImages} />
         <div className="featured">
           <div className="display">
             <h1 className='px-3'>Kids Collection</h1>

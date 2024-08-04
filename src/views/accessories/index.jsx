@@ -75,10 +75,8 @@ const AccessoriesProducts = () => {
 
   return (
     <>
-      <main className='content'>
-        <MultiCarousel images={carouselImages} />
-      </main>
       <main className="content">
+        <MultiCarousel images={carouselImages} />
         <div className="featured">
           <ImageWithText
             t1="Discover"
@@ -163,8 +161,7 @@ const AccessoriesProducts = () => {
               </div>
             </div>
           </div>
-        </div>
-        
+        </div> 
       </main>
     </>
   );

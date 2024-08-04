@@ -23,7 +23,7 @@ export const salesOff = (originalPrice, salePrice) => {
   if(discountPercentage > 0) {
     let roundPrice =  Math.round(discountPercentage);
 
-    return (`-${roundPrice} off`)
+    return (`-${roundPrice}% off`)
   } 
 }
 export const displayMoney = (n) => {

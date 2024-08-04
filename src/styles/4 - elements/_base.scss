@@ -73,14 +73,12 @@ h6 {
 
 .content {
   width: 100%;
-  min-height: 100vh;
   position: relative;
-  // padding: 2rem 1rem;
   display: flex;
+  flex-direction: column;
   animation: fadeIn .5s ease;
   margin-bottom: 0.3rem;
   @media (max-width: $mobile) {
-    // padding: 9.5rem 0px;
     flex-direction: column;
     margin-top: 9.5rem;
   }
@@ -94,8 +92,6 @@ h6 {
   top: 0;
   left: 0;
   position: relative;
-  // z-index: -1;
-  // padding-top: $xxl-size;
   overflow: hidden;
   display: flex;
 }

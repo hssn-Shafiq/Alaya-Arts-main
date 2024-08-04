@@ -17,8 +17,11 @@
 @include mobile{
   .filter-label{
     width: 100%;
-    
   }
+  .size, .keyword{
+    width: 50%;
+  }
+
   
 }
 

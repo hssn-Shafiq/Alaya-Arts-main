@@ -50,7 +50,7 @@ const OrderDetails = () => {
       order_status: newStatus,
     };
 
-    emailjs.send('service_r2cp54l', 'template_u5icr7l', templateParams, 'C4yj4xkxzDemU9Wpt')
+    emailjs.send('service_cpenyi8', 'template_58hhn7o', templateParams, 'TGqhRTqGeRxgRJYMc')
       .then((response) => {
         console.log('Email sent successfully!', response.status, response.text);
       })
