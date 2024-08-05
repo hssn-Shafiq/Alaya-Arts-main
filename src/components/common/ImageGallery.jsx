@@ -5,6 +5,7 @@ import lawn from '@/images/lawn.jpg';
 import pret_unstiched from '@/images/pret2.jpg';
 import kids from '@/images/kids.jpg';
 import Embroided_Unstitched from '@/images/img3.jpg';
+import { Link } from 'react-router-dom/cjs/react-router-dom.min';
 
 
 const ImageGallery = () => {
@@ -18,46 +19,46 @@ const ImageGallery = () => {
       <img className="carousel-item__img" src={luxury_lawn} alt="people" />
       <div className="carousel-item__details">
        
-        <a href="#"><h5 className="carousel-item__details--title">Luxury_Lawn</h5></a>
+        {/* <Link to="/collection/stiched"><h5 className="carousel-item__details--title">Luxury_Lawn</h5></Link> */}
       </div>
     </div>
     <div className="carousel-item" data-aos="fade-up">
       <img className="carousel-item__img" src={luxury_pret} alt="people" />
       <div className="carousel-item__details">
        
-        <h5 className="carousel-item__details--title">
+        {/* <h5 className="carousel-item__details--title">
           Luxury Pret Collection
-        </h5>
+        </h5> */}
       </div>
     </div>
     <div className="carousel-item" data-aos="fade-up">
       <img className="carousel-item__img" src={lawn} alt="people" />
       <div className="carousel-item__details">
        
-        <h5 className="carousel-item__details--title">Premium Lawn</h5>
+        {/* <h5 className="carousel-item__details--title">Premium Lawn</h5> */}
       </div>
     </div>
     <div className="carousel-item" data-aos="fade-up">
       <img className="carousel-item__img" src={pret_unstiched} alt="people" />
       <div className="carousel-item__details">
        
-        <h5 className="carousel-item__details--title">Pret Unstiched</h5>
+        {/* <h5 className="carousel-item__details--title">Pret Unstiched</h5> */}
       </div>
     </div>
     <div className="carousel-item" data-aos="fade-up">
       <img className="carousel-item__img" src={kids} alt="people" />
       <div className="carousel-item__details">
        
-        <h5 className="carousel-item__details--title">Kids Fashion</h5>
+        {/* <h5 className="carousel-item__details--title">Kids Fashion</h5> */}
       </div>
     </div>
     <div className="carousel-item" data-aos="fade-up">
       <img className="carousel-item__img" src={Embroided_Unstitched} alt="people" />
       <div className="carousel-item__details">
        
-        <h5 className="carousel-item__details--title">
+        {/* <h5 className="carousel-item__details--title">
           Embroided_Unstitched_Suit
-        </h5>
+        </h5> */}
       </div>
     </div>
   </div>

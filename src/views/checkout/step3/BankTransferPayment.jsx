@@ -94,7 +94,7 @@ const BankTransferPayment = () => {
         <div className="checkout-collapse-sub h-100">
           <div className="padding-s">
             <h4 className="fs-2 fw-bold text-center">Bank Details</h4>
-            <div className="details d-flex align-items-center justify-content-between px-3">
+            <div className="details flex-wrap d-flex align-items-center justify-content-between px-3">
               {selectedBankDetails ? (
                 <>
                   <div className="frst">

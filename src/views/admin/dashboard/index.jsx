@@ -422,7 +422,7 @@ const Dashboard = () => {
                         ))}
                       </td>
                       <td>{order.shippingDetails.fullname}</td>
-                      <td>{order.total}</td>
+                      <td>{Math.round(order.total)}</td>
                       <td>{new Date(order.createdAt).toLocaleDateString()}</td>
                       <td>
                         <button
