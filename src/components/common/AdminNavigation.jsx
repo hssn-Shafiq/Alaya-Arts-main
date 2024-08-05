@@ -21,6 +21,11 @@ const AdminNavigation = () => {
         </Link>
       </div>
       <ul className="navigation-menu">
+      <li className="navigation-menu-item">
+          <Link to="admin/dashboard" className="text-light fw-bold" >
+         Go to  Dashboard
+          </Link>
+        </li>
         <li className="navigation-menu-item">
           <UserAvatar
             isAuthenticating={isAuthenticating}

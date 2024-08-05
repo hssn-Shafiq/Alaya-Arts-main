@@ -314,7 +314,7 @@ class Firebase {
       // Query products collection where accessoryDetails field exists
       const querySnapshot = await this.db
         .collection("products")
-        .where("accessoryDetail", "!=", null)
+        .where("accessoryDetail", "!=", "")
         .get();
 
       const products = [];

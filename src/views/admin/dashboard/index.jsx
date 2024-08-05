@@ -209,7 +209,7 @@ const Dashboard = () => {
               <div className="col-md-3 earning-box">
                 <div className="earning-box-content">
                   <h3>Total Earnings (monthly)</h3>
-                  <p>PKR: {totalEarnings}</p>
+                  <p>PKR: {Math.round(totalEarnings)}</p>
                 </div>
                 <div className="icon">
                   <CalendarFilled />
@@ -218,7 +218,7 @@ const Dashboard = () => {
               <div className="col-md-3 earning-box">
                 <div className="earning-box-content">
                   <h3>Total Earnings (yearly)</h3>
-                  <p>PKR: {yearlyEarnings}</p>
+                  <p>PKR: {Math.round(yearlyEarnings)}</p>
                 </div>
                 <div className="icon">
                   <DollarCircleOutlined />

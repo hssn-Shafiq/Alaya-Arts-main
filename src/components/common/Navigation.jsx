@@ -14,6 +14,7 @@ import Badge from "./Badge";
 import FiltersToggle from "./FiltersToggle";
 import MobileNavigation from "./MobileNavigation";
 import SearchBar from "./SearchBar";
+import AdminNavigation from "./AdminNavigation";
 
 const Navigation = () => {
   const [dropdownOpen, setDropdownOpen] = useState(null);
@@ -67,9 +68,9 @@ const Navigation = () => {
   };
 
   if (store.user && store.user.role === "ADMIN") {
-    return null;
+    return <AdminNavigation/>;
   }
-
+  
   if (window.screen.width <= 800) {
     return (
       <MobileNavigation
