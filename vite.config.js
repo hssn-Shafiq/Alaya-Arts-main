@@ -12,7 +12,7 @@ export default defineConfig({
       manifest: {
         name: 'Alaya Arts - Feel the Stuff',
         short_name: 'Alaya Arts',
-        description: 'Alaya Arts - Feel the Stuff',
+        description: 'Discover Alaya Arts, your destination for premium clothing, featuring unique designs and top-quality fabrics for womens.',
         theme_color: '#ffffff',
         icons: [
           {
