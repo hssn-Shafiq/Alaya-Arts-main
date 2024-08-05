@@ -71,7 +71,7 @@ const DeliveredOrders = () => {
       <td>{new Date(order.createdAt).toLocaleDateString()}</td>
       <td>{order.shippingDetails?.fullname}</td>
       <td>{order.shippingDetails?.address}</td>
-      <td>{order.total}</td>
+      <td>{Math.round(order.total)}</td>
       <td className="d-flex" style={{ alignItems: 'center', gap: '10px' }}>
         {order.products.map((product, index) => (
           <div key={`${order.id}-${index}`} className="d-flex" style={{ marginBottom: '10px', alignItems: 'center', gap: '10px' }}>
